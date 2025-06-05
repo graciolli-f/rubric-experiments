@@ -261,7 +261,7 @@ When analyzing generated components, consider:
 
 # License
 
-This experiment is for research purposes. Individual generated components may vary in licensing requirements.
+MIT 
 
 # Author
 Created and maintained by [Fernanda Graciolli](https://github.com/graciolli-f) as part of the [Midspiral](https://midspiral.com) initiative to explore how to make programming with AI more robust, scalable, and maintainable.
