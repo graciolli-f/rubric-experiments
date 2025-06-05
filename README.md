@@ -171,33 +171,33 @@ The experiment includes 5 iterations of each approach:
 - Enterprise-level maintainability
 - Better long-term scalability
 
-## Contributing
+# Contributing
 
 We welcome contributions to this experiment! This is a research project exploring AI-assisted development patterns, and community input helps improve our understanding of rubric-based component generation.
 
-### Ways to Contribute
+## Ways to Contribute
 
-#### **Experiment Expansion**
+### **Experiment Expansion**
 - Add new component types to test rubric effectiveness across different UI patterns
 - Test with different AI models (Claude, GPT-4, etc.) to compare consistency
 - Create variations of existing rubric files to test specification approaches
 
-#### **Data Analysis**
+### **Data Analysis**
 - Analyze generated code for quantitative differences (bundle size, complexity, accessibility scores)
 - Document qualitative observations about code readability and maintainability
 - Create automated tools for measuring rubric compliance
 
-#### **Tooling & Infrastructure**
+### **Tooling & Infrastructure**
 - Improve the `.rux` rubric format with better syntax and features
 - Create validation tools for rubric compliance checking
 - Build automated testing frameworks for generated components
 
-#### **Documentation**
+### **Documentation**
 - Write analysis reports comparing specific aspects (performance, accessibility, etc.)
 - Create guides for writing effective rubric specifications
 - Document best practices discovered through experimentation
 
-### Adding New Test Cases
+## Adding New Test Cases
 
 1. Create new directories following the naming convention:
    - `prompt_only/[component]-N/`
@@ -209,7 +209,7 @@ We welcome contributions to this experiment! This is a research project explorin
    - `system-design.rux` - System-level guidelines
    - `rubric.rux` - General rubric instructions file
 
-### Testing Different Components
+## Testing Different Components
 
 To extend this experiment to other components:
 
@@ -219,7 +219,7 @@ To extend this experiment to other components:
 4. Generate comparable outputs using both approaches
 5. Document differences in component-specific README files
 
-### Evaluation Criteria
+## Evaluation Criteria
 
 When analyzing generated components, consider:
 
