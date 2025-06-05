@@ -121,11 +121,30 @@ The experiment includes 5 iterations of each approach:
 
 ### Prompt+Rubric Example:
 ```css
+/* Card component - Required by: card.rux > Card > Structure */
 .card {
-    background-color: var(--color-background);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition-base);
+  /* Required by: base.rux > CodeStyle > CSS > use BEM methodology */
+  /* Required by: card.rux > Visual > rounded corners using var(--radius-md) */
+  border-radius: var(--border-radius-lg);
+  /* Required by: card.rux > Visual > subtle shadow using var(--shadow-sm) */
+  box-shadow: var(--shadow-md);
+  /* Required by: base.rux > GlobalSpecs > UseDesignTokens > no hardcoded colors */
+  background-color: var(--color-background);
+  /* Required by: card.rux > Visual > smooth transitions on interaction */
+  transition: var(--transition-base);
+  overflow: hidden;
+  position: relative;
+  /* Required by: base.rux > Performance > minimize cumulative layout shift */
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Product card variant */
+.card--product {
+  /* Enhanced styling for product cards */
+  border: var(--border-width-thin) solid var(--color-secondary-200);
 }
 ```
 
