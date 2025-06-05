@@ -65,7 +65,6 @@ The rubric files define comprehensive specifications for component generation:
 - `styles.css`
 - `script.js`
 - `tokens.css` (design system tokens)
-- `.rubric/` directory (specification files)
 
 ### Sample Results
 
@@ -73,10 +72,130 @@ The experiment includes 5 iterations of each approach:
 - `prompt_only/product_card-1` through `product_card-5`
 - `prompt_rubric/product_card-1` through `product_card-5`
 
-## Key Differences Observed
-- [ ] TODO
+# Key Differences Observed
+
+## 1. Code Architecture & Organization
+
+### Prompt-Only Approach:
+- Uses descriptive but inconsistent naming (`.product-card`, `.add-to-cart-btn`)
+- Hardcoded CSS values (`border-radius: 16px`, `color: #333`)
+- Functional, straightforward organization
+- 3 focused files per component
+
+### Prompt+Rubric Approach:
+- Strict BEM methodology (`.card`, `.card--product`, `.card__media`)
+- Comprehensive design token system (`var(--border-radius-lg)`, `var(--color-text-primary)`)
+- Systematic, enterprise-level architecture
+- 6+ files including design system tokens
+
+## 2. Accessibility Implementation
+
+### Prompt-Only:
+- Basic accessibility features with functional comments
+- Standard ARIA attributes and semantic HTML
+- Practical screen reader support
+
+### Prompt+Rubric:
+- More comprehensive accessibility with explicit compliance tracking
+- Systematic ARIA implementation with rubric references
+- Detailed accessibility documentation in comments
+- Examples: `<!-- RUX REQUIRED: meaningful alt text for images -->`
+
+## 3. CSS Approach
+
+### Prompt-Only Example:
+```css
+.product-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+```
+
+### Prompt+Rubric Example:
+```css
+.card {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
+}
+```
+
+## 4. Design System Integration
+
+### Prompt-Only:
+- No systematic design tokens
+- Component-specific styling solutions
+- Direct, readable CSS values
+
+### Prompt+Rubric:
+- Comprehensive token system with 200+ design tokens
+- Systematic color scales, spacing, typography
+- Reusable design foundations across components
+
+## 5. Documentation & Comments
+
+### Prompt-Only:
+- Functional comments explaining purpose
+- Standard code documentation
+- Focus on implementation details
+
+### Prompt+Rubric:
+- Compliance tracking comments (`<!-- RUX COMPLIANCE: -->`)
+- Rubric requirement references
+- Explicit specification adherence documentation
+
+## 6. Performance Characteristics
+
+### Prompt-Only:
+- Lighter CSS bundles (200-300 lines)
+- Focused, minimal code generation
+- Faster initial load for simple components
+
+### Prompt+Rubric:
+- Larger CSS bundles (500+ lines including tokens)
+- More comprehensive but potentially unused code
+- Better for large-scale applications
+
+## 7. Creative vs. Systematic Trade-offs
+
+### Prompt-Only Strengths:
+- More visual creativity and variety
+- Flexible, component-specific solutions
+- Faster iteration and development
+
+### Prompt+Rubric Strengths:
+- Systematic consistency across components
+- Enterprise-level maintainability
+- Better long-term scalability
 
 ## Contributing
+
+We welcome contributions to this experiment! This is a research project exploring AI-assisted development patterns, and community input helps improve our understanding of rubric-based component generation.
+
+### Ways to Contribute
+
+#### **Experiment Expansion**
+- Add new component types to test rubric effectiveness across different UI patterns
+- Test with different AI models (Claude, GPT-4, etc.) to compare consistency
+- Create variations of existing rubric files to test specification approaches
+
+#### **Data Analysis**
+- Analyze generated code for quantitative differences (bundle size, complexity, accessibility scores)
+- Document qualitative observations about code readability and maintainability
+- Create automated tools for measuring rubric compliance
+
+#### **Tooling & Infrastructure**
+- Improve the `.rux` rubric format with better syntax and features
+- Create validation tools for rubric compliance checking
+- Build automated testing frameworks for generated components
+
+#### **Documentation**
+- Write analysis reports comparing specific aspects (performance, accessibility, etc.)
+- Create guides for writing effective rubric specifications
+- Document best practices discovered through experimentation
 
 ### Adding New Test Cases
 
@@ -110,10 +229,39 @@ When analyzing generated components, consider:
 - **Security**: Input validation and XSS prevention
 - **Consistency**: Adherence to design system and patterns
 
-## Future Work
+# Future Work
 
-- [ ] TODO
+## Planned Experiments
+- [ ] **Multi-Component Analysis**: Test rubric effectiveness/consistency across different component types (forms, navigation, data tables)
+- [ ] **Modification Impact**: Evaluate how user-led modificatons affect rubric adherence and component quality 
+- [ ] **Iterative Refinement**: Study how rubric specifications can be improved based on generated output analysis
+- [ ] **Framework Adaptation**: Extend rubrics to React, Vue, and other framework-specific generation
+- [ ] **Performance Benchmarking**: Quantitative analysis of bundle sizes, load times, code gen times, and runtime performance
 
-## License
+
+## Development Roadmap
+- [ ] **Grow Component Library**: Add more components to the experiment (forms, navigation, data tables)
+- [ ] **Enhance Rubric DSL**: Improve `.rux` format with more detailed specifications
+- [ ] **VS Code Integration**: Create VS Code language extension for .rux files for easier rubric syntax management and readability
+- [ ] **CSS-methodology Agnostic**: Allow user to choose preferred CSS methodology (BEM, OOCSS, SMACSS) in rubric files
+- [ ] **Configurable Rubric Parameters**: Allow users to specify which rubric aspects to enforce (e.g., accessibility, performance) and which conventions to use
+
+## Research Questions
+- [ ] **Optimal Rubric Granularity**: What level of specification detail produces the best results?
+- [ ] **Validation**: How can we automatically validate generated components against rubric specifications?
+- [ ] **User Experience**: How do developers perceive the usability of rubric-based generation vs. prompt-only?
+- [ ] **Component Reusability**: Can AI-generated components be reused effectively across different projects with varying requirements?
+- [ ] **Rubric Learning**: Can AI models be trained to generate better rubrics from successful component patterns?
+
+## Technical Improvements
+- [ ] **Dynamic Rubric Generation**: AI-assisted creation of rubrics from existing design systems
+- [ ] **Component Composition**: Multi-component generation with shared design systems
+- [ ] **Accessibility Auditing**: Automated accessibility compliance verification
+- [ ] **Performance Monitoring**: Integration with Lighthouse and other performance tools
+
+# License
 
 This experiment is for research purposes. Individual generated components may vary in licensing requirements.
+
+# Author
+Created and maintained by [Fernanda Graciolli](https://github.com/graciolli-f) as part of the [Midspiral](https://midspiral.com) initiative to explore how to make programming with AI more robust, scalable, and maintainable.
