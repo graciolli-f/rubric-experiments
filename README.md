@@ -108,8 +108,14 @@ The experiment includes 5 iterations of each approach:
 .product-card {
     background: white;
     border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+    /* Performance: Use transform for transitions instead of changing layout properties */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Accessibility: Ensure card is focusable and has proper focus indication */
+    position: relative;
 }
 ```
 
