@@ -1,0 +1,372 @@
+/* Reset and base styles for consistent rendering across browsers */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Performance: Use system fonts for faster loading */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    /* Performance: Enable hardware acceleration for smooth scrolling */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container for centering and responsive layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    /* Performance: Use transform for centering to avoid layout thrashing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main product card styling with modern design */
+.product-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+    /* Performance: Use transform for transitions instead of changing layout properties */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Accessibility: Ensure card is focusable and has proper focus indication */
+    position: relative;
+}
+
+/* Hover effect for interactive feedback */
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Product image container with aspect ratio maintenance */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+/* Product image styling with performance optimizations */
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Performance: Use will-change for elements that will be animated */
+    transition: transform 0.4s ease;
+    display: block;
+}
+
+/* Image hover effect */
+.product-image:hover {
+    transform: scale(1.05);
+}
+
+/* Image placeholder for loading states */
+.image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-size: 0.9rem;
+    z-index: -1;
+}
+
+/* Product content area */
+.product-content {
+    padding: 1.5rem;
+}
+
+/* Product header with title and price */
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+/* Product title styling */
+.product-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+    flex: 1;
+    /* Accessibility: Ensure title is properly announced by screen readers */
+    margin: 0;
+}
+
+/* Product price styling */
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #e74c3c;
+    white-space: nowrap;
+    display: flex;
+    align-items: baseline;
+    gap: 0.125rem;
+}
+
+.currency {
+    font-size: 1rem;
+}
+
+.amount {
+    font-size: 1.5rem;
+}
+
+/* Product description area */
+.product-description {
+    margin-bottom: 1.5rem;
+}
+
+.product-description p {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Product features list */
+.product-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.product-features li {
+    font-size: 0.875rem;
+    color: #555;
+    padding: 0.25rem 0;
+    position: relative;
+    padding-left: 1rem;
+}
+
+/* Add checkmark icons to features */
+.product-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Action buttons container */
+.product-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* Base button styles with accessibility and UX best practices */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    /* Accessibility: Ensure buttons are focusable and have proper focus indication */
+    outline: none;
+    min-height: 44px; /* Accessibility: Minimum touch target size */
+}
+
+/* Focus styles for accessibility */
+.btn:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Primary button (Add to Cart) */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    background-color: #004085;
+}
+
+/* Secondary button (Wishlist) */
+.btn-secondary {
+    background-color: transparent;
+    color: #6c757d;
+    border: 2px solid #dee2e6;
+    padding: 0.75rem 1rem;
+}
+
+.btn-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #6c757d;
+    color: #495057;
+}
+
+.btn-secondary:active {
+    background-color: #e9ecef;
+}
+
+/* Button loading state */
+.btn.loading .btn-text {
+    opacity: 0;
+}
+
+.btn.loading .btn-loading {
+    opacity: 1;
+}
+
+.btn-loading {
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.2s ease;
+}
+
+/* Button icon styling */
+.btn-icon {
+    font-size: 1.1rem;
+}
+
+/* Screen reader only class for accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem 0.5rem;
+        min-height: auto;
+    }
+    
+    .product-card {
+        max-width: none;
+        margin: 0 0.5rem;
+    }
+    
+    .product-content {
+        padding: 1rem;
+    }
+    
+    .product-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .product-title {
+        font-size: 1.25rem;
+    }
+    
+    .product-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+    .product-card {
+        border: 2px solid #000;
+    }
+    
+    .btn-primary {
+        border: 2px solid #000;
+    }
+    
+    .btn-secondary {
+        border: 2px solid #000;
+    }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+    
+    .product-card {
+        background-color: #2d2d2d;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .product-title {
+        color: #f0f0f0;
+    }
+    
+    .product-description p {
+        color: #b0b0b0;
+    }
+    
+    .product-features li {
+        color: #c0c0c0;
+    }
+    
+    .image-placeholder {
+        background-color: #404040;
+        color: #a0a0a0;
+    }
+} 

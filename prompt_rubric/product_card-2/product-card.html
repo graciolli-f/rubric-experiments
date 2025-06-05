@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="product-card.css">
+</head>
+<body>
+    <!-- RUX INFO: Following ProductCard variant from card.rux -->
+    <!-- RUX COMPLIANCE: Semantic HTML structure with proper accessibility -->
+    
+    <main class="demo-container">
+        <!-- RUX REQUIRED: Product card as article element with accessible name -->
+        <article class="card card--product" role="article" aria-label="Premium Wireless Headphones Product Card" data-testid="product-card">
+            
+            <!-- RUX REQUIRED: Media region with product image -->
+            <div class="card__media">
+                <!-- RUX REQUIRED: Product image with descriptive alt text and explicit dimensions -->
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop" 
+                    alt="Premium wireless headphones in sleek black design with cushioned ear cups and adjustable headband"
+                    width="400" 
+                    height="300"
+                    loading="lazy"
+                    class="card__image"
+                >
+                <!-- RUX OPTIONAL: Discount badge for visual enhancement -->
+                <div class="card__badge" aria-label="20% discount">
+                    <span class="badge badge--discount">20% OFF</span>
+                </div>
+            </div>
+            
+            <!-- RUX REQUIRED: Body region with product information -->
+            <div class="card__body">
+                <!-- RUX REQUIRED: Product name as heading with proper hierarchy -->
+                <h2 class="card__title">Premium Wireless Headphones</h2>
+                
+                <!-- RUX OPTIONAL: Product description for better context -->
+                <p class="card__description">
+                    Experience crystal-clear audio with our premium wireless headphones. 
+                    Featuring active noise cancellation, 30-hour battery life, and comfortable over-ear design.
+                </p>
+                
+                <!-- RUX OPTIONAL: Product rating for enhanced user information -->
+                <div class="card__rating" aria-label="4.8 out of 5 stars rating">
+                    <div class="rating-stars" role="img" aria-label="4.8 stars">
+                        <span class="star star--filled">★</span>
+                        <span class="star star--filled">★</span>
+                        <span class="star star--filled">★</span>
+                        <span class="star star--filled">★</span>
+                        <span class="star star--partial">★</span>
+                    </div>
+                    <span class="rating-text">4.8 (124 reviews)</span>
+                </div>
+                
+                <!-- RUX REQUIRED: Price with currency and screen reader accessibility -->
+                <div class="card__price">
+                    <span class="price price--original" aria-label="Original price">$199.99</span>
+                    <span class="price price--current" aria-label="Current price">$159.99</span>
+                </div>
+                
+                <!-- RUX OPTIONAL: Stock status indicator -->
+                <div class="card__stock" aria-live="polite">
+                    <span class="stock-indicator stock-indicator--low">Only 3 left in stock</span>
+                </div>
+            </div>
+            
+            <!-- RUX REQUIRED: Footer region with actions -->
+            <div class="card__footer">
+                <!-- RUX REQUIRED: Add to cart action with product context -->
+                <button 
+                    type="button" 
+                    class="btn btn--primary btn--add-to-cart"
+                    aria-label="Add Premium Wireless Headphones to cart for $159.99"
+                    data-testid="add-to-cart-btn"
+                >
+                    <span class="btn__icon" aria-hidden="true">🛒</span>
+                    <span class="btn__text">Add to Cart</span>
+                    <span class="btn__loading" aria-hidden="true">Adding...</span>
+                </button>
+                
+                <!-- RUX OPTIONAL: Quick view action for enhanced UX -->
+                <button 
+                    type="button" 
+                    class="btn btn--secondary btn--quick-view"
+                    aria-label="Quick view of Premium Wireless Headphones"
+                    data-testid="quick-view-btn"
+                >
+                    <span class="btn__icon" aria-hidden="true">👁️</span>
+                    <span class="btn__text">Quick View</span>
+                </button>
+                
+                <!-- RUX OPTIONAL: Wishlist toggle for enhanced functionality -->
+                <button 
+                    type="button" 
+                    class="btn btn--icon btn--wishlist"
+                    aria-label="Add to wishlist"
+                    aria-pressed="false"
+                    data-testid="wishlist-btn"
+                >
+                    <span class="btn__icon" aria-hidden="true">♡</span>
+                    <span class="btn__icon btn__icon--active" aria-hidden="true">♥</span>
+                </button>
+            </div>
+        </article>
+    </main>
+    
+    <!-- RUX COMPLIANCE: JavaScript for interactivity -->
+    <script src="product-card.js"></script>
+</body>
+</html> 

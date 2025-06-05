@@ -1,0 +1,329 @@
+/* Product Card Styles - Following .rubric specifications */
+/* Uses BEM methodology: block__element--modifier */
+/* Mobile-first responsive design with design tokens */
+
+/* Base styles and reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: var(--space-0);
+  padding: var(--space-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+
+/* Main layout */
+.main {
+  max-width: var(--width-container);
+  margin: var(--space-0) auto;
+  padding: var(--space-lg);
+}
+
+.main__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+/* Card Component - Base Block */
+.card {
+  /* Container setup following rubric structure requirements */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: var(--transition-base);
+  max-width: 400px;
+  margin: var(--space-0) auto;
+}
+
+/* Card hover state for interactive feedback */
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Focus state for accessibility */
+.card:focus-within {
+  outline: var(--border-width-base) solid var(--color-primary-500);
+  outline-offset: var(--space-xs);
+}
+
+/* Card variant - Product Card */
+.card--product {
+  /* Specific styling for product variant following rubric ProductCard specs */
+  border: var(--border-width-thin) solid var(--color-secondary-200);
+}
+
+/* Card Media Region */
+.card__media {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+
+.card__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: var(--transition-transform);
+}
+
+/* Creative enhancement: image zoom on hover as specified in rubric */
+.card:hover .card__image {
+  transform: scale(1.05);
+}
+
+/* Discount badge - positioned absolutely for creative enhancement */
+.card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  background-color: var(--color-error-500);
+  color: var(--color-text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: var(--text-transform-uppercase);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Card Body Region */
+.card__body {
+  padding: var(--space-lg);
+  flex-grow: 1;
+}
+
+.card__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: var(--space-0) var(--space-0) var(--space-md) var(--space-0);
+  line-height: var(--line-height-tight);
+}
+
+.card__description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-lg);
+}
+
+/* Price container with proper semantic markup */
+.card__price-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.card__price {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+}
+
+.card__price--original {
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+  font-size: var(--font-size-base);
+}
+
+.card__price--current {
+  color: var(--color-primary-600);
+  font-size: var(--font-size-xl);
+}
+
+/* Rating component */
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.card__stars {
+  color: var(--color-warning-500);
+  font-size: var(--font-size-lg);
+}
+
+.card__rating-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Card Footer Region */
+.card__footer {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  border-top: var(--border-width-thin) solid var(--color-secondary-100);
+}
+
+/* Button Components */
+.card__button {
+  /* Base button styles following accessibility requirements */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-width-base) solid transparent;
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-colors);
+  min-height: var(--height-button);
+  min-width: 44px; /* Minimum touch target per accessibility requirements */
+}
+
+/* Primary button variant */
+.card__button--primary {
+  background-color: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  flex-grow: 1;
+}
+
+.card__button--primary:hover {
+  background-color: var(--color-primary-600);
+}
+
+.card__button--primary:focus {
+  outline: var(--border-width-base) solid var(--color-primary-300);
+  outline-offset: var(--space-xs);
+}
+
+.card__button--primary:active {
+  background-color: var(--color-primary-700);
+  transform: translateY(1px);
+}
+
+/* Secondary button variant */
+.card__button--secondary {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-secondary-300);
+  padding: var(--space-sm);
+  min-width: var(--height-button);
+  font-size: var(--font-size-lg);
+}
+
+.card__button--secondary:hover {
+  background-color: var(--color-surface);
+  color: var(--color-error-500);
+}
+
+.card__button--secondary:focus {
+  outline: var(--border-width-base) solid var(--color-secondary-400);
+  outline-offset: var(--space-xs);
+}
+
+/* Disabled state for buttons */
+.card__button:disabled {
+  background-color: var(--color-secondary-100);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  border-color: var(--color-secondary-200);
+}
+
+/* Loading state for async operations */
+.card__button--loading {
+  position: relative;
+  color: transparent;
+}
+
+.card__button--loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border: 2px solid currentColor;
+  border-radius: var(--border-radius-full);
+  border-top-color: transparent;
+  animation: spin var(--duration-slow) linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design - Mobile-first approach */
+@media (min-width: 640px) {
+  .card {
+    max-width: 450px;
+  }
+  
+  .card__title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .card__footer {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: var(--space-2xl);
+  }
+  
+  .card {
+    max-width: 500px;
+  }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  
+  .card__image {
+    transition: none;
+  }
+  
+  .card:hover .card__image {
+    transform: none;
+  }
+  
+  .card__button--loading::after {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border: var(--border-width-base) solid var(--color-text-primary);
+  }
+  
+  .card__button--primary {
+    border-color: var(--color-text-inverse);
+  }
+}
+
+/* Focus visible support for better keyboard navigation */
+.card__button:focus-visible {
+  outline: var(--border-width-base) solid var(--color-primary-500);
+  outline-offset: var(--space-xs);
+} 

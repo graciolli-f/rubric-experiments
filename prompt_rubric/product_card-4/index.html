@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="main" role="main">
+        <h1 class="main__title">Featured Product</h1>
+        
+        <!-- Product Card following .rubric/card.rux ProductCard variant specifications -->
+        <article class="card card--product" role="article" aria-labelledby="product-title" data-testid="product-card">
+            <!-- Media region: product image with proper accessibility -->
+            <div class="card__media">
+                <img 
+                    class="card__image" 
+                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop&crop=center" 
+                    alt="Premium wireless headphones in black with sleek modern design" 
+                    width="400" 
+                    height="300"
+                    loading="lazy"
+                >
+                <!-- Optional: Discount badge for enhancement -->
+                <div class="card__badge" aria-label="20% discount">20% OFF</div>
+            </div>
+            
+            <!-- Body region: primary content with proper text hierarchy -->
+            <div class="card__body">
+                <h2 class="card__title" id="product-title">Premium Wireless Headphones</h2>
+                <p class="card__description">
+                    Experience crystal-clear audio with our premium wireless headphones featuring 
+                    active noise cancellation and 30-hour battery life.
+                </p>
+                
+                <!-- Price with currency, readable by screen readers -->
+                <div class="card__price-container">
+                    <span class="card__price card__price--original" aria-label="Original price $199.99">$199.99</span>
+                    <span class="card__price card__price--current" aria-label="Current price $159.99">$159.99</span>
+                </div>
+                
+                <!-- Optional: Product rating enhancement -->
+                <div class="card__rating" role="img" aria-label="4.5 out of 5 stars rating">
+                    <span class="card__stars">★★★★☆</span>
+                    <span class="card__rating-text">(124 reviews)</span>
+                </div>
+            </div>
+            
+            <!-- Footer region: actions -->
+            <div class="card__footer">
+                <!-- Primary action button with product context for screen readers -->
+                <button 
+                    class="card__button card__button--primary" 
+                    type="button"
+                    aria-label="Add Premium Wireless Headphones to cart for $159.99"
+                    data-testid="add-to-cart-button"
+                >
+                    Add to Cart
+                </button>
+                
+                <!-- Optional: Secondary action - wishlist toggle -->
+                <button 
+                    class="card__button card__button--secondary" 
+                    type="button"
+                    aria-label="Add to wishlist"
+                    data-testid="wishlist-button"
+                >
+                    ♡
+                </button>
+            </div>
+        </article>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html> 

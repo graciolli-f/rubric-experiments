@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium wireless headphones with noise cancellation - Product showcase">
+    <title>Premium Wireless Headphones - Product Card</title>
+    <!-- Preload critical CSS for performance -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Security: Content Security Policy to prevent XSS -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline';">
+</head>
+<body>
+    <main class="container">
+        <!-- Product card with semantic structure and accessibility -->
+        <article class="product-card" role="article" aria-labelledby="product-title">
+            <!-- Product image with accessibility attributes -->
+            <div class="product-image-container">
+                <img 
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f0f0f0'/%3E%3Cpath d='M50 150 Q50 50 150 50 Q250 50 250 150 Q250 250 150 250 Q50 250 50 150 Z' fill='%23333'/%3E%3Ccircle cx='120' cy='120' r='15' fill='%23666'/%3E%3Ccircle cx='180' cy='120' r='15' fill='%23666'/%3E%3Cpath d='M70 200 Q150 170 230 200' stroke='%23666' stroke-width='3' fill='none'/%3E%3C/svg%3E"
+                    alt="Premium wireless headphones with modern design featuring noise cancellation technology"
+                    class="product-image"
+                    loading="lazy"
+                    width="300"
+                    height="300"
+                >
+            </div>
+
+            <!-- Product information with proper heading hierarchy -->
+            <div class="product-content">
+                <header class="product-header">
+                    <h1 id="product-title" class="product-title">Premium Wireless Headphones</h1>
+                    <div class="product-rating" aria-label="Product rating: 4.5 out of 5 stars">
+                        <span class="stars" aria-hidden="true">★★★★☆</span>
+                        <span class="rating-text">(4.5/5 - 128 reviews)</span>
+                    </div>
+                </header>
+
+                <section class="product-details">
+                    <p class="product-description">
+                        Experience superior sound quality with our premium wireless headphones. 
+                        Features active noise cancellation, 30-hour battery life, and premium 
+                        comfort for all-day listening.
+                    </p>
+
+                    <!-- Price information with semantic markup -->
+                    <div class="product-pricing">
+                        <span class="price-current" aria-label="Current price">$199.99</span>
+                        <span class="price-original" aria-label="Original price">$299.99</span>
+                        <span class="price-discount" aria-label="Discount percentage">33% OFF</span>
+                    </div>
+
+                    <!-- Key features list for accessibility -->
+                    <ul class="product-features" aria-label="Key product features">
+                        <li>Active Noise Cancellation</li>
+                        <li>30-Hour Battery Life</li>
+                        <li>Wireless Bluetooth 5.0</li>
+                        <li>Premium Build Quality</li>
+                    </ul>
+                </section>
+
+                <!-- Action buttons with proper accessibility -->
+                <div class="product-actions">
+                    <button 
+                        class="btn btn-primary add-to-cart-btn"
+                        type="button"
+                        aria-describedby="cart-help-text"
+                    >
+                        Add to Cart
+                    </button>
+                    <button 
+                        class="btn btn-secondary wishlist-btn"
+                        type="button"
+                        aria-label="Add to wishlist"
+                        title="Save for later"
+                    >
+                        ♡ Wishlist
+                    </button>
+                </div>
+
+                <!-- Screen reader help text -->
+                <div id="cart-help-text" class="sr-only">
+                    Adds Premium Wireless Headphones to your shopping cart
+                </div>
+            </div>
+        </article>
+
+        <!-- Loading state and notifications for accessibility -->
+        <div id="notifications" class="notifications" role="status" aria-live="polite" aria-atomic="true"></div>
+    </main>
+
+    <!-- Load JavaScript with defer for performance -->
+    <script src="script.js" defer></script>
+</body>
+</html> 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium wireless headphones product card">
+    <!-- Security: Content Security Policy to prevent XSS attacks -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data: https:;">
+    <title>Premium Wireless Headphones - Product Card</title>
+    
+    <!-- Performance: Preload critical CSS -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Performance: DNS prefetch for potential external resources -->
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+</head>
+<body>
+    <main class="container">
+        <!-- Accessibility: Using semantic article element for product card -->
+        <article class="product-card" role="region" aria-labelledby="product-title">
+            <!-- Accessibility: Proper heading hierarchy and descriptive alt text -->
+            <div class="product-image-container">
+                <!-- Performance: Using responsive image with loading="lazy" -->
+                <!-- Accessibility: Descriptive alt text for screen readers -->
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center"
+                    alt="Premium black wireless over-ear headphones with adjustable headband and soft ear cushions"
+                    class="product-image"
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                >
+            </div>
+            
+            <div class="product-content">
+                <!-- Accessibility: Proper heading hierarchy -->
+                <h1 id="product-title" class="product-title">Premium Wireless Headphones</h1>
+                
+                <!-- Accessibility: Using semantic elements for product details -->
+                <div class="product-details">
+                    <p class="product-description">
+                        Experience crystal-clear audio with our premium wireless headphones. 
+                        Featuring active noise cancellation, 30-hour battery life, and 
+                        comfortable over-ear design perfect for long listening sessions.
+                    </p>
+                    
+                    <!-- Accessibility: Proper semantic markup for pricing -->
+                    <div class="product-pricing" aria-label="Product pricing">
+                        <span class="price-current" aria-label="Current price">$199.99</span>
+                        <span class="price-original" aria-label="Original price">$299.99</span>
+                        <span class="price-discount" aria-label="Discount percentage">33% OFF</span>
+                    </div>
+                    
+                    <!-- Accessibility: Descriptive button text and proper focus management -->
+                    <button 
+                        type="button" 
+                        class="add-to-cart-btn" 
+                        aria-describedby="product-title"
+                        data-product-id="headphones-001"
+                    >
+                        <span class="btn-text">Add to Cart</span>
+                        <!-- Accessibility: Screen reader text for additional context -->
+                        <span class="sr-only">Premium Wireless Headphones for $199.99</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+    </main>
+    
+    <!-- Performance: Load JavaScript at end of body for faster page rendering -->
+    <script src="script.js"></script>
+</body>
+</html> 

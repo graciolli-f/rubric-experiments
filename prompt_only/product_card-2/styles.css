@@ -1,0 +1,397 @@
+/* Reset and base styles for consistent cross-browser appearance */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Root variables for consistent theming and easy maintenance */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary-color: #64748b;
+    --success-color: #059669;
+    --danger-color: #dc2626;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --background-white: #ffffff;
+    --background-gray: #f9fafb;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --border-radius: 8px;
+    --transition: all 0.2s ease-in-out;
+}
+
+/* Base body styles with performance considerations */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--background-gray);
+    margin: 0;
+    padding: 20px;
+    /* Improve font rendering performance */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent horizontal scroll on small screens */
+    overflow-x: hidden;
+}
+
+/* Container for centering and responsive layout */
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    /* Ensure container doesn't exceed viewport width on small screens */
+    width: 100%;
+}
+
+/* Main product card styling with accessibility focus indicators */
+.product-card {
+    background: var(--background-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    /* Improve performance with hardware acceleration */
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Hover and focus states for better interactivity */
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Focus management for accessibility */
+.product-card:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Product image container with aspect ratio maintenance */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background-color: var(--background-gray);
+}
+
+/* Product image styling with performance optimizations */
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+    /* Improve image rendering performance */
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+}
+
+/* Image hover effect */
+.product-image:hover {
+    transform: scale(1.05);
+}
+
+/* Product content area styling */
+.product-content {
+    padding: 24px;
+}
+
+/* Product header styling */
+.product-header {
+    margin-bottom: 16px;
+}
+
+/* Product title with proper typography hierarchy */
+.product-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+/* Product rating section */
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* Star ratings with accessibility considerations */
+.stars {
+    color: #fbbf24;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Rating text styling */
+.rating-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Product description with proper line height for readability */
+.product-description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Product pricing section with visual hierarchy */
+.product-pricing {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* Current price styling */
+.price-current {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Original price with strikethrough */
+.price-original {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+/* Discount badge styling */
+.price-discount {
+    background-color: var(--success-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Product features list styling */
+.product-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+/* Individual feature items */
+.product-features li {
+    padding: 4px 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    position: relative;
+    padding-left: 20px;
+}
+
+/* Bullet points for features using CSS */
+.product-features li::before {
+    content: '✓';
+    color: var(--success-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Product actions container */
+.product-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Base button styles with accessibility focus */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px; /* Minimum touch target size for accessibility */
+    position: relative;
+    /* Improve button performance */
+    transform: translateZ(0);
+}
+
+/* Button focus states for accessibility */
+.btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Button active states */
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* Primary button styling */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    flex: 1;
+    min-width: 120px;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+    background-color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+/* Secondary button styling */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+    min-width: 100px;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Loading state for buttons */
+.btn.loading {
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Notifications area for accessibility announcements */
+.notifications {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 300px;
+    z-index: 1000;
+}
+
+/* Individual notification styling */
+.notification {
+    background: var(--background-white);
+    border-left: 4px solid var(--success-color);
+    padding: 16px;
+    margin-bottom: 8px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* Notification variants */
+.notification.error {
+    border-left-color: var(--danger-color);
+}
+
+/* Keyframe animations */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+    .container {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .product-card {
+        border-radius: 0;
+        box-shadow: none;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .product-content {
+        padding: 20px;
+    }
+    
+    .product-title {
+        font-size: 1.25rem;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .btn-secondary {
+        order: -1; /* Move wishlist button above add to cart on mobile */
+    }
+}
+
+/* Reduced motion preferences for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --text-secondary: #000000;
+    }
+    
+    .btn-secondary {
+        border-width: 3px;
+    }
+} 

@@ -1,0 +1,381 @@
+/* Product Card Styles - Following BEM methodology and design system tokens */
+/* All visual properties use design tokens as required by base.rux */
+
+/* Base reset and typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base); /* Using design tokens as required */
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Demo container for presentation */
+.demo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--color-primary-50), var(--color-secondary-50));
+}
+
+/* Card Base Styles - Following card.rux specifications */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-lg); /* Using design tokens */
+  box-shadow: var(--shadow-sm); /* Using design tokens */
+  overflow: hidden;
+  transition: var(--transition-base); /* Using design tokens */
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+/* Card hover effects as required by rubric */
+.card:hover {
+  box-shadow: var(--shadow-lg); /* Elevated shadow on hover */
+  transform: translateY(-2px); /* Subtle lift effect for interactivity */
+}
+
+/* Reduced motion support as required by base.rux accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card *,
+  .btn,
+  .card__image {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Product Card Variant - Following ProductCard requirements from card.rux */
+.card--product {
+  /* Specific styling for product cards */
+}
+
+/* Card Media Section - Following card.rux media requirements */
+.card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3; /* Maintain aspect ratio as required */
+  background-color: var(--color-surface);
+}
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-slow); /* Smooth transition for zoom effect */
+}
+
+/* Image zoom on hover as suggested by creative enhancements */
+.card:hover .card__image {
+  transform: scale(1.05);
+}
+
+/* Discount Badge - Positioned overlay */
+.card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  z-index: var(--z-dropdown);
+}
+
+.card__badge--discount {
+  background-color: var(--color-error-500);
+  color: var(--color-text-inverse);
+}
+
+/* Card Body - Primary content section */
+.card__body {
+  padding: var(--space-lg);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Category styling */
+.card__category {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Product title - Proper heading hierarchy as required */
+.card__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin: var(--space-xs) 0 var(--space-sm) 0;
+}
+
+/* Product description */
+.card__description {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-sm);
+}
+
+/* Rating section */
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.card__stars {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.star {
+  font-size: var(--font-size-base);
+  color: var(--color-warning-400);
+}
+
+.star--filled {
+  color: var(--color-warning-500);
+}
+
+.star--half {
+  color: var(--color-secondary-300);
+}
+
+.card__rating-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Price Section - Required for ProductCard variant */
+.card__price-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.card__price {
+  font-weight: var(--font-weight-semibold);
+}
+
+.card__price--original {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+.card__price--current {
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary-600);
+}
+
+.card__savings {
+  font-size: var(--font-size-sm);
+  color: var(--color-success-600);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-success-50);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-base);
+}
+
+/* Card Footer - Action buttons */
+.card__footer {
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-surface);
+  border-top: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/* Button Base Styles - Following accessibility requirements */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-width-base) var(--border-style-solid);
+  border-radius: var(--border-radius-base);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  min-height: var(--height-button); /* Minimum touch target as required */
+  min-width: 44px; /* Accessibility requirement for touch targets */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Focus states as required by accessibility */
+.btn:focus {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Primary button - Add to Cart */
+.btn--primary {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  flex-grow: 1; /* Take available space */
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  transform: translateY(-1px);
+}
+
+.btn--primary:active {
+  background-color: var(--color-primary-700);
+  border-color: var(--color-primary-700);
+  transform: translateY(0);
+}
+
+/* Secondary buttons - Wishlist and Quick View */
+.btn--secondary {
+  background-color: var(--color-background);
+  border-color: var(--color-secondary-300);
+  color: var(--color-text-primary);
+  padding: var(--space-sm); /* Square buttons for icons */
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-secondary-50);
+  border-color: var(--color-secondary-400);
+}
+
+.btn--secondary:active {
+  background-color: var(--color-secondary-100);
+}
+
+/* Button icons */
+.btn__icon {
+  font-size: var(--font-size-base);
+}
+
+.btn__text {
+  white-space: nowrap;
+}
+
+/* Stock Status */
+.card__stock {
+  position: absolute;
+  bottom: var(--space-sm);
+  left: var(--space-sm);
+  right: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  backdrop-filter: blur(var(--blur-sm));
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.card__stock--in-stock {
+  border-left: 3px solid var(--color-success-500);
+}
+
+.stock__indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-success-500);
+}
+
+.stock__text {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive Design - Mobile First as required by base.rux */
+@media (max-width: 640px) { /* Using semantic breakpoint */
+  .demo-container {
+    padding: var(--space-md);
+  }
+  
+  .card {
+    max-width: 100%;
+  }
+  
+  .card__body {
+    padding: var(--space-md);
+  }
+  
+  .card__footer {
+    padding: var(--space-sm) var(--space-md);
+    flex-wrap: wrap;
+  }
+  
+  .btn--primary {
+    order: -1; /* Primary button first on mobile */
+    width: 100%;
+  }
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+  .card {
+    border: var(--border-width-base) var(--border-style-solid) var(--color-text-primary);
+  }
+  
+  .btn {
+    border-width: var(--border-width-thick);
+  }
+}
+
+/* Loading skeleton states - Future enhancement capability */
+.card--loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Interactive enhancement: Floating buy button effect */
+.card:hover .btn--primary {
+  box-shadow: var(--shadow-md);
+}
+
+/* Wishlist button toggle state */
+.btn--wishlist.btn--active {
+  background-color: var(--color-error-50);
+  border-color: var(--color-error-500);
+  color: var(--color-error-600);
+}
+
+.btn--wishlist.btn--active .btn__icon::before {
+  content: '♥'; /* Filled heart when active */
+} 

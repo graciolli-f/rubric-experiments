@@ -1,0 +1,150 @@
+// rubric.rux
+// Reference file for AI interpretation of .rux syntax
+// This file explains how AI should read and apply rubric specifications
+
+!RubricSyntax:
+  Version: "1.0.0"
+  Purpose: "Define component requirements that AI can directly understand and apply"
+  
+  !CoreNotation:
+    "!": "Required - Must implement as specified"
+    "?": "Recommended - Should implement with interpretation allowed"
+    "~": "Optional - Can implement with full creative freedom"
+    "&": "Anchor - Define reusable specification block"
+    "*": "Alias - Reference an anchored specification"
+    "#": "Comment - Context for AI understanding"
+    
+  !HowToRead:
+    # AI reads these files like documentation, not code
+    # Each line provides instructions or context
+    # Indentation shows relationships
+    # No parsing needed - just understand and apply
+    
+    Requirements:
+      !Read as: "This MUST be included"
+      !Apply exactly as written
+      !Validation fails without it
+      
+    Recommendations:
+      ?Read as: "This SHOULD be included" 
+      ?Interpret the intent, not literal implementation
+      ?Find appropriate way to achieve goal
+      
+    Options:
+      ~Read as: "This would be nice to have"
+      ~Full creative freedom
+      ~Enhance user experience
+  
+  !InterpretationGuide:
+    # When AI sees a specification, understand the intent
+    
+    Example1:
+      Spec: "!semantic HTML elements"
+      Understand: "Use proper HTML tags for their intended purpose"
+      Apply: "<nav> for navigation, <article> for articles, etc."
+      
+    Example2:
+      Spec: "?loading state indication"
+      Understand: "User should know when something is loading"
+      Apply: "Could be spinner, skeleton, progress bar, or text"
+      
+    Example3:
+      Spec: "~particle effects"
+      Understand: "Add visual flair if desired"
+      Apply: "Creative effects that enhance without disrupting"
+      
+  !Validation:
+    # AI should add these comments to generated code
+    
+    Output:
+      Format: "HTML comments in generated code"
+      Purpose: "Help developers understand compliance"
+      
+    WhenMissingRequired: |
+      <!-- RUX ERROR: Missing required {element} -->
+      <!-- Required by: {file.rux} > {section} -->
+      
+    WhenMissingRecommended: |
+      <!-- RUX WARNING: Consider adding {element} -->
+      <!-- Recommended by: {file.rux} > {section} -->
+      
+    CreativeOpportunity: |
+      <!-- RUX INFO: Could add {enhancement} here -->
+      <!-- Suggested by: {file.rux} > {section} -->
+      
+  !ProcessFlow:
+    # How AI should work with these files
+    
+    1: "Read base.rux for foundational rules"
+    2: "Read component-specific .rux file"
+    3: "Understand inheritance (extends keyword)"
+    4: "Apply included patterns (includes keyword)"
+    5: "Consider user's specific request"
+    6: "Generate component following combined requirements"
+    7: "Add validation comments"
+    
+  !ConflictResolution:
+    # When requirements conflict
+    
+    Priority:
+      1: "User's specific request (for creative aspects)"
+      2: "Component-specific requirements"
+      3: "Base requirements"
+      
+    Exception:
+      "Never override ! accessibility or security requirements"
+      
+  !BestPractices:
+    # How to write good .rux files
+    
+    ForAI:
+      !write requirements as outcomes, not implementations
+      !use plain language AI can understand
+      !provide context with comments
+      
+    Structure:
+      ?group related requirements logically
+      ?use anchors for patterns that repeat
+      ?keep hierarchy shallow and clear
+      
+    Examples:
+      ~include code examples for clarity
+      ~show both minimal and enhanced versions
+      ~demonstrate the spirit of requirements
+      
+  !Understanding Anchors:
+    # Reusable specification blocks
+    
+    Definition:
+      "&form-a11y": "Define a reusable block about form accessibility"
+      
+    Usage:
+      "includes: [*form-a11y]": "Include all those requirements here"
+      
+    Purpose:
+      "Write common patterns once, reference everywhere"
+      "AI understands these as 'copy these requirements here'"
+      
+  !RealWorldExample:
+    # How AI should interpret a complete spec
+    
+    Given: |
+      Component: Button
+        !Structure:
+          !semantic button element
+          !descriptive text
+          
+        ?Behavior:
+          ?loading state
+          
+        ~Visual:
+          ~gradient background
+          ~hover effects
+          
+    AIShould:
+      1: "Create a <button> element (required)"
+      2: "Include meaningful text (required)"
+      3: "Consider adding loading state (recommended)"
+      4: "Feel free to add gradients and effects (optional)"
+      5: "Validate all requirements were met"
+      6: "Add helpful comments about decisions made"

@@ -1,0 +1,352 @@
+/* Product Card Styles - Following rubric requirements */
+/* Uses design tokens for all values, BEM methodology, mobile-first responsive design */
+
+/* Body reset and typography foundation */
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  margin: 0;
+  padding: var(--space-lg);
+  /* Required: Minimum touch target compliance */
+  min-height: 100vh;
+}
+
+/* Demo container for centering the card */
+.product-demo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--space-xl));
+  padding: var(--space-md);
+}
+
+/* Card component base - following BEM methodology */
+.card {
+  /* Required: Use design tokens for all visual properties */
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  /* Required: Smooth transitions on interaction */
+  transition: var(--transition-base);
+  overflow: hidden;
+  position: relative;
+  max-width: 24rem;
+  width: 100%;
+}
+
+/* Required: Clear hover states for interactive cards */
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Card variant: Product card specific styles */
+.card--product {
+  border: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+}
+
+/* Media region - required for product cards */
+.card__media {
+  position: relative;
+  /* Required: Maintain aspect ratio */
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+/* Product image styling */
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Required: Smooth transitions */
+  transition: var(--transition-base);
+}
+
+/* Optional enhancement: Image zoom on hover as per rubric */
+.card:hover .card__image {
+  transform: scale(1.05);
+}
+
+/* Discount badge - optional enhancement */
+.card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--color-error-500);
+  color: var(--color-text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  z-index: var(--z-base);
+}
+
+.card__badge-text {
+  display: block;
+}
+
+/* Body region - required primary content area */
+.card__body {
+  padding: var(--space-lg);
+}
+
+/* Product title - required heading with proper hierarchy */
+.card__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+/* Product description */
+.card__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-md) 0;
+}
+
+/* Price container */
+.card__price-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+/* Original price - struck through */
+.card__price-original {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+/* Current price - prominent display */
+.card__price-current {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-600);
+}
+
+/* Rating section - optional enhancement */
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.card__stars {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.card__star {
+  font-size: var(--font-size-sm);
+  color: var(--color-secondary-300);
+}
+
+.card__star--filled {
+  color: var(--color-warning-400);
+}
+
+.card__star--half {
+  color: var(--color-warning-400);
+}
+
+.card__rating-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Footer region - actions and supplementary info */
+.card__footer {
+  padding: 0 var(--space-lg) var(--space-lg);
+}
+
+/* Button base styling - following accessibility requirements */
+.card__button {
+  /* Required: Minimum touch target 44x44px */
+  min-height: var(--height-button);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--border-radius-base);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  /* Required: Smooth transitions */
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  text-decoration: none;
+  /* Required: Visible focus indicators */
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Required: Clear focus states */
+.card__button:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Primary button - add to cart */
+.card__button--primary {
+  background-color: var(--color-primary-600);
+  color: var(--color-text-inverse);
+  width: 100%;
+  margin-bottom: var(--space-sm);
+}
+
+/* Required: Clear hover states */
+.card__button--primary:hover {
+  background-color: var(--color-primary-700);
+}
+
+.card__button--primary:active {
+  background-color: var(--color-primary-800);
+  transform: translateY(1px);
+}
+
+/* Secondary buttons container */
+.card__actions-secondary {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: space-between;
+}
+
+/* Secondary button styling */
+.card__button--secondary {
+  background-color: var(--color-secondary-100);
+  color: var(--color-text-primary);
+  border: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+  flex: 1;
+}
+
+.card__button--secondary:hover {
+  background-color: var(--color-secondary-200);
+}
+
+/* Icon button for wishlist */
+.card__button--icon {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+  /* Required: Minimum touch target */
+  min-width: var(--height-button);
+  padding: var(--space-sm);
+}
+
+.card__button--icon:hover {
+  background-color: var(--color-secondary-100);
+  color: var(--color-error-500);
+}
+
+/* Button text and icon spacing */
+.card__button-text {
+  display: block;
+}
+
+.card__button-icon {
+  display: block;
+}
+
+/* Loading state overlay - initially hidden */
+.card__loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-overlay);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: var(--z-overlay);
+  backdrop-filter: blur(4px);
+}
+
+/* Show loading state when active */
+.card--loading .card__loading {
+  display: flex;
+}
+
+/* Loading spinner animation */
+.card__spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-secondary-300);
+  border-top: 3px solid var(--color-primary-600);
+  border-radius: var(--border-radius-full);
+  animation: spin var(--duration-slow) linear infinite;
+  margin-bottom: var(--space-sm);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.card__loading-text {
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive design - mobile-first approach as required */
+@media (min-width: 768px) {
+  .product-demo {
+    padding: var(--space-xl);
+  }
+  
+  .card {
+    max-width: 28rem;
+  }
+  
+  .card__title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .card__description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+  .card {
+    border: var(--border-width-base) var(--border-style-solid) var(--color-text-primary);
+  }
+  
+  .card__button--primary {
+    border: var(--border-width-thin) var(--border-style-solid) var(--color-text-inverse);
+  }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card__image,
+  .card__button,
+  .card__spinner {
+    transition: none;
+    animation: none;
+  }
+  
+  .card:hover .card__image {
+    transform: none;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+} 

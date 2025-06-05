@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Card - Premium Wireless Headphones</title>
+  <!-- Import design tokens first -->
+  <link rel="stylesheet" href="tokens.css">
+  <!-- Import component styles -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts for better typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Main container for demonstration -->
+  <div class="demo-container">
+    <!-- Product Card Component -->
+    <article class="card card--product" role="article" aria-labelledby="product-title" data-testid="product-card">
+      
+      <!-- Product Image Section -->
+      <div class="card__media">
+        <img 
+          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center" 
+          alt="Premium black wireless headphones with soft ear cushions and adjustable headband" 
+          width="400" 
+          height="300" 
+          loading="lazy"
+          class="card__image"
+        >
+        <!-- Discount badge overlay -->
+        <div class="card__badge card__badge--discount" aria-label="25% discount">
+          -25%
+        </div>
+      </div>
+      
+      <!-- Product Information -->
+      <div class="card__body">
+        <!-- Product category -->
+        <span class="card__category">Audio</span>
+        
+        <!-- Product title - using h2 assuming this card is in a product listing -->
+        <h2 id="product-title" class="card__title">Premium Wireless Headphones</h2>
+        
+        <!-- Product description -->
+        <p class="card__description">
+          High-quality wireless headphones with active noise cancellation, 
+          30-hour battery life, and premium comfort for all-day listening.
+        </p>
+        
+        <!-- Product rating -->
+        <div class="card__rating" role="img" aria-label="Rating: 4.5 out of 5 stars">
+          <div class="card__stars">
+            <span class="star star--filled" aria-hidden="true">★</span>
+            <span class="star star--filled" aria-hidden="true">★</span>
+            <span class="star star--filled" aria-hidden="true">★</span>
+            <span class="star star--filled" aria-hidden="true">★</span>
+            <span class="star star--half" aria-hidden="true">☆</span>
+          </div>
+          <span class="card__rating-text">(4.5) 128 reviews</span>
+        </div>
+        
+        <!-- Price section -->
+        <div class="card__price-section">
+          <span class="card__price card__price--original" aria-label="Original price $199">$199</span>
+          <span class="card__price card__price--current" aria-label="Sale price $149">$149</span>
+          <span class="card__savings">Save $50</span>
+        </div>
+      </div>
+      
+      <!-- Action buttons -->
+      <div class="card__footer">
+        <button 
+          type="button" 
+          class="btn btn--primary btn--add-to-cart" 
+          aria-describedby="product-title"
+          data-testid="add-to-cart-btn"
+          data-product-id="wireless-headphones-001"
+          data-product-name="Premium Wireless Headphones"
+          data-product-price="149"
+        >
+          <span class="btn__icon" aria-hidden="true">🛒</span>
+          <span class="btn__text">Add to Cart</span>
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn--secondary btn--wishlist" 
+          aria-label="Add Premium Wireless Headphones to wishlist"
+          data-testid="wishlist-btn"
+          data-product-id="wireless-headphones-001"
+        >
+          <span class="btn__icon" aria-hidden="true">♡</span>
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn--secondary btn--quick-view" 
+          aria-label="Quick view Premium Wireless Headphones details"
+          data-testid="quick-view-btn"
+          data-product-id="wireless-headphones-001"
+        >
+          <span class="btn__icon" aria-hidden="true">👁</span>
+        </button>
+      </div>
+      
+      <!-- Stock status indicator -->
+      <div class="card__stock card__stock--in-stock" aria-live="polite">
+        <span class="stock__indicator" aria-hidden="true"></span>
+        <span class="stock__text">In Stock - Ships within 24 hours</span>
+      </div>
+    </article>
+  </div>
+
+  <!-- JavaScript for interactivity -->
+  <script src="script.js"></script>
+</body>
+</html> 

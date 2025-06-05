@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Wireless Headphones - High-quality audio experience with noise cancellation">
+    
+    <!-- Performance: Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline';">
+    
+    <title>Premium Wireless Headphones | Audio Excellence</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <article class="product-card" role="article" aria-labelledby="product-title">
+            <!-- Product Image with accessibility and performance optimizations -->
+            <div class="product-image-container">
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format"
+                    alt="Premium black wireless over-ear headphones with sleek design"
+                    class="product-image"
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                    decoding="async"
+                >
+                <!-- Fallback for image loading issues -->
+                <div class="image-placeholder" aria-hidden="true">
+                    <span>Image Loading...</span>
+                </div>
+            </div>
+            
+            <!-- Product Information -->
+            <div class="product-content">
+                <header class="product-header">
+                    <h1 id="product-title" class="product-title">
+                        Premium Wireless Headphones
+                    </h1>
+                    <p class="product-price" aria-label="Price: $199.99">
+                        <span class="currency">$</span>
+                        <span class="amount">199.99</span>
+                    </p>
+                </header>
+                
+                <div class="product-description">
+                    <p>
+                        Experience exceptional audio quality with our premium wireless headphones. 
+                        Featuring active noise cancellation, 30-hour battery life, and superior comfort 
+                        for all-day listening. Perfect for music enthusiasts and professionals alike.
+                    </p>
+                    
+                    <!-- Product Features List for better accessibility -->
+                    <ul class="product-features" aria-label="Key features">
+                        <li>Active Noise Cancellation</li>
+                        <li>30-hour Battery Life</li>
+                        <li>Premium Sound Quality</li>
+                        <li>Comfortable Design</li>
+                    </ul>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="product-actions">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary add-to-cart-btn"
+                        aria-describedby="cart-status"
+                        data-product-id="premium-headphones-001"
+                    >
+                        <span class="btn-text">Add to Cart</span>
+                        <span class="btn-loading" aria-hidden="true">Adding...</span>
+                    </button>
+                    
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary wishlist-btn"
+                        aria-label="Add to wishlist"
+                        data-product-id="premium-headphones-001"
+                    >
+                        <span class="btn-icon">♡</span>
+                        <span class="btn-text">Save</span>
+                    </button>
+                </div>
+                
+                <!-- Status announcement for screen readers -->
+                <div id="cart-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </article>
+    </main>
+    
+    <!-- Load JavaScript at the end for better performance -->
+    <script src="script.js"></script>
+</body>
+</html> 

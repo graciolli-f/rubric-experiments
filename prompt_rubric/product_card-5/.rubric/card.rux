@@ -1,0 +1,135 @@
+// card.rux
+// Flexible container component for grouped content
+// Category: Layout
+
+extends base.rux
+
+Component: Card
+  Description: "Container that groups related content and actions"
+  Category: "layout"
+  
+  !Structure:
+    !Container:
+      Element: "article[role='article'] | section"
+      !accessible name via aria-label or aria-labelledby
+      !class naming: "card card--{variant}"
+      
+    # Component regions - all optional but structure defined
+    ~Header:
+      Purpose: "Title, metadata, or branding"
+      Element: ".card__header"
+      ~title in heading element
+      ~metadata with semantic markup
+      
+    ~Media:
+      Purpose: "Visual content area"
+      Element: ".card__media"
+      !images include alt, width, height, loading="lazy"
+      !maintain aspect ratio
+      ?responsive images with srcset
+      
+    !Body:
+      Purpose: "Primary content"
+      Element: ".card__body"
+      !contains substantive content
+      !proper text hierarchy
+      
+    ~Footer:
+      Purpose: "Actions or supplementary info"
+      Element: ".card__footer"
+      ?actions aligned horizontally
+      ?secondary information
+  
+  !Accessibility:
+    includes: [*base-a11y]
+    
+    CardSpecific:
+      !clear content hierarchy
+      !interactive cards have appropriate role
+      
+    ClickableCards:
+      # Only if entire card is clickable
+      ?nested links remain independently clickable
+      ?clear hover/focus states
+      ?avoid link-in-link nesting
+  
+  ?States:
+    ?hover effects for interactive cards
+    ?loading skeleton while content loads
+    ?error state with clear messaging
+    ?empty state with guidance
+    ?selected state for multi-select contexts
+  
+  ~Visual:
+    ~rounded corners using var(--radius-md)
+    ~subtle shadow using var(--shadow-sm)
+    ~smooth transitions on interaction
+    ~creative backgrounds (gradients, patterns)
+    ~glassmorphism or neumorphism
+    ~animated entrance
+    ~parallax effects
+    ~3D transforms
+    
+  Variants:
+    ProductCard:
+      extends: Card
+      
+      !Required:
+        !product image in media region
+        !product name as heading
+        !price with currency
+        !add to cart action
+        
+      !Accessibility:
+        !image alt describes product
+        !price readable by screen readers
+        !button includes product name and price
+        
+      ?Enhancements:
+        ?discount badge
+        ?product rating
+        ?quick view action
+        ?stock status
+        
+      ~Creative:
+        ~image zoom on hover
+        ~floating buy button
+        ~animated price changes
+        ~wishlist toggle
+        
+    UserCard:
+      extends: Card
+      
+      !Required:
+        !user avatar with name as alt
+        !user name as heading
+        
+      ?Recommended:
+        ?role or title
+        ?bio or description
+        ?follow/connect action
+        ?online status indicator
+        
+      ~Creative:
+        ~animated avatar
+        ~status ring
+        ~hover state reveals details
+        ~social links
+        
+    StatsCard:
+      extends: Card
+      
+      !Required:
+        !metric value prominently displayed
+        !metric label clearly associated
+        
+      ?Recommended:
+        ?trend indicator (up/down)
+        ?comparison to previous period
+        ?contextual icon
+        
+      ~Creative:
+        ~animated number counting
+        ~mini chart or sparkline
+        ~color-coded backgrounds
+        ~particle effects for milestones

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security: Content Security Policy to prevent XSS attacks -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data: https:;">
+    <meta name="description" content="Premium wireless headphones with noise cancellation and superior sound quality">
+    
+    <!-- Performance: Preload critical CSS -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Performance: DNS prefetch for external image domains -->
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    
+    <title>Premium Wireless Headphones - Product Card</title>
+</head>
+<body>
+    <main class="container">
+        <!-- Semantic HTML structure for accessibility -->
+        <article class="product-card" role="region" aria-labelledby="product-title">
+            <!-- Product image with proper accessibility attributes -->
+            <div class="product-image-container">
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+                    alt="Black wireless headphones with premium finish and comfortable padding"
+                    class="product-image"
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                    decoding="async"
+                >
+                <!-- Accessibility: Loading indicator for screen readers -->
+                <div class="image-loading" aria-hidden="true"></div>
+            </div>
+            
+            <div class="product-content">
+                <!-- Semantic heading structure for accessibility -->
+                <header class="product-header">
+                    <h1 id="product-title" class="product-title">Premium Wireless Headphones</h1>
+                    <p class="product-price" aria-label="Price: $299.99">
+                        <span class="currency" aria-hidden="true">$</span>299.99
+                    </p>
+                </header>
+                
+                <!-- Product description with proper semantic structure -->
+                <section class="product-description" aria-labelledby="description-heading">
+                    <h2 id="description-heading" class="visually-hidden">Product Description</h2>
+                    <p>Experience premium sound quality with our wireless headphones featuring active noise cancellation, 30-hour battery life, and ultra-comfortable design perfect for all-day use.</p>
+                    
+                    <!-- Product features list for better accessibility -->
+                    <ul class="product-features" aria-label="Key features">
+                        <li>Active Noise Cancellation</li>
+                        <li>30-hour battery life</li>
+                        <li>Premium comfort design</li>
+                        <li>High-quality audio drivers</li>
+                    </ul>
+                </section>
+                
+                <!-- Call-to-action section -->
+                <section class="product-actions">
+                    <!-- Accessible button with proper labeling -->
+                    <button 
+                        type="button" 
+                        class="add-to-cart-btn" 
+                        aria-describedby="product-title product-price"
+                        data-product-id="wireless-headphones-001"
+                    >
+                        <span class="btn-text">Add to Cart</span>
+                        <!-- Loading state for better UX -->
+                        <span class="btn-loading" aria-hidden="true"></span>
+                    </button>
+                    
+                    <!-- Secondary action with proper accessibility -->
+                    <button 
+                        type="button" 
+                        class="wishlist-btn" 
+                        aria-label="Add Premium Wireless Headphones to wishlist"
+                        data-product-id="wireless-headphones-001"
+                    >
+                        <span class="heart-icon" aria-hidden="true">♡</span>
+                        <span class="visually-hidden">Add to wishlist</span>
+                    </button>
+                </section>
+            </div>
+        </article>
+    </main>
+    
+    <!-- Performance: Load JavaScript at the end for better page load -->
+    <script src="script.js" defer></script>
+</body>
+</html> 

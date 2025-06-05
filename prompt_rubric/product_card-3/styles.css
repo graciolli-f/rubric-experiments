@@ -1,0 +1,349 @@
+/* Product Card Styles - Following card.rux and base.rux specifications */
+/* Required by: base.rux > CodeStyle > CSS > use design tokens for all values */
+
+/* Base styles and reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* Required by: base.rux > GlobalSpecs > UseDesignTokens > no hardcoded colors */
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  margin: var(--space-0);
+  padding: var(--space-lg);
+  /* Required by: base.rux > Performance > minimize cumulative layout shift */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main container */
+.main-container {
+  /* Required by: base.rux > ResponsiveDesign > mobile-first approach */
+  width: 100%;
+  max-width: var(--width-content);
+  padding: var(--space-md);
+}
+
+/* Card component - Required by: card.rux > Card > Structure */
+.card {
+  /* Required by: base.rux > CodeStyle > CSS > use BEM methodology */
+  /* Required by: card.rux > Visual > rounded corners using var(--radius-md) */
+  border-radius: var(--border-radius-lg);
+  /* Required by: card.rux > Visual > subtle shadow using var(--shadow-sm) */
+  box-shadow: var(--shadow-md);
+  /* Required by: base.rux > GlobalSpecs > UseDesignTokens > no hardcoded colors */
+  background-color: var(--color-background);
+  /* Required by: card.rux > Visual > smooth transitions on interaction */
+  transition: var(--transition-base);
+  overflow: hidden;
+  position: relative;
+  /* Required by: base.rux > Performance > minimize cumulative layout shift */
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Product card variant */
+.card--product {
+  /* Enhanced styling for product cards */
+  border: var(--border-width-thin) solid var(--color-secondary-200);
+}
+
+/* Card hover effects - Required by: card.rux > States > hover effects for interactive cards */
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--color-primary-300);
+}
+
+/* Media region - Required by: card.rux > Card > Structure > Media */
+.card__media {
+  position: relative;
+  overflow: hidden;
+  /* Required by: card.rux > Media > maintain aspect ratio */
+  aspect-ratio: 4/3;
+}
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Required by: card.rux > Visual > smooth transitions on interaction */
+  transition: var(--transition-transform);
+}
+
+/* Creative enhancement - Required by: card.rux > ProductCard > Creative > image zoom on hover */
+.card:hover .card__image {
+  transform: scale(1.05);
+}
+
+/* Body region - Required by: card.rux > Card > Structure > Body */
+.card__body {
+  padding: var(--space-lg);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Product title - Required by: card.rux > ProductCard > product name as heading */
+.card__title {
+  /* Required by: base.rux > GlobalSpecs > UseDesignTokens > no hardcoded typography */
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-heading);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: var(--space-0);
+  margin-bottom: var(--space-sm);
+}
+
+/* Price section - Required by: card.rux > ProductCard > price with currency */
+.card__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.card__price-currency {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.card__price-amount {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-600);
+}
+
+/* Product description */
+.card__description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  margin: var(--space-0);
+  margin-bottom: var(--space-md);
+}
+
+/* Rating section - Enhancement following card.rux recommendations */
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.card__stars {
+  color: var(--color-warning-400);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.card__rating-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Footer region - Required by: card.rux > Card > Structure > Footer */
+.card__footer {
+  padding: var(--space-lg);
+  padding-top: var(--space-0);
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Button components - Required by: card.rux > ProductCard > add to cart action */
+.card__button {
+  /* Required by: base.rux > Accessibility > minimum touch target 44x44px */
+  min-height: var(--height-button);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  position: relative;
+  /* Required by: card.rux > Visual > smooth transitions on interaction */
+  transition: var(--transition-colors);
+  border: var(--border-width-base) solid transparent;
+  /* Required by: base.rux > Accessibility > keyboard navigable */
+  /* Required by: base.rux > Accessibility > visible focus indicators using outline */
+}
+
+.card__button:focus {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Primary button - Add to Cart */
+.card__button--primary {
+  background-color: var(--color-primary-600);
+  color: var(--color-text-inverse);
+  flex: 1;
+  min-width: 120px;
+}
+
+.card__button--primary:hover {
+  background-color: var(--color-primary-700);
+  transform: translateY(-1px);
+}
+
+.card__button--primary:active {
+  background-color: var(--color-primary-800);
+  transform: translateY(0);
+}
+
+/* Secondary button - Quick View */
+.card__button--secondary {
+  background-color: transparent;
+  color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.card__button--secondary:hover {
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-700);
+  color: var(--color-primary-700);
+}
+
+/* Loading spinner for async operations */
+.card__button-spinner {
+  width: var(--height-icon-sm);
+  height: var(--height-icon-sm);
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: var(--border-radius-full);
+  animation: spin var(--duration-slow) linear infinite;
+  opacity: var(--opacity-0);
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+/* Show spinner when button is in loading state */
+.card__button--loading .card__button-text {
+  opacity: var(--opacity-0);
+}
+
+.card__button--loading .card__button-spinner {
+  opacity: var(--opacity-100);
+}
+
+/* Discount badge - Enhancement following card.rux recommendations */
+.card__badge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: linear-gradient(135deg, var(--color-error-500), var(--color-error-600));
+  color: var(--color-text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  box-shadow: var(--shadow-sm);
+  /* Creative animation */
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Keyframe animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive design - Required by: base.rux > ResponsiveDesign > mobile-first approach */
+@media (max-width: var(--breakpoint-sm)) {
+  .main-container {
+    padding: var(--space-sm);
+  }
+  
+  .card {
+    max-width: 100%;
+  }
+  
+  .card__body {
+    padding: var(--space-md);
+  }
+  
+  .card__footer {
+    padding: var(--space-md);
+    padding-top: var(--space-0);
+    flex-direction: column;
+  }
+  
+  .card__button--secondary {
+    order: 2;
+  }
+}
+
+/* Larger screens enhancements */
+@media (min-width: var(--breakpoint-md)) {
+  .card {
+    max-width: 420px;
+  }
+  
+  /* Enhanced hover effects for larger screens */
+  .card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Reduced motion preferences - Required by: base.rux > StateManagement > reduced motion for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card__image,
+  .card__button,
+  .card__badge {
+    transition: none;
+    animation: none;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+  
+  .card:hover .card__image {
+    transform: none;
+  }
+  
+  .card__button:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border-width: var(--border-width-base);
+    border-color: var(--color-text-primary);
+  }
+  
+  .card__button--primary {
+    border-color: var(--color-primary-600);
+  }
+} 

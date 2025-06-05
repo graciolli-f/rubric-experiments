@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security: Content Security Policy to prevent XSS attacks -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data: https:;">
+    <!-- Performance: DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    <!-- Performance: Preload critical CSS -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <title>Premium Wireless Headphones - Product Card</title>
+    <!-- SEO: Meta description for search engines -->
+    <meta name="description" content="Premium wireless headphones with noise cancellation, 30-hour battery life, and superior sound quality.">
+</head>
+<body>
+    <!-- Main landmark for screen readers -->
+    <main class="container" role="main">
+        <!-- Product card with semantic structure -->
+        <article class="product-card" itemscope itemtype="https://schema.org/Product">
+            <!-- Product image with proper alt text and lazy loading for performance -->
+            <div class="product-image-container">
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center"
+                    alt="Premium black wireless headphones with padded ear cups and adjustable headband"
+                    class="product-image"
+                    loading="lazy"
+                    itemprop="image"
+                    width="400"
+                    height="300"
+                >
+                <!-- Loading placeholder for better UX -->
+                <div class="image-loading" aria-hidden="true"></div>
+            </div>
+            
+            <!-- Product information with structured data -->
+            <div class="product-info">
+                <header class="product-header">
+                    <h1 class="product-title" itemprop="name">Premium Wireless Headphones</h1>
+                    <div class="product-rating" role="img" aria-label="4.5 out of 5 stars rating">
+                        <span class="stars" aria-hidden="true">★★★★☆</span>
+                        <span class="rating-text">(4.5/5 - 128 reviews)</span>
+                    </div>
+                </header>
+                
+                <!-- Product description with structured content -->
+                <div class="product-description" itemprop="description">
+                    <p>Experience exceptional sound quality with our premium wireless headphones featuring active noise cancellation, 30-hour battery life, and premium comfort padding.</p>
+                    
+                    <!-- Key features list for accessibility -->
+                    <ul class="features-list" aria-label="Key product features">
+                        <li>Active Noise Cancellation</li>
+                        <li>30-hour Battery Life</li>
+                        <li>Premium Comfort Padding</li>
+                        <li>Bluetooth 5.0 Connectivity</li>
+                    </ul>
+                </div>
+                
+                <!-- Price information with structured data -->
+                <div class="product-pricing" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                    <span class="current-price" itemprop="price" content="199.99">$199.99</span>
+                    <span class="original-price" aria-label="Original price">$249.99</span>
+                    <span class="discount-badge" aria-label="20% discount">20% OFF</span>
+                    <meta itemprop="priceCurrency" content="USD">
+                    <meta itemprop="availability" content="https://schema.org/InStock">
+                </div>
+                
+                <!-- Action buttons with proper accessibility -->
+                <div class="product-actions">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary add-to-cart-btn"
+                        aria-describedby="product-title"
+                        data-product-id="premium-headphones"
+                        data-product-name="Premium Wireless Headphones"
+                        data-product-price="199.99"
+                    >
+                        <span class="btn-icon" aria-hidden="true">🛒</span>
+                        Add to Cart
+                    </button>
+                    
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary wishlist-btn"
+                        aria-label="Add Premium Wireless Headphones to wishlist"
+                        data-product-id="premium-headphones"
+                    >
+                        <span class="btn-icon" aria-hidden="true">♡</span>
+                        Wishlist
+                    </button>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Success message for user feedback (initially hidden) -->
+        <div 
+            id="success-message" 
+            class="success-message" 
+            role="alert" 
+            aria-live="polite" 
+            aria-hidden="true"
+        >
+            <span class="success-icon" aria-hidden="true">✓</span>
+            <span class="success-text"></span>
+        </div>
+    </main>
+    
+    <!-- Load JavaScript after DOM content for performance -->
+    <script src="script.js" defer></script>
+</body>
+</html> 

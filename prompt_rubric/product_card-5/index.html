@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- RUX COMPLIANCE: Product card following card.rux specifications -->
+    <!-- Required: semantic HTML structure, accessibility, and proper component regions -->
+    
+    <main class="product-demo">
+        <article class="card card--product" role="article" aria-labelledby="product-title" data-testid="product-card">
+            <!-- Media region: Required for ProductCard variant -->
+            <div class="card__media">
+                <!-- Required: Product image with proper alt text, dimensions, and lazy loading -->
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center"
+                    alt="Premium wireless headphones in matte black finish with adjustable headband and cushioned ear cups"
+                    width="400"
+                    height="300"
+                    loading="lazy"
+                    class="card__image"
+                />
+                <!-- Optional enhancement: Discount badge as per rubric -->
+                <div class="card__badge" aria-label="20% discount">
+                    <span class="card__badge-text">20% OFF</span>
+                </div>
+            </div>
+            
+            <!-- Body region: Required primary content area -->
+            <div class="card__body">
+                <!-- Required: Product name as heading with proper hierarchy -->
+                <h2 id="product-title" class="card__title">Premium Wireless Headphones</h2>
+                
+                <!-- Product description for better UX -->
+                <p class="card__description">
+                    Experience crystal-clear audio with our premium wireless headphones featuring 
+                    active noise cancellation and 30-hour battery life.
+                </p>
+                
+                <!-- Required: Price with currency, accessible to screen readers -->
+                <div class="card__price-container">
+                    <span class="card__price-original" aria-label="Original price">$199.99</span>
+                    <span class="card__price-current" aria-label="Current price">$159.99</span>
+                </div>
+                
+                <!-- Optional enhancement: Product rating -->
+                <div class="card__rating" role="img" aria-label="4.5 out of 5 stars">
+                    <div class="card__stars">
+                        <span class="card__star card__star--filled">★</span>
+                        <span class="card__star card__star--filled">★</span>
+                        <span class="card__star card__star--filled">★</span>
+                        <span class="card__star card__star--filled">★</span>
+                        <span class="card__star card__star--half">★</span>
+                    </div>
+                    <span class="card__rating-text">(4.5) • 128 reviews</span>
+                </div>
+            </div>
+            
+            <!-- Footer region: Actions and supplementary info -->
+            <div class="card__footer">
+                <!-- Required: Add to cart action with descriptive text including product name and price -->
+                <button 
+                    type="button" 
+                    class="card__button card__button--primary"
+                    aria-label="Add Premium Wireless Headphones to cart for $159.99"
+                    data-testid="add-to-cart-button"
+                    data-product-id="headphones-001"
+                    data-product-name="Premium Wireless Headphones"
+                    data-product-price="159.99"
+                >
+                    <span class="card__button-text">Add to Cart</span>
+                    <span class="card__button-icon" aria-hidden="true">🛒</span>
+                </button>
+                
+                <!-- Optional enhancement: Quick view and wishlist actions -->
+                <div class="card__actions-secondary">
+                    <button 
+                        type="button" 
+                        class="card__button card__button--secondary"
+                        aria-label="Quick view Premium Wireless Headphones"
+                        data-testid="quick-view-button"
+                    >
+                        Quick View
+                    </button>
+                    <button 
+                        type="button" 
+                        class="card__button card__button--icon"
+                        aria-label="Add Premium Wireless Headphones to wishlist"
+                        data-testid="wishlist-button"
+                    >
+                        <span aria-hidden="true">♡</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Loading state overlay (initially hidden) -->
+            <div class="card__loading" role="status" aria-live="polite" aria-hidden="true">
+                <div class="card__spinner"></div>
+                <span class="card__loading-text">Adding to cart...</span>
+            </div>
+        </article>
+    </main>
+    
+    <!-- JavaScript for interactivity -->
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- RUX INFO: Product card implementation following card.rux > ProductCard specifications -->
+    <main class="main-container">
+        <!-- Required by: card.rux > Card > Structure > Container -->
+        <!-- Using semantic article element with role and accessible name via aria-label -->
+        <article class="card card--product" role="article" aria-label="Premium Wireless Headphones product">
+            
+            <!-- Required by: card.rux > ProductCard > product image in media region -->
+            <div class="card__media">
+                <!-- Required by: base.rux > Accessibility > meaningful alt text for images -->
+                <!-- Required by: base.rux > Performance > explicit width and height attributes -->
+                <!-- Required by: base.rux > Performance > lazy loading for below-fold images -->
+                <img 
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format" 
+                    alt="Premium wireless headphones in black color with modern design"
+                    width="400" 
+                    height="300"
+                    loading="lazy"
+                    class="card__image"
+                >
+                <!-- RUX INFO: Could add image zoom on hover here -->
+                <!-- Suggested by: card.rux > ProductCard > Creative > image zoom on hover -->
+            </div>
+            
+            <!-- Required by: card.rux > Card > Structure > Body -->
+            <div class="card__body">
+                <!-- Required by: card.rux > ProductCard > product name as heading -->
+                <!-- Required by: base.rux > Accessibility > logical heading hierarchy -->
+                <h2 class="card__title">Premium Wireless Headphones</h2>
+                
+                <!-- Required by: card.rux > ProductCard > price with currency -->
+                <!-- Required by: card.rux > ProductCard > Accessibility > price readable by screen readers -->
+                <div class="card__price" aria-label="Price: $299.99">
+                    <span class="card__price-currency" aria-hidden="true">$</span>
+                    <span class="card__price-amount">299.99</span>
+                </div>
+                
+                <!-- Product description for better user experience -->
+                <p class="card__description">
+                    Experience crystal-clear sound with our premium wireless headphones. 
+                    Featuring active noise cancellation and 30-hour battery life.
+                </p>
+                
+                <!-- RUX INFO: Could add product rating here -->
+                <!-- Suggested by: card.rux > ProductCard > Enhancements > product rating -->
+                <div class="card__rating" aria-label="Customer rating: 4.5 out of 5 stars">
+                    <div class="card__stars" role="img" aria-hidden="true">
+                        ★★★★★
+                    </div>
+                    <span class="card__rating-text">(4.5/5 from 128 reviews)</span>
+                </div>
+            </div>
+            
+            <!-- Required by: card.rux > Card > Structure > Footer -->
+            <div class="card__footer">
+                <!-- Required by: card.rux > ProductCard > add to cart action -->
+                <!-- Required by: card.rux > ProductCard > Accessibility > button includes product name and price -->
+                <!-- Required by: base.rux > Accessibility > minimum touch target 44x44px -->
+                <!-- Required by: base.rux > Accessibility > keyboard navigable -->
+                <button 
+                    type="button" 
+                    class="card__button card__button--primary"
+                    aria-label="Add Premium Wireless Headphones to cart for $299.99"
+                    data-testid="add-to-cart-button"
+                    data-product-id="headphones-001"
+                    data-product-name="Premium Wireless Headphones"
+                    data-product-price="299.99"
+                >
+                    <span class="card__button-text">Add to Cart</span>
+                    <!-- Loading state indicator for async operations -->
+                    <span class="card__button-spinner" aria-hidden="true" role="status"></span>
+                </button>
+                
+                <!-- RUX INFO: Could add quick view action here -->
+                <!-- Suggested by: card.rux > ProductCard > Enhancements > quick view action -->
+                <button 
+                    type="button" 
+                    class="card__button card__button--secondary"
+                    aria-label="Quick view Premium Wireless Headphones details"
+                    data-testid="quick-view-button"
+                >
+                    Quick View
+                </button>
+            </div>
+            
+            <!-- RUX INFO: Could add discount badge here -->
+            <!-- Suggested by: card.rux > ProductCard > Enhancements > discount badge -->
+            <div class="card__badge" aria-label="20% discount available">
+                <span class="card__badge-text">20% OFF</span>
+            </div>
+            
+        </article>
+    </main>
+    
+    <!-- Required by: JavaScript functionality -->
+    <script src="script.js"></script>
+</body>
+</html> 
