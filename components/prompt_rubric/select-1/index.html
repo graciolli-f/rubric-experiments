@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Components - Generated from .rubric specifications</title>
+  
+  <!-- Design tokens and component styles -->
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="select.css">
+  
+  <style>
+    /* Demo page styling using design tokens */
+    body {
+      font-family: var(--font-family-base);
+      line-height: var(--line-height-base);
+      color: var(--color-text-primary);
+      background-color: var(--color-background);
+      margin: 0;
+      padding: var(--space-lg);
+    }
+    
+    .demo-container {
+      max-width: var(--width-container);
+      margin: 0 auto;
+    }
+    
+    .demo-section {
+      margin-bottom: var(--space-4xl);
+      padding: var(--space-xl);
+      border: var(--border-width-base) var(--border-style-solid) var(--color-secondary-200);
+      border-radius: var(--border-radius-lg);
+      background-color: var(--color-surface);
+    }
+    
+    .demo-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-lg);
+      color: var(--color-primary-700);
+    }
+    
+    .demo-subtitle {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-md);
+      color: var(--color-text-primary);
+    }
+    
+    .demo-description {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .demo-example {
+      margin-bottom: var(--space-xl);
+      padding: var(--space-lg);
+      border: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+      border-radius: var(--border-radius-base);
+      background-color: var(--color-background);
+    }
+    
+    .code-preview {
+      background-color: var(--color-secondary-50);
+      border: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+      border-radius: var(--border-radius-base);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-sm);
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Include SVG icons -->
+  <div id="svg-icons"></div>
+  
+  <div class="demo-container">
+    <header>
+      <h1 class="demo-title">Select Components</h1>
+      <p class="demo-description">
+        Comprehensive select components generated from .rubric specifications with full accessibility, 
+        keyboard navigation, and multiple variants. All components follow WCAG 2.1 AA guidelines and 
+        include progressive enhancement with native select fallbacks.
+      </p>
+    </header>
+    
+    <!-- Basic Select -->
+    <section class="demo-section">
+      <h2 class="demo-subtitle">Basic Select</h2>
+      <p class="demo-description">
+        Simple single selection with accessibility features, keyboard navigation, and form integration.
+      </p>
+      
+      <div class="demo-example">
+        <!-- RUX COMPLIANCE: All required elements from select.rux specification -->
+        <div class="select" data-testid="select-country">
+          <!-- Native fallback for accessibility and progressive enhancement -->
+          <select class="select__native sr-only" name="country" id="country-native" required>
+            <option value="">Select a country</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="fr">France</option>
+            <option value="de">Germany</option>
+            <option value="jp">Japan</option>
+          </select>
+          
+          <!-- Enhanced select with proper ARIA attributes -->
+          <label for="country-trigger" class="select__label">
+            Country <span class="required" aria-label="required">*</span>
+          </label>
+          
+          <button type="button" 
+                  class="select__trigger" 
+                  id="country-trigger"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-controls="country-listbox"
+                  aria-labelledby="country-label"
+                  aria-describedby="country-help"
+                  data-testid="select-trigger">
+            <span class="select__value select__value--placeholder">Select a country</span>
+            <svg class="select__arrow" aria-hidden="true">
+              <use href="#icon-chevron-down"></use>
+            </svg>
+          </button>
+          
+          <div class="select__dropdown" 
+               id="country-listbox" 
+               role="listbox"
+               aria-hidden="true"
+               data-testid="select-dropdown">
+            <div class="select__option" 
+                 role="option" 
+                 aria-selected="false" 
+                 data-value="us"
+                 data-testid="select-option-0">
+              United States
+            </div>
+            <div class="select__option" 
+                 role="option" 
+                 aria-selected="false" 
+                 data-value="ca"
+                 data-testid="select-option-1">
+              Canada
+            </div>
+            <div class="select__option" 
+                 role="option" 
+                 aria-selected="false" 
+                 data-value="uk"
+                 data-testid="select-option-2">
+              United Kingdom
+            </div>
+            <div class="select__option" 
+                 role="option" 
+                 aria-selected="false" 
+                 data-value="fr"
+                 data-testid="select-option-3">
+              France
+            </div>
+            <div class="select__option" 
+                 role="option" 
+                 aria-selected="false" 
+                 data-value="de"
+                 data-testid="select-option-4">
+              Germany
+            </div>
+            <div class="select__option" 
+                 role="option" 
+                 aria-selected="false" 
+                 data-value="jp"
+                 data-testid="select-option-5">
+              Japan
+            </div>
+          </div>
+          
+          <!-- Hidden input for form submission -->
+          <input type="hidden" name="country" class="select__input" value="">
+          
+          <div id="country-help" class="select__help">
+            Choose your primary country of residence
+          </div>
+          
+          <div id="country-error" class="select__error" role="alert" aria-live="polite">
+            <!-- Error messages appear here dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Multi-Select -->
+    <section class="demo-section">
+      <h2 class="demo-subtitle">Multi-Select</h2>
+      <p class="demo-description">
+        Multiple option selection with selection chips, remove buttons, and bulk actions.
+      </p>
+      
+      <div class="demo-example">
+        <div class="select select--multi" data-testid="select-tags">
+          <!-- Native multi-select fallback -->
+          <select class="select__native sr-only" name="tags[]" id="tags-native" multiple>
+            <option value="design">Design</option>
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+            <option value="mobile">Mobile</option>
+            <option value="devops">DevOps</option>
+            <option value="testing">Testing</option>
+          </select>
+          
+          <label for="tags-trigger" class="select__label">Project Tags</label>
+          
+          <!-- Selected items display area -->
+          <div class="select__selections" aria-live="polite" aria-label="Selected tags">
+            <!-- Selection chips appear here dynamically -->
+          </div>
+          
+          <button type="button" 
+                  class="select__trigger" 
+                  id="tags-trigger"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-multiselectable="true"
+                  aria-controls="tags-listbox"
+                  data-testid="select-trigger">
+            <span class="select__value select__value--placeholder">Add tags...</span>
+            <span class="select__count" aria-label="0 tags selected">0</span>
+            <svg class="select__arrow" aria-hidden="true">
+              <use href="#icon-chevron-down"></use>
+            </svg>
+          </button>
+          
+          <div class="select__dropdown" id="tags-listbox" role="listbox" aria-hidden="true">
+            <!-- Bulk action buttons -->
+            <div class="select__actions">
+              <button type="button" class="select__action" data-action="select-all">Select All</button>
+              <button type="button" class="select__action" data-action="clear-all">Clear All</button>
+            </div>
+            
+            <div class="select__options">
+              <div class="select__option" role="option" aria-selected="false" data-value="design">
+                <svg class="select__option-check" aria-hidden="true">
+                  <use href="#icon-check"></use>
+                </svg>
+                Design
+              </div>
+              <div class="select__option" role="option" aria-selected="false" data-value="frontend">
+                <svg class="select__option-check" aria-hidden="true">
+                  <use href="#icon-check"></use>
+                </svg>
+                Frontend
+              </div>
+              <div class="select__option" role="option" aria-selected="false" data-value="backend">
+                <svg class="select__option-check" aria-hidden="true">
+                  <use href="#icon-check"></use>
+                </svg>
+                Backend
+              </div>
+              <div class="select__option" role="option" aria-selected="false" data-value="mobile">
+                <svg class="select__option-check" aria-hidden="true">
+                  <use href="#icon-check"></use>
+                </svg>
+                Mobile
+              </div>
+              <div class="select__option" role="option" aria-selected="false" data-value="devops">
+                <svg class="select__option-check" aria-hidden="true">
+                  <use href="#icon-check"></use>
+                </svg>
+                DevOps
+              </div>
+              <div class="select__option" role="option" aria-selected="false" data-value="testing">
+                <svg class="select__option-check" aria-hidden="true">
+                  <use href="#icon-check"></use>
+                </svg>
+                Testing
+              </div>
+            </div>
+          </div>
+          
+          <input type="hidden" name="tags" class="select__input" value="">
+          
+          <div class="select__help">
+            Select multiple tags that apply to your project
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Searchable Select -->
+    <section class="demo-section">
+      <h2 class="demo-subtitle">Searchable Select</h2>
+      <p class="demo-description">
+        Select with search functionality, filtering, and rich option content.
+      </p>
+      
+      <div class="demo-example">
+        <div class="select select--searchable" data-testid="select-users">
+          <!-- Native select fallback -->
+          <select class="select__native sr-only" name="assignee" id="users-native">
+            <option value="">Choose assignee</option>
+            <option value="alice">Alice Johnson</option>
+            <option value="bob">Bob Smith</option>
+            <option value="carol">Carol Davis</option>
+            <option value="david">David Wilson</option>
+          </select>
+          
+          <label for="user-trigger" class="select__label">Assign to User</label>
+          
+          <button type="button" 
+                  class="select__trigger" 
+                  id="user-trigger"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-controls="user-listbox"
+                  data-testid="select-trigger">
+            <span class="select__value select__value--placeholder">Search users...</span>
+            <svg class="select__arrow" aria-hidden="true">
+              <use href="#icon-search"></use>
+            </svg>
+          </button>
+          
+          <div class="select__dropdown" 
+               id="user-listbox" 
+               role="listbox"
+               aria-hidden="true">
+            <!-- Search input with clear button -->
+            <div class="select__search-wrapper">
+              <input type="text" 
+                     class="select__search" 
+                     placeholder="Type to search users..."
+                     aria-label="Search users"
+                     data-testid="select-search">
+              <button type="button" class="select__search-clear" aria-label="Clear search">
+                <svg aria-hidden="true">
+                  <use href="#icon-x"></use>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Rich option content with avatars and details -->
+            <div class="select__options" role="group" aria-label="User options">
+              <div class="select__option" role="option" aria-selected="false" data-value="alice">
+                <div class="select__option-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-right: var(--space-sm);">
+                  AJ
+                </div>
+                <div class="select__option-content">
+                  <div class="select__option-name">Alice Johnson</div>
+                  <div class="select__option-email">alice@company.com</div>
+                </div>
+              </div>
+              
+              <div class="select__option" role="option" aria-selected="false" data-value="bob">
+                <div class="select__option-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-right: var(--space-sm);">
+                  BS
+                </div>
+                <div class="select__option-content">
+                  <div class="select__option-name">Bob Smith</div>
+                  <div class="select__option-email">bob@company.com</div>
+                </div>
+              </div>
+              
+              <div class="select__option" role="option" aria-selected="false" data-value="carol">
+                <div class="select__option-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-right: var(--space-sm);">
+                  CD
+                </div>
+                <div class="select__option-content">
+                  <div class="select__option-name">Carol Davis</div>
+                  <div class="select__option-email">carol@company.com</div>
+                </div>
+              </div>
+              
+              <div class="select__option" role="option" aria-selected="false" data-value="david">
+                <div class="select__option-avatar" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-right: var(--space-sm);">
+                  DW
+                </div>
+                <div class="select__option-content">
+                  <div class="select__option-name">David Wilson</div>
+                  <div class="select__option-email">david@company.com</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- No results state -->
+            <div class="select__no-results" role="status" aria-live="polite" style="display: none;">
+              No users found matching your search
+            </div>
+          </div>
+          
+          <input type="hidden" name="assignee" class="select__input" value="">
+          
+          <div class="select__help">
+            Search and select a user to assign this task
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Grouped Select -->
+    <section class="demo-section">
+      <h2 class="demo-subtitle">Grouped Select</h2>
+      <p class="demo-description">
+        Options organized in logical groups with proper semantic structure.
+      </p>
+      
+      <div class="demo-example">
+        <div class="select" data-testid="select-skills">
+          <select class="select__native sr-only" name="skill" id="skills-native">
+            <option value="">Select a skill</option>
+            <optgroup label="Frontend">
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="javascript">JavaScript</option>
+              <option value="react">React</option>
+              <option value="vue">Vue.js</option>
+            </optgroup>
+            <optgroup label="Backend">
+              <option value="node">Node.js</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="php">PHP</option>
+            </optgroup>
+            <optgroup label="Database">
+              <option value="mysql">MySQL</option>
+              <option value="postgresql">PostgreSQL</option>
+              <option value="mongodb">MongoDB</option>
+            </optgroup>
+          </select>
+          
+          <label for="skills-trigger" class="select__label">Primary Skill</label>
+          
+          <button type="button" 
+                  class="select__trigger" 
+                  id="skills-trigger"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-controls="skills-listbox">
+            <span class="select__value select__value--placeholder">Select your primary skill</span>
+            <svg class="select__arrow" aria-hidden="true">
+              <use href="#icon-chevron-down"></use>
+            </svg>
+          </button>
+          
+          <div class="select__dropdown" 
+               id="skills-listbox" 
+               role="listbox"
+               aria-hidden="true">
+            
+            <!-- Frontend Group -->
+            <div class="select__group">
+              <div class="select__group-header">Frontend</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="html">HTML</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="css">CSS</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="javascript">JavaScript</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="react">React</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="vue">Vue.js</div>
+            </div>
+            
+            <!-- Backend Group -->
+            <div class="select__group">
+              <div class="select__group-header">Backend</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="node">Node.js</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="python">Python</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="java">Java</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="php">PHP</div>
+            </div>
+            
+            <!-- Database Group -->
+            <div class="select__group">
+              <div class="select__group-header">Database</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="mysql">MySQL</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="postgresql">PostgreSQL</div>
+              <div class="select__option" role="option" aria-selected="false" data-value="mongodb">MongoDB</div>
+            </div>
+          </div>
+          
+          <input type="hidden" name="skill" class="select__input" value="">
+          
+          <div class="select__help">
+            Select the skill you're most proficient in
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- States Demo -->
+    <section class="demo-section">
+      <h2 class="demo-subtitle">Component States</h2>
+      <p class="demo-description">
+        Demonstration of various component states including disabled, invalid, and loading.
+      </p>
+      
+      <div class="demo-example">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg);">
+          
+          <!-- Disabled State -->
+          <div class="select select--disabled">
+            <label for="disabled-trigger" class="select__label">Disabled Select</label>
+            <button type="button" 
+                    class="select__trigger" 
+                    id="disabled-trigger"
+                    disabled
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-haspopup="listbox">
+              <span class="select__value select__value--placeholder">Cannot interact</span>
+              <svg class="select__arrow" aria-hidden="true">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Invalid State -->
+          <div class="select select--invalid">
+            <label for="invalid-trigger" class="select__label">
+              Required Field <span class="required">*</span>
+            </label>
+            <button type="button" 
+                    class="select__trigger" 
+                    id="invalid-trigger"
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-invalid="true"
+                    aria-describedby="invalid-error">
+              <span class="select__value select__value--placeholder">Please select an option</span>
+              <svg class="select__arrow" aria-hidden="true">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+            <div id="invalid-error" class="select__error" role="alert">
+              This field is required
+            </div>
+          </div>
+          
+          <!-- Loading State -->
+          <div class="select select--loading">
+            <label for="loading-trigger" class="select__label">Loading Options</label>
+            <button type="button" 
+                    class="select__trigger" 
+                    id="loading-trigger"
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-busy="true">
+              <span class="select__value select__value--placeholder">Loading...</span>
+              <!-- Loading spinner added via CSS -->
+            </button>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    
+    <!-- Accessibility Information -->
+    <section class="demo-section">
+      <h2 class="demo-subtitle">Accessibility Features</h2>
+      <p class="demo-description">
+        These select components implement comprehensive accessibility features:
+      </p>
+      
+      <ul style="list-style-type: disc; padding-left: var(--space-lg); color: var(--color-text-secondary);">
+        <li><strong>Keyboard Navigation:</strong> Full arrow key navigation, Enter/Space to select, Escape to close</li>
+        <li><strong>Screen Reader Support:</strong> Proper ARIA attributes, live regions for announcements</li>
+        <li><strong>Focus Management:</strong> Visible focus indicators, logical tab order, focus trapping in dropdowns</li>
+        <li><strong>Progressive Enhancement:</strong> Native select fallback for JavaScript failures</li>
+        <li><strong>Touch Friendly:</strong> Minimum 44x44px touch targets, mobile-optimized interactions</li>
+        <li><strong>High Contrast:</strong> Supports high contrast mode and custom color schemes</li>
+        <li><strong>Reduced Motion:</strong> Respects prefers-reduced-motion user preference</li>
+        <li><strong>Form Integration:</strong> Proper form validation, hidden inputs for submission</li>
+      </ul>
+    </section>
+  </div>
+  
+  <!-- Load icons and JavaScript -->
+  <script>
+    // Load SVG icons
+    fetch('icons.svg')
+      .then(response => response.text())
+      .then(svg => {
+        document.getElementById('svg-icons').innerHTML = svg;
+      });
+  </script>
+  
+  <script src="select.js"></script>
+  
+  <script>
+    // Demo functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Log select component events
+      document.addEventListener('change', function(e) {
+        if (e.target.closest('.select')) {
+          console.log('Select changed:', e.detail);
+        }
+      });
+      
+      // Demo reset buttons
+      const resetButtons = document.querySelectorAll('[data-action="reset"]');
+      resetButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const select = this.closest('.demo-example').querySelector('.select');
+          const component = select.selectComponent;
+          if (component) {
+            component.reset();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

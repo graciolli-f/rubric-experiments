@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Components</title>
+    <link rel="stylesheet" href="buttons.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Button Component Library</h1>
+        
+        <!-- Primary Buttons -->
+        <section class="button-section">
+            <h2>Primary Buttons</h2>
+            <div class="button-group">
+                <button type="button" class="btn btn--primary">
+                    Save Changes
+                </button>
+                
+                <!-- Primary button with icon - following rubric example structure -->
+                <button type="submit" class="btn btn--primary">
+                    <svg class="btn__icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    Create Account
+                </button>
+                
+                <!-- Loading state button - following rubric validation checklist -->
+                <button type="button" class="btn btn--primary" disabled aria-describedby="btn-loading">
+                    <span class="btn__spinner" aria-hidden="true"></span>
+                    Saving...
+                </button>
+                <div id="btn-loading" class="sr-only">Please wait, saving your changes</div>
+            </div>
+        </section>
+        
+        <!-- Secondary Buttons -->
+        <section class="button-section">
+            <h2>Secondary Buttons</h2>
+            <div class="button-group">
+                <button type="button" class="btn btn--secondary">
+                    Cancel
+                </button>
+                
+                <button type="button" class="btn btn--secondary">
+                    <svg class="btn__icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Confirm
+                </button>
+            </div>
+        </section>
+        
+        <!-- Danger Buttons -->
+        <section class="button-section">
+            <h2>Danger Buttons</h2>
+            <div class="button-group">
+                <button type="button" class="btn btn--danger">
+                    Delete Account
+                </button>
+                
+                <!-- Danger button with confirmation behavior as mentioned in rubric -->
+                <button type="button" class="btn btn--danger" data-confirm="Are you sure you want to delete this item?">
+                    <svg class="btn__icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                    </svg>
+                    Remove
+                </button>
+            </div>
+        </section>
+        
+        <!-- Ghost Buttons -->
+        <section class="button-section">
+            <h2>Ghost Buttons</h2>
+            <div class="button-group">
+                <button type="button" class="btn btn--ghost">
+                    Learn More
+                </button>
+                
+                <!-- Icon-only ghost button - following rubric example -->
+                <button type="button" class="btn btn--ghost btn--icon" aria-label="Close dialog">
+                    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+        
+        <!-- Icon Buttons -->
+        <section class="button-section">
+            <h2>Icon Buttons</h2>
+            <div class="button-group">
+                <!-- Square aspect ratio icon buttons as specified in rubric -->
+                <button type="button" class="btn btn--icon btn--primary" aria-label="Favorite this item">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
+                
+                <button type="button" class="btn btn--icon btn--secondary" aria-label="Share this content">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                    </svg>
+                </button>
+                
+                <button type="button" class="btn btn--icon btn--danger" aria-label="Delete item">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+        
+        <!-- Floating Action Button -->
+        <section class="button-section">
+            <h2>Floating Action Button</h2>
+            <div class="button-group">
+                <!-- Circular FAB with fixed positioning capability -->
+                <button type="button" class="btn btn--fab" aria-label="Add new item">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+        
+        <!-- Disabled States -->
+        <section class="button-section">
+            <h2>Disabled States</h2>
+            <div class="button-group">
+                <button type="button" class="btn btn--primary" disabled>
+                    Primary Disabled
+                </button>
+                
+                <button type="button" class="btn btn--secondary" disabled>
+                    Secondary Disabled
+                </button>
+                
+                <button type="button" class="btn btn--danger" disabled>
+                    Danger Disabled
+                </button>
+                
+                <button type="button" class="btn btn--ghost" disabled>
+                    Ghost Disabled
+                </button>
+            </div>
+        </section>
+        
+        <!-- Button Sizes -->
+        <section class="button-section">
+            <h2>Button Sizes</h2>
+            <div class="button-group">
+                <button type="button" class="btn btn--primary btn--sm">
+                    Small
+                </button>
+                
+                <button type="button" class="btn btn--primary">
+                    Default
+                </button>
+                
+                <button type="button" class="btn btn--primary btn--lg">
+                    Large
+                </button>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Screen reader only content for announcements -->
+    <div class="sr-only" aria-live="polite" id="button-announcements"></div>
+    
+    <!-- Basic JavaScript for enhanced interactions as mentioned in rubric -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent double-click submission as required by rubric validation checklist
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(button => {
+                let clicked = false;
+                
+                button.addEventListener('click', function(e) {
+                    // Handle confirmation dialogs for danger buttons
+                    if (this.hasAttribute('data-confirm')) {
+                        if (!confirm(this.getAttribute('data-confirm'))) {
+                            e.preventDefault();
+                            return;
+                        }
+                    }
+                    
+                    // Prevent double-click for form submission buttons
+                    if (this.type === 'submit' && !clicked) {
+                        clicked = true;
+                        setTimeout(() => clicked = false, 1000); // Reset after 1 second
+                    } else if (this.type === 'submit' && clicked) {
+                        e.preventDefault();
+                    }
+                    
+                    // Add ripple effect for enhanced user feedback
+                    createRipple(e, this);
+                });
+                
+                // Enhanced keyboard support
+                button.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        // Provide immediate visual feedback on keyboard activation
+                        this.classList.add('btn--active');
+                        setTimeout(() => this.classList.remove('btn--active'), 150);
+                    }
+                });
+            });
+            
+            // Ripple effect function for enhanced user feedback
+            function createRipple(event, element) {
+                const button = element;
+                const circle = document.createElement('span');
+                const diameter = Math.max(button.clientWidth, button.clientHeight);
+                const radius = diameter / 2;
+                
+                const rect = button.getBoundingClientRect();
+                circle.style.width = circle.style.height = `${diameter}px`;
+                circle.style.left = `${event.clientX - rect.left - radius}px`;
+                circle.style.top = `${event.clientY - rect.top - radius}px`;
+                circle.classList.add('btn__ripple');
+                
+                const ripple = button.getElementsByClassName('btn__ripple')[0];
+                if (ripple) {
+                    ripple.remove();
+                }
+                
+                button.appendChild(circle);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    if (circle.parentNode) {
+                        circle.parentNode.removeChild(circle);
+                    }
+                }, 600);
+            }
+        });
+    </script>
+</body>
+</html> 

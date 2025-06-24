@@ -1,0 +1,228 @@
+// modal.rux
+// Overlay dialog component for focused interactions
+// Category: Overlay
+
+extends base.rux
+
+Component: Modal
+  Description: "Overlay dialog that interrupts user flow for focused interaction"
+  Category: "overlay"
+  
+  !Structure:
+    !Backdrop:
+      Element: ".modal__backdrop"
+      !covers entire viewport
+      !click to close functionality
+      !prevents interaction with background content
+      
+    !Dialog:
+      Element: "dialog[role='dialog'] | div[role='dialog']"
+      !accessible name via aria-labelledby or aria-label
+      !class naming: "modal modal--{variant}"
+      !centered in viewport
+      !contained within backdrop
+      
+    # Modal regions - header and body required, footer optional
+    !Header:
+      Purpose: "Title and close action"
+      Element: ".modal__header"
+      !heading element for title
+      !close button with aria-label
+      !visually distinct from body
+      
+    !Body:
+      Purpose: "Primary modal content"
+      Element: ".modal__body"
+      !contains main interactive content
+      !scrollable if content overflows
+      !proper content hierarchy
+      
+    ~Footer:
+      Purpose: "Action buttons or supplementary controls"
+      Element: ".modal__footer"
+      ?primary and secondary actions
+      ?aligned appropriately (usually right)
+  
+  !Accessibility:
+    includes: [*base-a11y, *overlay-a11y]
+    
+    ModalSpecific:
+      !aria-modal="true" on dialog element
+      !aria-labelledby pointing to title
+      !aria-describedby pointing to content if needed
+      
+    FocusManagement:
+      !focus moves to modal on open
+      !focus trapped within modal
+      !focus returns to trigger on close
+      !first focusable element receives focus
+      
+    KeyboardNavigation:
+      !Escape key closes modal
+      !Tab cycles through modal content only
+      !Enter activates focused element
+      !arrow keys for custom navigation
+      
+    ScreenReader:
+      !announces modal opening
+      !content readable in logical order
+      !close button clearly labeled
+  
+  !States:
+    !opening animation with proper timing
+    !closing animation before removal
+    !loading state for async content
+    ?error state with retry options
+    ?confirmation before close if unsaved changes
+    
+  !Behavior:
+    Opening:
+      !prevent body scroll
+      !set initial focus appropriately
+      !animate from trigger position or center
+      
+    Closing:
+      !restore body scroll
+      !return focus to trigger
+      !animate to exit position
+      !remove from DOM after animation
+      
+    Interaction:
+      !backdrop click closes modal
+      !close button always accessible
+      !primary action clearly emphasized
+      
+  ~Visual:
+    ~smooth entrance/exit animations
+    ~backdrop blur or darkening
+    ~shadow or elevation effects
+    ~rounded corners using var(--radius-lg)
+    ~creative entrance animations (scale, slide, fade)
+    ~glassmorphism backdrop
+    ~parallax or depth effects
+    ~custom shaped containers
+    
+  Variants:
+    ConfirmationModal:
+      extends: Modal
+      
+      !Required:
+        !clear action description
+        !confirm and cancel buttons
+        !destructive action styling if applicable
+        
+      !Accessibility:
+        !confirm button includes action context
+        !clear consequences described
+        !cancel easily accessible
+        
+      ?Enhancements:
+        ?icon representing action type
+        ?detailed impact explanation
+        ?undo information if applicable
+        
+      ~Creative:
+        ~animated warning icons
+        ~color-coded backgrounds for action type
+        ~countdown for destructive actions
+        ~confirmation input for critical actions
+        
+    FormModal:
+      extends: Modal
+      
+      !Required:
+        !form with proper structure
+        !submit and cancel actions
+        !validation feedback
+        !unsaved changes warning
+        
+      !Accessibility:
+        includes: [*form-a11y]
+        !form errors announced
+        !required fields clearly marked
+        !field relationships clear
+        
+      ?Recommended:
+        ?progress indicator for multi-step
+        ?draft saving capability
+        ?field auto-focus on open
+        
+      ~Creative:
+        ~animated field validation
+        ~progressive disclosure
+        ~smart defaults
+        ~inline help and tips
+        
+    MediaModal:
+      extends: Modal
+      
+      !Required:
+        !media element with controls
+        !loading state for content
+        !alternative close methods
+        
+      !Accessibility:
+        !media has accessible controls
+        !captions available if applicable
+        !keyboard media navigation
+        
+      ?Recommended:
+        ?fullscreen toggle
+        ?zoom and pan controls
+        ?navigation between items
+        ?download option
+        
+      ~Creative:
+        ~cinematic presentation
+        ~gesture controls
+        ~thumbnail navigation
+        ~slideshow mode
+        
+    DrawerModal:
+      extends: Modal
+      
+      !Required:
+        !slides in from edge
+        !partial viewport coverage
+        !maintains backdrop
+        
+      !Accessibility:
+        !clear entry/exit direction
+        !swipe gesture alternative
+        !resize handle if applicable
+        
+      ?Recommended:
+        ?drag to close gesture
+        ?multiple size options
+        ?sticky header/footer
+        
+      ~Creative:
+        ~rubber band physics
+        ~multiple drawer levels
+        ~contextual sizing
+        ~gesture hints
+        
+    NotificationModal:
+      extends: Modal
+      
+      !Required:
+        !clear message hierarchy
+        !appropriate urgency styling
+        !single clear action
+        !auto-dismiss timing
+        
+      !Accessibility:
+        !urgent announcements for errors
+        !polite announcements for info
+        !pause on focus or hover
+        
+      ?Recommended:
+        ?action history access
+        ?snooze or remind options
+        ?related actions grouped
+        
+      ~Creative:
+        ~toast-style presentation
+        ~stacking notifications
+        ~progress indicators
+        ~contextual animations 

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .site-title::before {
+            content: "📝";
+            font-size: 1.5rem;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .profile-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card:nth-child(1) .stat-number { color: #4f46e5; }
+        .stat-card:nth-child(2) .stat-number { color: #10b981; }
+        .stat-card:nth-child(3) .stat-number { color: #f59e0b; }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        /* Posts List */
+        .post-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            gap: 1rem;
+        }
+
+        .post-item:last-child {
+            border-bottom: none;
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-title {
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view { background: #e0f2fe; color: #0277bd; }
+        .btn-edit { background: #f3e5f5; color: #7b1fa2; }
+        .btn-delete { background: #ffebee; color: #c62828; }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Comments List */
+        .comment-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .comment-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .comment-content {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .comment-post {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+                margin: 1rem auto;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .post-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .post-actions {
+                align-self: flex-start;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="site-title">📝 BlogDash</h1>
+            <div class="profile-section">
+                <span>Welcome, John Doe</span>
+                <button class="profile-button" onclick="showProfile()">👤 Profile</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Stats Section -->
+        <div class="stats-section fade-in">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPosts">12</div>
+                <div class="stat-label">Total Posts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalViews">1,247</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalComments">89</div>
+                <div class="stat-label">Total Comments</div>
+            </div>
+        </div>
+
+        <!-- Recent Posts Section -->
+        <div class="section fade-in">
+            <div class="section-header">📄 Recent Posts</div>
+            <div class="section-content">
+                <div id="recentPosts">
+                    <!-- Posts will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Comments Section -->
+        <div class="section fade-in">
+            <div class="section-header">💬 Recent Comments</div>
+            <div class="section-content">
+                <div id="recentComments">
+                    <!-- Comments will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data for the dashboard
+        const mockData = {
+            posts: [
+                {
+                    id: 1,
+                    title: "Getting Started with JavaScript ES6",
+                    date: "2024-01-15",
+                    views: 324,
+                    comments: 12
+                },
+                {
+                    id: 2,
+                    title: "CSS Grid vs Flexbox: When to Use Each",
+                    date: "2024-01-12",
+                    views: 256,
+                    comments: 8
+                },
+                {
+                    id: 3,
+                    title: "Building Responsive Web Applications",
+                    date: "2024-01-10",
+                    views: 189,
+                    comments: 15
+                },
+                {
+                    id: 4,
+                    title: "Understanding Async/Await in JavaScript",
+                    date: "2024-01-08",
+                    views: 298,
+                    comments: 7
+                },
+                {
+                    id: 5,
+                    title: "Modern Web Development Best Practices",
+                    date: "2024-01-05",
+                    views: 180,
+                    comments: 11
+                }
+            ],
+            comments: [
+                {
+                    id: 1,
+                    author: "Sarah Wilson",
+                    content: "Great explanation of ES6 features! This really helped me understand arrow functions better.",
+                    date: "2024-01-16",
+                    postTitle: "Getting Started with JavaScript ES6"
+                },
+                {
+                    id: 2,
+                    author: "Mike Chen",
+                    content: "Could you provide more examples of CSS Grid in practice?",
+                    date: "2024-01-15",
+                    postTitle: "CSS Grid vs Flexbox: When to Use Each"
+                },
+                {
+                    id: 3,
+                    author: "Emily Rodriguez",
+                    content: "Excellent article! The responsive design tips are exactly what I needed.",
+                    date: "2024-01-14",
+                    postTitle: "Building Responsive Web Applications"
+                },
+                {
+                    id: 4,
+                    author: "David Park",
+                    content: "Thanks for the async/await tutorial. Finally makes sense now!",
+                    date: "2024-01-13",
+                    postTitle: "Understanding Async/Await in JavaScript"
+                },
+                {
+                    id: 5,
+                    author: "Lisa Thompson",
+                    content: "These best practices have improved my workflow significantly.",
+                    date: "2024-01-12",
+                    postTitle: "Modern Web Development Best Practices"
+                }
+            ]
+        };
+
+        // Function to format date for display
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Function to render recent posts
+        function renderRecentPosts() {
+            const postsContainer = document.getElementById('recentPosts');
+            
+            // Add loading state comment - necessary for user feedback during data loading
+            postsContainer.innerHTML = '<div class="loading">Loading posts...</div>';
+            
+            // Simulate loading delay for better UX demonstration
+            setTimeout(() => {
+                postsContainer.innerHTML = mockData.posts.map(post => `
+                    <div class="post-item">
+                        <div class="post-info">
+                            <div class="post-title">${post.title}</div>
+                            <div class="post-meta">
+                                <span>📅 ${formatDate(post.date)}</span>
+                                <span>👁️ ${post.views} views</span>
+                                <span>💬 ${post.comments} comments</span>
+                            </div>
+                        </div>
+                        <div class="post-actions">
+                            <button class="btn btn-view" onclick="viewPost(${post.id})">View</button>
+                            <button class="btn btn-edit" onclick="editPost(${post.id})">Edit</button>
+                            <button class="btn btn-delete" onclick="deletePost(${post.id})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }, 500);
+        }
+
+        // Function to render recent comments
+        function renderRecentComments() {
+            const commentsContainer = document.getElementById('recentComments');
+            
+            // Add loading state comment - necessary for user feedback during data loading
+            commentsContainer.innerHTML = '<div class="loading">Loading comments...</div>';
+            
+            // Simulate loading delay for better UX demonstration
+            setTimeout(() => {
+                commentsContainer.innerHTML = mockData.comments.map(comment => `
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author">${comment.author}</span>
+                            <span class="comment-date">${formatDate(comment.date)}</span>
+                        </div>
+                        <div class="comment-content">${comment.content}</div>
+                        <div class="comment-post">on "${comment.postTitle}"</div>
+                    </div>
+                `).join('');
+            }, 700);
+        }
+
+        // Post action functions - these provide functional feedback for the dashboard buttons
+        function viewPost(postId) {
+            const post = mockData.posts.find(p => p.id === postId);
+            alert(`Viewing post: "${post.title}"\n\nThis would navigate to the full post view.`);
+            // Comment: Alert provides immediate feedback; in a real app, this would navigate to the post detail page
+        }
+
+        function editPost(postId) {
+            const post = mockData.posts.find(p => p.id === postId);
+            alert(`Editing post: "${post.title}"\n\nThis would open the post editor.`);
+            // Comment: Alert simulates navigation to edit mode; in a real app, this would open an editor interface
+        }
+
+        function deletePost(postId) {
+            const post = mockData.posts.find(p => p.id === postId);
+            if (confirm(`Are you sure you want to delete "${post.title}"?`)) {
+                // Remove post from mock data to demonstrate functionality
+                const index = mockData.posts.findIndex(p => p.id === postId);
+                mockData.posts.splice(index, 1);
+                
+                // Update stats - necessary to reflect the deletion in the dashboard
+                updateStats();
+                renderRecentPosts();
+                
+                alert('Post deleted successfully!');
+                // Comment: In a real app, this would send a delete request to the server
+            }
+        }
+
+        // Profile function
+        function showProfile() {
+            alert('Profile Settings\n\n• Edit personal information\n• Change password\n• Notification preferences\n• Account settings');
+            // Comment: Alert simulates profile modal; in a real app, this would open a profile management interface
+        }
+
+        // Function to update stats - necessary to keep dashboard metrics current
+        function updateStats() {
+            const totalPosts = mockData.posts.length;
+            const totalViews = mockData.posts.reduce((sum, post) => sum + post.views, 0);
+            const totalComments = mockData.posts.reduce((sum, post) => sum + post.comments, 0);
+
+            // Update with animation for better user experience
+            document.getElementById('totalPosts').textContent = totalPosts;
+            document.getElementById('totalViews').textContent = totalViews.toLocaleString();
+            document.getElementById('totalComments').textContent = totalComments;
+        }
+
+        // Initialize dashboard on page load - necessary to populate all sections with data
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            renderRecentPosts();
+            renderRecentComments();
+            
+            // Add fade-in animation to elements for better visual appeal
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, index * 200);
+            });
+        });
+
+        // Add some interactivity for better user experience
+        document.addEventListener('click', function(e) {
+            // Add ripple effect to buttons - enhances visual feedback
+            if (e.target.classList.contains('btn')) {
+                const button = e.target;
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.5);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+                
+                // Add ripple animation styles - necessary for the visual effect
+                if (!document.getElementById('ripple-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'ripple-styles';
+                    style.textContent = `
+                        @keyframes ripple {
+                            to {
+                                transform: scale(4);
+                                opacity: 0;
+                            }
+                        }
+                        .btn {
+                            position: relative;
+                            overflow: hidden;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                button.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            }
+        });
+    </script>
+</body>
+</html> 

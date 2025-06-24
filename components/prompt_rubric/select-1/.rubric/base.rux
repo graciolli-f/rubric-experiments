@@ -1,0 +1,292 @@
+// base.rux
+// Global specifications inherited by all components
+// Defines accessibility, performance, security, and code standards
+
+!GlobalSpecs:
+ !UseDesignTokens:
+   Reference: "design-system.rux"
+   Requirement: "All visual properties must use design tokens from tokens.css"
+   
+   !Enforcement:
+     !no hardcoded colors - use var(--color-*)
+     !no hardcoded spacing - use var(--space-*)
+     !no hardcoded typography - use var(--font-*, --text-*)
+     !no hardcoded borders - use var(--border-*)
+     !no hardcoded shadows - use var(--shadow-*)
+     !no hardcoded motion - use var(--duration-*, --ease-*)
+     !no hardcoded z-index - use var(--z-*)
+     !no hardcoded sizes - use var(--width-*, --height-*)
+     !no hardcoded breakpoints - use var(--breakpoint-*)
+ 
+ !Accessibility: &base-a11y
+   # Universal requirements for all components
+   
+   Structure:
+     !semantic HTML elements
+     !logical heading hierarchy
+     !landmark regions where appropriate
+     
+   Interaction:
+     !keyboard navigable
+     !visible focus indicators using outline
+     !minimum touch target 44x44px
+     !no keyboard traps
+     
+   Content:
+     !meaningful alt text for images
+     !descriptive link text
+     !sufficient color contrast (WCAG AA)
+     !text scalable to 200%
+     
+   State:
+     !announce state changes to screen readers
+     !loading states communicated
+     !error states clearly marked
+     
+   AdvancedA11y: &advanced-a11y
+     !proper ARIA landmark usage
+     !live regions for dynamic content updates
+     !focus management in single-page applications
+     !skip links for keyboard navigation
+     !proper heading structure (no skipped levels)
+     !alternative input methods support
+     !voice control compatibility
+     !high contrast mode support
+     !reduced motion preferences respected
+     
+   # Reusable patterns for specific component types
+   FormInputs: &form-a11y
+     !associated label element
+     !error messages linked via aria-describedby
+     !required fields marked with required attribute
+     !invalid fields marked with aria-invalid
+     !help text connected via aria-describedby
+     !field groups use fieldset and legend
+     !autocomplete attributes where appropriate
+     !input format guidance provided
+     
+   Overlays: &overlay-a11y
+     !trap focus while open
+     !return focus on close
+     !close on Escape key
+     !prevent body scroll
+     !announce to screen readers
+     !modal backdrop blocks interaction
+     !proper z-index layering
+     
+   DataTables: &data-a11y
+     !proper table markup
+     !column headers with scope
+     !row headers where needed
+     !caption or aria-label
+     !sortable columns announced
+     !pagination accessibility
+     !filter controls properly labeled
+     
+        Interactive: &interactive-a11y
+     !clear interaction affordances
+     !consistent interaction patterns
+     !feedback for all user actions
+     !undo mechanisms for destructive actions
+     !confirmation for critical operations
+     !timeout warnings for sessions
+     !progress indication for long operations
+     
+ !Performance: &base-performance
+   Images:
+     !explicit width and height attributes
+     !lazy loading for below-fold images
+     !appropriate format (WebP with fallback)
+     !responsive images with srcset
+     !optimized loading priority
+     
+   Layout:
+     !minimize cumulative layout shift
+     !reserve space for dynamic content
+     ?use CSS containment for complex components
+     !efficient layout strategies (grid, flexbox)
+     
+   Interaction:
+     ?debounce rapid fire events
+     ?use passive event listeners
+     ?provide immediate feedback
+     !optimize for 60fps animations
+     !efficient DOM manipulation
+     
+   AdvancedPerformance: &advanced-performance
+     !code splitting for large components
+     !lazy loading of non-critical features
+     !efficient state management
+     !memory leak prevention
+     !bundle size optimization
+     !tree shaking compatibility
+     !critical CSS inline
+     !progressive enhancement
+     
+ !Security: &base-security
+   Content:
+     !sanitize all user input
+     !use textContent not innerHTML for user data
+     !validate URLs before use
+     !escape output properly
+     
+   Scripts:
+     !no eval() or Function() with user input
+     !CSP compliant implementation
+     !no inline event handlers
+     !secure third-party integrations
+     
+   EnhancedSecurity: &enhanced-security
+     !CSRF protection for state-changing operations
+     !XSS prevention in dynamic content
+     !secure handling of sensitive data
+     !rate limiting for user actions
+     !input validation on client and server
+     !secure communication protocols
+     !proper error message handling (no sensitive info)
+     
+ !ErrorHandling: &base-error-handling
+   UserFacing:
+     !clear, actionable error messages
+     !graceful degradation when features fail
+     !recovery mechanisms where possible
+     !user-friendly language (no technical jargon)
+     !consistent error message formatting
+     
+   Development:
+     !proper error logging
+     !error boundaries in component trees
+     !fallback UI for component failures
+     !network error handling
+     !timeout handling for async operations
+     
+ !Testing: &base-testing
+   Automation:
+     !data-testid attributes for element targeting
+     !predictable class names and structure
+     !state indicators for testing
+     !accessibility testing hooks
+     
+   Performance:
+     !performance markers for timing
+     !memory usage monitoring
+     !animation performance testing
+     !network request tracking
+     
+ !Analytics: &base-analytics
+   UserBehavior:
+     !consistent event naming conventions
+     !privacy-compliant data collection
+     !meaningful user interaction tracking
+     !conversion funnel monitoring
+     
+   Performance:
+     !Core Web Vitals monitoring
+     !error rate tracking
+     !user experience metrics
+     !feature usage analytics
+     
+ !CodeStyle:
+   CSS:
+     !use BEM methodology: block__element--modifier
+     !meaningful class names
+     !mobile-first responsive design
+     !use design tokens for all values
+     !consistent property ordering
+     !efficient selector strategies
+     
+   HTML:
+     !consistent indentation
+     !logical element order
+     !comments for complex structures
+     !proper document structure
+     !semantic markup
+     
+   Attributes:
+     !data-testid for test targeting
+     ?data-analytics for tracking
+     !consistent naming patterns
+     !proper attribute ordering
+     
+   JavaScript:
+     !modern ES6+ syntax
+     !consistent variable naming
+     !proper function documentation
+     !error handling in all async operations
+     !memory leak prevention
+     !efficient event handling
+     
+ !ResponsiveDesign:
+   !mobile-first approach
+   !use CSS Grid or Flexbox for layouts
+   !breakpoints from var(--breakpoint-*)
+   !fluid typography where appropriate
+   ?container queries for component-level responsiveness
+   !touch-friendly interaction design
+   !safe area respect for mobile devices
+   
+ !StateManagement:
+   Visual:
+     !clear hover states
+     !obvious focus states
+     !distinct active states
+     !reduced motion for prefers-reduced-motion
+     !loading states for async operations
+     
+   Functional:
+     !loading states for async operations
+     !error states with recovery options
+     !empty states with guidance
+     !disabled states with proper cursor
+     !success states with confirmation
+     
+   AdvancedStates:
+     !optimistic UI updates
+     !state persistence where appropriate
+     !conflict resolution for concurrent changes
+     !offline state handling
+     !synchronization indicators
+     
+ !ContentStandards: &base-content
+   Writing:
+     !clear, concise copy
+     !consistent tone and voice
+     !proper grammar and spelling
+     !inclusive language
+     !scannable content structure
+     
+   Internationalization:
+     !text externalization for translation
+     !proper locale handling
+     !direction support (LTR/RTL)
+     !cultural appropriateness
+     !date/time/number formatting
+     
+ !DataManagement: &base-data
+   Validation:
+     !client-side validation with server backup
+     !proper input formatting
+     !data type enforcement
+     !range and length validation
+     !custom validation rules
+     
+   Storage:
+     !secure data handling
+     !proper data lifecycle management
+     !backup and recovery procedures
+     !data privacy compliance
+     !efficient data structures
+     
+ !Compatibility: &base-compatibility
+   Support:
+     !graceful degradation for older browsers
+     !progressive enhancement approach
+     !feature detection over browser sniffing
+     !polyfills for critical features
+     !fallbacks for modern CSS features
+     
+   Testing:
+     !cross-browser testing requirements
+     !device-specific testing
+     !accessibility testing across browsers
+     !performance testing across devices

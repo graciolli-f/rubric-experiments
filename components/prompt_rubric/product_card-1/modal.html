@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Component Examples</title>
+  <!-- Import design tokens first -->
+  <link rel="stylesheet" href="tokens.css">
+  <!-- Import component styles -->
+  <link rel="stylesheet" href="modal.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Demo page with modal triggers -->
+  <main class="demo-page">
+    <div class="demo-container">
+      <h1>Modal Component Examples</h1>
+      <p>Click the buttons below to see different modal variants in action.</p>
+      
+      <div class="demo-buttons">
+        <!-- Basic Modal Trigger -->
+        <button 
+          type="button" 
+          class="btn btn--primary"
+          data-modal-trigger="basic-modal"
+          data-testid="basic-modal-trigger"
+        >
+          Open Basic Modal
+        </button>
+        
+        <!-- Confirmation Modal Trigger -->
+        <button 
+          type="button" 
+          class="btn btn--error"
+          data-modal-trigger="confirmation-modal"
+          data-testid="confirmation-modal-trigger"
+        >
+          Delete Account
+        </button>
+        
+        <!-- Form Modal Trigger -->
+        <button 
+          type="button" 
+          class="btn btn--secondary"
+          data-modal-trigger="form-modal"
+          data-testid="form-modal-trigger"
+        >
+          Edit Profile
+        </button>
+        
+        <!-- Media Modal Trigger -->
+        <button 
+          type="button" 
+          class="btn btn--info"
+          data-modal-trigger="media-modal"
+          data-testid="media-modal-trigger"
+        >
+          View Gallery
+        </button>
+        
+        <!-- Drawer Modal Trigger -->
+        <button 
+          type="button" 
+          class="btn btn--success"
+          data-modal-trigger="drawer-modal"
+          data-testid="drawer-modal-trigger"
+        >
+          Open Settings
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Basic Modal -->
+  <div 
+    class="modal modal--basic" 
+    id="basic-modal" 
+    data-testid="basic-modal"
+    aria-hidden="true"
+  >
+    <div class="modal__backdrop" data-modal-close></div>
+    <dialog 
+      class="modal__dialog" 
+      role="dialog" 
+      aria-modal="true"
+      aria-labelledby="basic-modal-title"
+      aria-describedby="basic-modal-content"
+    >
+      <!-- Modal Header -->
+      <header class="modal__header">
+        <h2 id="basic-modal-title" class="modal__title">Welcome Message</h2>
+        <button 
+          type="button" 
+          class="modal__close"
+          data-modal-close
+          aria-label="Close welcome message dialog"
+          data-testid="basic-modal-close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <!-- Modal Body -->
+      <div class="modal__body">
+        <div id="basic-modal-content">
+          <p>This is a basic modal dialog. It demonstrates the core modal functionality with proper accessibility support, focus management, and keyboard navigation.</p>
+          <p>You can close this modal by:</p>
+          <ul>
+            <li>Clicking the X button</li>
+            <li>Pressing the Escape key</li>
+            <li>Clicking outside the dialog</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Modal Footer -->
+      <footer class="modal__footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>
+          Got it
+        </button>
+      </footer>
+    </dialog>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div 
+    class="modal modal--confirmation" 
+    id="confirmation-modal" 
+    data-testid="confirmation-modal"
+    aria-hidden="true"
+  >
+    <div class="modal__backdrop" data-modal-close></div>
+    <dialog 
+      class="modal__dialog" 
+      role="alertdialog" 
+      aria-modal="true"
+      aria-labelledby="confirmation-modal-title"
+      aria-describedby="confirmation-modal-content"
+    >
+      <!-- Modal Header -->
+      <header class="modal__header">
+        <h2 id="confirmation-modal-title" class="modal__title">
+          <span class="modal__icon modal__icon--warning" aria-hidden="true">⚠️</span>
+          Delete Account
+        </h2>
+        <button 
+          type="button" 
+          class="modal__close"
+          data-modal-close
+          aria-label="Close delete account confirmation dialog"
+          data-testid="confirmation-modal-close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <!-- Modal Body -->
+      <div class="modal__body">
+        <div id="confirmation-modal-content">
+          <p><strong>Are you sure you want to delete your account?</strong></p>
+          <p>This action cannot be undone. All your data, settings, and content will be permanently removed from our servers.</p>
+          <div class="confirmation__consequences">
+            <h3>What will be deleted:</h3>
+            <ul>
+              <li>Your profile and personal information</li>
+              <li>All your posts and comments</li>
+              <li>Saved content and preferences</li>
+              <li>Subscription and payment history</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Modal Footer -->
+      <footer class="modal__footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>
+          Cancel
+        </button>
+        <button 
+          type="button" 
+          class="btn btn--error btn--destructive"
+          data-testid="confirm-delete-btn"
+        >
+          Delete Account
+        </button>
+      </footer>
+    </dialog>
+  </div>
+
+  <!-- Form Modal -->
+  <div 
+    class="modal modal--form" 
+    id="form-modal" 
+    data-testid="form-modal"
+    aria-hidden="true"
+  >
+    <div class="modal__backdrop" data-modal-close></div>
+    <dialog 
+      class="modal__dialog" 
+      role="dialog" 
+      aria-modal="true"
+      aria-labelledby="form-modal-title"
+    >
+      <!-- Modal Header -->
+      <header class="modal__header">
+        <h2 id="form-modal-title" class="modal__title">Edit Profile</h2>
+        <button 
+          type="button" 
+          class="modal__close"
+          data-modal-close
+          aria-label="Close edit profile dialog"
+          data-testid="form-modal-close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <!-- Modal Body -->
+      <div class="modal__body">
+        <form class="modal__form" data-testid="profile-form">
+          <div class="form__group">
+            <label for="profile-name" class="form__label">Full Name</label>
+            <input 
+              type="text" 
+              id="profile-name" 
+              name="name"
+              class="form__input"
+              value="John Doe"
+              required
+              aria-describedby="name-help"
+            >
+            <div id="name-help" class="form__help">
+              Enter your full name as you'd like it to appear on your profile
+            </div>
+          </div>
+          
+          <div class="form__group">
+            <label for="profile-email" class="form__label">Email Address</label>
+            <input 
+              type="email" 
+              id="profile-email" 
+              name="email"
+              class="form__input"
+              value="john.doe@example.com"
+              required
+              aria-describedby="email-help"
+            >
+            <div id="email-help" class="form__help">
+              We'll use this email for important account notifications
+            </div>
+          </div>
+          
+          <div class="form__group">
+            <label for="profile-bio" class="form__label">Bio</label>
+            <textarea 
+              id="profile-bio" 
+              name="bio"
+              class="form__textarea"
+              rows="4"
+              aria-describedby="bio-help"
+            >Software developer passionate about creating accessible web experiences.</textarea>
+            <div id="bio-help" class="form__help">
+              Tell others about yourself (optional)
+            </div>
+          </div>
+          
+          <div class="form__group">
+            <label for="profile-notifications" class="form__checkbox-label">
+              <input 
+                type="checkbox" 
+                id="profile-notifications" 
+                name="notifications"
+                class="form__checkbox"
+                checked
+              >
+              <span class="form__checkbox-text">Email notifications</span>
+            </label>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Modal Footer -->
+      <footer class="modal__footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          form="profile-form"
+          class="btn btn--primary"
+          data-testid="save-profile-btn"
+        >
+          Save Changes
+        </button>
+      </footer>
+    </dialog>
+  </div>
+
+  <!-- Media Modal -->
+  <div 
+    class="modal modal--media" 
+    id="media-modal" 
+    data-testid="media-modal"
+    aria-hidden="true"
+  >
+    <div class="modal__backdrop" data-modal-close></div>
+    <dialog 
+      class="modal__dialog" 
+      role="dialog" 
+      aria-modal="true"
+      aria-labelledby="media-modal-title"
+    >
+      <!-- Modal Header -->
+      <header class="modal__header">
+        <h2 id="media-modal-title" class="modal__title">Gallery</h2>
+        <div class="modal__controls">
+          <button 
+            type="button" 
+            class="btn btn--ghost"
+            data-testid="fullscreen-btn"
+            aria-label="Toggle fullscreen"
+          >
+            <span aria-hidden="true">⛶</span>
+          </button>
+          <button 
+            type="button" 
+            class="modal__close"
+            data-modal-close
+            aria-label="Close gallery dialog"
+            data-testid="media-modal-close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Modal Body -->
+      <div class="modal__body modal__body--media">
+        <div class="media__container">
+          <img 
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&crop=center"
+            alt="Mountain landscape with clear blue sky and snow-capped peaks"
+            class="media__image"
+            loading="lazy"
+          >
+          
+          <!-- Media Navigation -->
+          <button 
+            type="button" 
+            class="media__nav media__nav--prev"
+            aria-label="Previous image"
+            data-testid="prev-image-btn"
+          >
+            <span aria-hidden="true">‹</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="media__nav media__nav--next"
+            aria-label="Next image"
+            data-testid="next-image-btn"
+          >
+            <span aria-hidden="true">›</span>
+          </button>
+          
+          <!-- Media Info -->
+          <div class="media__info">
+            <span class="media__counter">1 of 5</span>
+            <span class="media__title">Mountain Landscape</span>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- Drawer Modal -->
+  <div 
+    class="modal modal--drawer" 
+    id="drawer-modal" 
+    data-testid="drawer-modal"
+    aria-hidden="true"
+  >
+    <div class="modal__backdrop" data-modal-close></div>
+    <dialog 
+      class="modal__dialog modal__dialog--drawer" 
+      role="dialog" 
+      aria-modal="true"
+      aria-labelledby="drawer-modal-title"
+    >
+      <!-- Modal Header -->
+      <header class="modal__header">
+        <h2 id="drawer-modal-title" class="modal__title">Settings</h2>
+        <button 
+          type="button" 
+          class="modal__close"
+          data-modal-close
+          aria-label="Close settings drawer"
+          data-testid="drawer-modal-close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <!-- Modal Body -->
+      <div class="modal__body">
+        <nav class="settings__nav" aria-label="Settings navigation">
+          <a href="#" class="settings__link settings__link--active">
+            <span class="settings__icon" aria-hidden="true">👤</span>
+            Profile Settings
+          </a>
+          <a href="#" class="settings__link">
+            <span class="settings__icon" aria-hidden="true">🔔</span>
+            Notifications
+          </a>
+          <a href="#" class="settings__link">
+            <span class="settings__icon" aria-hidden="true">🔒</span>
+            Privacy & Security
+          </a>
+          <a href="#" class="settings__link">
+            <span class="settings__icon" aria-hidden="true">🎨</span>
+            Appearance
+          </a>
+          <a href="#" class="settings__link">
+            <span class="settings__icon" aria-hidden="true">💳</span>
+            Billing
+          </a>
+          <a href="#" class="settings__link">
+            <span class="settings__icon" aria-hidden="true">❓</span>
+            Help & Support
+          </a>
+        </nav>
+        
+        <!-- Quick Actions -->
+        <div class="settings__section">
+          <h3 class="settings__section-title">Quick Actions</h3>
+          <div class="settings__actions">
+            <button type="button" class="btn btn--ghost btn--full-width">
+              Export Data
+            </button>
+            <button type="button" class="btn btn--ghost btn--full-width">
+              Clear Cache
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- Screen reader only announcements -->
+  <div 
+    aria-live="polite" 
+    aria-atomic="true" 
+    class="sr-only"
+    id="modal-announcements"
+  ></div>
+
+  <!-- JavaScript for modal functionality -->
+  <script src="modal.js"></script>
+</body>
+</html> 

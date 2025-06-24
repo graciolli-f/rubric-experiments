@@ -1,0 +1,543 @@
+/* ==========================================================================
+   Button Components - Accessible, Secure, and Performant CSS
+   ========================================================================== */
+
+/* CSS Custom Properties for maintainability and consistency */
+:root {
+  /* Color Palette - WCAG AA compliant contrast ratios */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-active: #1e40af;
+  --color-secondary: #6b7280;
+  --color-secondary-hover: #4b5563;
+  --color-secondary-active: #374151;
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+
+  /* Border Radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Transitions for smooth interactions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-medium: 300ms ease-in-out;
+
+  /* Focus ring for accessibility */
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.3);
+  --focus-ring-offset: 2px;
+}
+
+/* Base reset and typography */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--color-gray-900);
+  margin: 0;
+  padding: var(--spacing-6);
+  background-color: var(--color-gray-50);
+}
+
+/* Page structure */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-4);
+}
+
+.component-section {
+  margin-bottom: var(--spacing-6);
+  padding: var(--spacing-5);
+  background: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+/* Screen reader only content - accessibility enhancement */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Button Base Styles
+   ========================================================================== */
+
+.btn {
+  /* Base button styling with performance optimizations */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition-fast);
+  
+  /* Prevent text selection for better UX */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  
+  /* Optimize for touch devices */
+  touch-action: manipulation;
+  
+  /* Ensure minimum touch target size for accessibility */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Focus styles for accessibility - visible focus indicator */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Disabled state with proper accessibility */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Button icons */
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn__text {
+  /* Ensures text remains visible during loading states */
+  display: inline-block;
+}
+
+/* ==========================================================================
+   Button Variants
+   ========================================================================== */
+
+/* Primary Button - Main call-to-action */
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px); /* Subtle lift effect */
+}
+
+.btn--primary:active:not(:disabled) {
+  background-color: var(--color-primary-active);
+  border-color: var(--color-primary-active);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary Button - Less prominent actions */
+.btn--secondary {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+  border-color: var(--color-gray-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background-color: var(--color-gray-200);
+  border-color: var(--color-gray-400);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--secondary:active:not(:disabled) {
+  background-color: var(--color-gray-300);
+  border-color: var(--color-gray-500);
+}
+
+/* Ghost/Outline Button - Subtle actions */
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-gray-600);
+  border-color: var(--color-gray-300);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
+  color: var(--color-gray-700);
+  border-color: var(--color-gray-400);
+}
+
+.btn--ghost:active:not(:disabled) {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+}
+
+/* Text Button - Minimal styling */
+.btn--text {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.btn--text:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
+  text-decoration: none;
+}
+
+.btn--text:active:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+/* Success Button - Positive actions */
+.btn--success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+  border-color: var(--color-success);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--success:hover:not(:disabled) {
+  background-color: var(--color-success-hover);
+  border-color: var(--color-success-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Danger Button - Destructive actions */
+.btn--danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+  border-color: var(--color-danger);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Link-styled Button */
+.btn--link {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  box-shadow: none;
+}
+
+.btn--link:hover:not(:disabled) {
+  color: var(--color-primary-hover);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Button Sizes
+   ========================================================================== */
+
+.btn--small {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  min-height: 36px;
+  min-width: 36px;
+}
+
+.btn--medium {
+  /* Default size - already defined in base .btn */
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-base);
+}
+
+.btn--large {
+  padding: var(--spacing-4) var(--spacing-6);
+  font-size: var(--font-size-lg);
+  min-height: 52px;
+  min-width: 52px;
+}
+
+.btn--full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Button States and Modifiers
+   ========================================================================== */
+
+/* Loading state with spinner animation */
+.btn--loading {
+  pointer-events: none;
+  position: relative;
+}
+
+.btn__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: var(--spacing-2);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Icon button modifier */
+.btn--icon {
+  /* Adjusts spacing for buttons with icons */
+  padding-left: var(--spacing-3);
+}
+
+.btn--icon .btn__icon {
+  margin-right: var(--spacing-1);
+}
+
+/* ==========================================================================
+   Button Groups
+   ========================================================================== */
+
+.btn-group {
+  display: inline-flex;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--group-item {
+  border-radius: 0;
+  border-right-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.btn--group-item:first-child {
+  border-top-left-radius: var(--border-radius-md);
+  border-bottom-left-radius: var(--border-radius-md);
+}
+
+.btn--group-item:last-child {
+  border-top-right-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
+  border-right-width: 1px;
+}
+
+.btn--group-item:focus {
+  z-index: 2;
+}
+
+/* Pressed state for toggle buttons */
+.btn--group-item[aria-pressed="true"] {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn--group-item {
+    border-radius: 0;
+    border-right-width: 1px;
+    border-bottom-width: 0;
+  }
+  
+  .btn--group-item:first-child {
+    border-top-left-radius: var(--border-radius-md);
+    border-top-right-radius: var(--border-radius-md);
+    border-bottom-left-radius: 0;
+  }
+  
+  .btn--group-item:last-child {
+    border-bottom-left-radius: var(--border-radius-md);
+    border-bottom-right-radius: var(--border-radius-md);
+    border-top-right-radius: 0;
+    border-bottom-width: 1px;
+  }
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 2px;
+  }
+  
+  .btn:focus-visible {
+    outline: 3px solid;
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  
+  .btn:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .btn__spinner {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-50: #1f2937;
+    --color-gray-100: #374151;
+    --color-gray-200: #4b5563;
+    --color-gray-300: #6b7280;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #d1d5db;
+    --color-gray-600: #e5e7eb;
+    --color-gray-700: #f3f4f6;
+    --color-gray-800: #f9fafb;
+    --color-gray-900: #ffffff;
+  }
+  
+  body {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-100);
+  }
+  
+  .component-section {
+    background-color: var(--color-gray-800);
+    border: 1px solid var(--color-gray-700);
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .btn {
+    /* Ensure buttons are visible when printed */
+    background: transparent !important;
+    color: black !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+  }
+  
+  .btn__spinner {
+    display: none;
+  }
+} 

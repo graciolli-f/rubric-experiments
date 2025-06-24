@@ -1,0 +1,165 @@
+// design-system.rux
+// Design system token specifications
+// AI should create/update tokens.css with these custom properties
+
+!DesignSystem:
+  !TokenFile:
+    Name: "tokens.css"
+    Location: "project root or src/"
+    Behavior: "create if missing, append if exists"
+    
+    !FileHeader: |
+      /* Design System Tokens - Generated from design-system.rux */
+      /* AI-generated values following system requirements */
+      
+      :root {
+        /* tokens here */
+      }
+    
+  !RequiredTokens:
+    !Border:
+      Purpose: "Border widths and styles"
+      Patterns:
+        - "--border-width-{name}: thickness values"
+        - "--border-radius-{name}: corner rounding"
+        - "--border-style-{name}: solid, dashed, etc"
+      Required: ["thin", "base", "thick"]
+      
+    !Breakpoints:
+      Purpose: "Responsive design breakpoints"
+      Pattern: "--breakpoint-{name}"
+      Required: ["xs", "sm", "md", "lg", "xl"]
+      Note: "Ensure logical progression for responsive design"
+      
+    !Color:
+      Purpose: "Complete color system"
+      Patterns:
+        - "--color-{semantic}-{shade}: semantic colors"
+        - "--color-{name}: standalone colors"
+      Required:
+        Semantic: ["primary", "secondary", "success", "warning", "error", "info"]
+        Shades: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"]
+        Surface: ["background", "surface", "overlay"]
+        Text: ["primary", "secondary", "disabled", "inverse"]
+        
+    !Font:
+      Purpose: "Typography foundations"
+      Patterns:
+        - "--font-family-{name}: font stacks"
+        - "--font-weight-{name}: weight values"
+        - "--font-size-{name}: size scale"
+      Required:
+        Families: ["base", "heading", "mono"]
+        Weights: ["light", "regular", "medium", "semibold", "bold"]
+        Sizes: ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl"]
+        
+    !Height:
+      Purpose: "Vertical sizing constraints"
+      Pattern: "--height-{name}"
+      Required: ["icon-sm", "icon-md", "icon-lg", "input", "button", "header", "footer"]
+      ?Dynamic: "min/max height variants"
+      
+    !Width:
+      Purpose: "Horizontal sizing constraints"  
+      Pattern: "--width-{name}"
+      Required: ["icon-sm", "icon-md", "icon-lg", "input-sm", "input-md", "input-lg", "container", "content"]
+      ?Responsive: "width at different breakpoints"
+      
+    !ZIndex:
+      Purpose: "Stacking order system"
+      Pattern: "--z-{name}"
+      Required: ["base", "dropdown", "overlay", "modal", "popover", "notification", "max"]
+      Note: "Ensure logical layering without conflicts"
+      
+    !Motion:
+      Purpose: "Animation and transition system"
+      Patterns:
+        - "--duration-{name}: timing values"
+        - "--ease-{name}: easing functions"
+        - "--transition-{name}: complete transitions"
+      Required:
+        Durations: ["instant", "fast", "base", "slow", "glacial"]
+        Easings: ["linear", "in", "out", "in-out", "spring"]
+        
+    !Shadow:
+      Purpose: "Elevation and depth system"
+      Pattern: "--shadow-{name}"
+      Required: ["xs", "sm", "base", "md", "lg", "xl", "inner", "none"]
+      ?ColoredShadows: "shadows using brand colors"
+      
+    !Space:
+      Purpose: "Spacing system for margins, padding, gaps"
+      Pattern: "--space-{name}"
+      Required: ["0", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl"]
+      Relationship: "Should create consistent rhythm"
+      
+    !Text:
+      Purpose: "Text-specific properties beyond font"
+      Patterns:
+        - "--line-height-{name}: vertical rhythm"
+        - "--letter-spacing-{name}: tracking"
+        - "--text-transform-{name}: case transforms"
+      Required:
+        LineHeights: ["tight", "snug", "base", "relaxed", "loose"]
+        LetterSpacing: ["tight", "base", "wide"]
+        
+  ?OptionalTokens:
+    ?Blur:
+      Pattern: "--blur-{name}"
+      Suggested: ["sm", "base", "lg", "xl"]
+      
+    ?Opacity:
+      Pattern: "--opacity-{name}"
+      Suggested: ["0", "5", "10", "25", "50", "75", "90", "95", "100"]
+      
+    ?Gradient:
+      Pattern: "--gradient-{name}"
+      Suggested: "brand gradients, overlay gradients"
+      
+  !AIGuidance:
+    Philosophy: |
+      Create a cohesive, modern design system that:
+      - Feels contemporary and polished
+      - Maintains consistency across all values
+      - Supports accessibility requirements
+      - Scales logically and predictably
+      
+    ValueGeneration:
+      !use mathematical relationships between values
+      !ensure visual rhythm and harmony
+      !consider current design trends
+      ?use established systems (8pt grid, modular scale)
+      ~add personality through thoughtful color choices
+      
+    Testing:
+      "Generate sample components using tokens to verify system cohesion"
+      
+  !Example:
+    Description: "AI generates actual values based on requirements"
+    Sample: |
+      :root {
+        /* Border */
+        --border-width-thin: 1px;
+        --border-width-base: 2px;
+        --border-width-thick: 4px;
+        --border-radius-sm: 0.25rem;
+        --border-radius-base: 0.5rem;
+        --border-radius-lg: 0.75rem;
+        --border-radius-full: 9999px;
+        
+        /* Color - Primary scale */
+        --color-primary-50: #eff6ff;
+        --color-primary-500: #3b82f6;
+        --color-primary-900: #1e3a8a;
+        
+        /* Space - 8pt grid */
+        --space-0: 0;
+        --space-xs: 0.25rem;
+        --space-sm: 0.5rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --space-2xl: 3rem;
+        
+        /* ... AI continues with all required tokens ... */
+      }

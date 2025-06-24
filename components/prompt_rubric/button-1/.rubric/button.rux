@@ -1,0 +1,426 @@
+// button.rux
+// Interactive button component
+// Category: Actions & Input
+
+extends base.rux
+
+Component: Button
+  Description: "Interactive element for user actions"
+  Category: "actions-input"
+  
+  !Structure:
+    !Element: "button | input[type='submit'] | input[type='button']"
+    !class naming: "btn btn--{variant}"
+    !type attribute (button, submit, reset)
+    
+  !Content:
+    !meaningful text content or aria-label
+    !no nested interactive elements
+    ?icon with text or aria-label
+    
+  !Accessibility:
+    includes: [*base-a11y]
+    
+    ButtonSpecific:
+      !minimum 44x44px touch target
+      !visible focus indicator using outline
+      !disabled state properly communicated
+      !loading state announced to screen readers
+      !keyboard activation (Enter/Space)
+      
+    IconButtons:
+      !aria-label when no visible text
+      !role="button" if not using button element
+      
+  !States:
+    !default: neutral ready state
+    !hover: visual feedback on pointer interaction
+    !active: pressed appearance during click
+    !focus: keyboard focus indicator
+    !disabled: non-interactive with reduced opacity
+    
+    ?loading: activity indicator with disabled interaction
+    ?success: temporary confirmation state
+    ?error: temporary error state
+    
+  !Behavior:
+    !prevent double-click submission
+    !immediate visual feedback on interaction
+    ?haptic feedback on mobile
+    ?sound effects for important actions
+    
+  !FormIntegration:
+    !proper form association via form attribute if outside form
+    !validation state reflection (aria-invalid)
+    !error message association via aria-describedby
+    !submit button should trigger form validation
+    !reset button should clear form with confirmation
+    
+  !AdvancedA11y:
+    !aria-busy="true" during loading states
+    !aria-pressed for toggle buttons
+    !aria-expanded for dropdown triggers
+    !proper role when not using button element
+    !keyboard shortcuts via accesskey (optional)
+    !screen reader announcements for state changes
+    
+  !Performance:
+    !efficient event handling (no inline handlers)
+    !debounce rapid successive clicks
+    !optimize animations for 60fps
+    !lazy load complex icons or graphics
+    !use CSS transforms for smooth animations
+    
+  !ErrorHandling:
+    !graceful degradation when JavaScript fails
+    !timeout handling for async operations
+    !network error recovery for submit buttons
+    !user feedback for failed operations
+    !retry mechanisms for critical actions
+    
+  !Security:
+    !prevent CSRF in form submissions
+    !sanitize any dynamic button text
+    !validate button actions server-side
+    !rate limiting for API calls
+    !secure handling of sensitive operations
+    
+  !DataBinding:
+    !data-testid for automated testing
+    !data-analytics for user behavior tracking
+    !data-action for event delegation
+    !consistent data attribute naming
+    
+  ~Visual:
+    ~smooth transitions using var(--duration-fast)
+    ~subtle shadow or border changes on hover
+    ~pressed animation on click (scale 0.95-0.98)
+    ~loading spinner with proper sizing
+    ~gradient backgrounds with accessibility consideration
+    ~glassmorphism effects with contrast validation
+    ~micro-animations (scale, rotation) under 300ms
+    ~particle effects on click with reduced motion respect
+    ~ripple animation from click point (material design)
+    ~floating ghost button trails with performance optimization
+    
+    ~adaptive sizing across breakpoints
+    ~touch-friendly spacing on mobile
+    ~reduced animations on low-power devices
+    ~high contrast mode compatibility
+    
+  !Composition:
+    !button groups with proper ARIA relationships
+    !split buttons with dropdown indicators
+    !button toolbars with navigation keys
+    !toggle button groups with radio/checkbox semantics
+    
+  Variants:
+    Primary:
+      extends: Button
+      Purpose: "Main call-to-action"
+      
+      !Visual:
+        !prominent styling with brand colors
+        !highest visual weight on page
+        !contrasts with secondary buttons
+        !minimum contrast ratio 4.5:1
+        
+      !Behavior:
+        !only one primary per view/section
+        !auto-focus on page load (where appropriate)
+        
+      !Analytics:
+        !track conversion events
+        !measure user engagement
+        !A/B testing capabilities
+        
+      ~Enhancements:
+        ~subtle glow or pulse animation
+        ~magnetic hover effect
+        ~success celebration animation
+        ~progress indication for multi-step processes
+        
+    Secondary:
+      extends: Button
+      Purpose: "Supporting actions"
+      
+      !Visual:
+        !less prominent than primary
+        !border or background variant
+        !clear hierarchy with primary
+        !accessible focus states
+        
+      !Behavior:
+        !complement primary actions
+        !provide alternative paths
+        
+      ~Enhancements:
+        ~outline to fill transition
+        ~gentle hover lift
+        ~contextual color changes
+        
+    Danger:
+      extends: Button
+      Purpose: "Destructive actions"
+      
+      !Visual:
+        !red/warning color scheme
+        !clear indication of risk
+        !prominent warning styling
+        
+      !Behavior:
+        !confirmation prompt for critical actions
+        !double-click or hold-to-confirm pattern
+        !undo mechanism where possible
+        !clear warning messages
+        
+      !SafetyMeasures:
+        !cooldown period for repeated actions
+        !logging of destructive operations
+        !backup/restore capabilities
+        !administrative approval for critical actions
+        
+      ~Enhancements:
+        ~shake animation on hover
+        ~warning pulse animation
+        ~destructive particle effects
+        ~countdown timers for irreversible actions
+        
+    Ghost:
+      extends: Button
+      Purpose: "Minimal visual weight"
+      
+      !Visual:
+        !transparent background
+        !border or text color only
+        !minimal visual presence
+        !maintains accessibility standards
+        
+      !Behavior:
+        !clear hover states despite minimal design
+        !sufficient contrast in all states
+        
+      ~Enhancements:
+        ~fade-in background on hover
+        ~text color transitions
+        ~subtle border animations
+        
+    Icon:
+      extends: Button
+      Purpose: "Icon-only actions"
+      
+      !Structure:
+        !square aspect ratio (minimum 44x44px)
+        !icon properly sized and centered
+        !scalable icon implementation
+        
+      !Accessibility:
+        !aria-label describes action clearly
+        !tooltip on hover with delay
+        !keyboard navigation support
+        !voice control compatibility
+        
+      !IconRequirements:
+        !SVG icons with proper viewBox
+        !fallback text for icon loading failures
+        !consistent icon library usage
+        !proper color inheritance
+        !scalable sizing system
+        
+      ~Visual:
+        ~icon animation on hover (rotate, scale, color)
+        ~circular ripple effect from center
+        ~rotating icons for refresh actions
+        ~morphing between states
+        
+    FloatingAction:
+      extends: Button
+      Purpose: "Primary action overlay"
+      
+      !Structure:
+        !circular shape with proper proportions
+        !fixed positioning with safe areas
+        !z-index appropriate for overlay (var(--z-floating))
+        !responsive positioning
+        
+      !Behavior:
+        !doesn't interfere with content or navigation
+        !smooth scroll behavior adaptation
+        !hide/show based on scroll direction
+        !collision detection with other UI elements
+        
+      !MobileSpecific:
+        !thumb-friendly positioning
+        !safe area respect (iOS notch, etc.)
+        !haptic feedback integration
+        !gesture conflict avoidance
+        
+      ~Visual:
+        ~drop shadow for elevation (var(--shadow-lg))
+        ~smooth scale animations on interaction
+        ~morphing between icons based on context
+        ~trail effect on scroll with performance optimization
+        ~breathing animation when idle
+        
+  !AdvancedPatterns:
+    ButtonGroup:
+      !proper ARIA relationships (group, radiogroup)
+      !keyboard navigation between buttons
+      !visual connection between related buttons
+      !responsive stacking behavior
+      
+    SplitButton:
+      !primary action button + dropdown trigger
+      !separate keyboard navigation
+      !clear visual separation
+      !accessible dropdown menu
+      
+    ToggleButton:
+      !aria-pressed state management
+      !clear on/off visual indicators
+      !keyboard toggle support
+      !state persistence where appropriate
+      
+  !Testing:
+    !unit tests for all interactive states
+    !accessibility testing with screen readers
+    !cross-browser compatibility testing
+    !performance testing for animations
+    !user acceptance testing for usability
+    
+    TestingHelpers:
+      !data-testid attributes for automation
+      !predictable class names for CSS testing
+      !state indicators for visual regression tests
+      !performance markers for speed testing
+      
+  !Examples:
+    MinimalPrimary: |
+      <button type="button" class="btn btn--primary" data-testid="save-button">
+        Save Changes
+      </button>
+      
+    WithIconAndLoading: |
+      <button type="submit" class="btn btn--primary" data-testid="create-account">
+        <svg class="btn__icon" aria-hidden="true" width="16" height="16">
+          <use href="#icon-user-plus"></use>
+        </svg>
+        <span class="btn__text">Create Account</span>
+        <span class="btn__spinner btn__spinner--hidden" aria-hidden="true">
+          <svg class="spinner" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </span>
+      </button>
+      
+    LoadingStateComplete: |
+      <button type="button" class="btn btn--primary btn--loading" 
+              disabled 
+              aria-describedby="btn-loading-msg"
+              data-testid="save-button">
+        <span class="btn__spinner" aria-hidden="true">
+          <svg class="spinner" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </span>
+        <span class="btn__text">Saving...</span>
+      </button>
+      <div id="btn-loading-msg" class="sr-only">
+        Please wait while we save your changes. This may take a few moments.
+      </div>
+      
+    IconOnlyWithTooltip: |
+      <button type="button" class="btn btn--ghost btn--icon" 
+              aria-label="Close dialog"
+              data-testid="close-button">
+        <svg aria-hidden="true" width="24" height="24">
+          <use href="#icon-x"></use>
+        </svg>
+      </button>
+      
+    DangerWithConfirmation: |
+      <button type="button" class="btn btn--danger" 
+              data-testid="delete-button"
+              data-confirm="Are you sure you want to delete this item? This action cannot be undone.">
+        <svg class="btn__icon" aria-hidden="true">
+          <use href="#icon-trash"></use>
+        </svg>
+        Delete Item
+      </button>
+      
+    ToggleButton: |
+      <button type="button" class="btn btn--secondary btn--toggle" 
+              aria-pressed="false"
+              data-testid="favorite-toggle">
+        <svg class="btn__icon" aria-hidden="true">
+          <use href="#icon-heart"></use>
+        </svg>
+        <span class="btn__text">Add to Favorites</span>
+      </button>
+      
+    SplitButton: |
+      <div class="btn-group btn-group--split" role="group" aria-label="Save options">
+        <button type="submit" class="btn btn--primary">
+          Save
+        </button>
+        <button type="button" class="btn btn--primary btn--dropdown" 
+                aria-haspopup="menu" 
+                aria-expanded="false"
+                aria-label="More save options">
+          <svg aria-hidden="true">
+            <use href="#icon-chevron-down"></use>
+          </svg>
+        </button>
+      </div>
+      
+  !ValidationChecklist:
+    Required:
+      - [ ] Uses semantic button element or appropriate input type
+      - [ ] Has meaningful text content or aria-label
+      - [ ] Includes proper type attribute
+      - [ ] Meets minimum 44x44px touch target
+      - [ ] Has visible focus indicator using design tokens
+      - [ ] Properly handles disabled state with aria attributes
+      - [ ] Prevents double-click submission
+      - [ ] Uses design tokens for all styling values
+      - [ ] Includes data-testid for testing
+      
+    FormButtons:
+      - [ ] Submit buttons trigger form validation
+      - [ ] Reset buttons include confirmation
+      - [ ] Form association via form attribute when needed
+      - [ ] Error states connected via aria-describedby
+      
+    Performance:
+      - [ ] Animations use CSS transforms
+      - [ ] Event handlers are efficient (no inline)
+      - [ ] Debouncing for rapid interactions
+      - [ ] Respects prefers-reduced-motion
+      
+    Accessibility:
+      - [ ] Screen reader announcements for state changes
+      - [ ] Proper ARIA states (busy, pressed, expanded)
+      - [ ] Keyboard navigation support
+      - [ ] High contrast mode compatibility
+      - [ ] Focus management in complex interactions
+      
+    Security:
+      - [ ] No XSS vulnerabilities in dynamic content
+      - [ ] CSRF protection for form submissions
+      - [ ] Rate limiting for API calls
+      - [ ] Input validation and sanitization
+      
+    Recommended:
+      - [ ] Loading states with proper feedback
+      - [ ] Error handling with recovery options
+      - [ ] Analytics tracking capabilities
+      - [ ] Responsive behavior across devices
+      - [ ] Graceful degradation without JavaScript
+      
+    Optional:
+      - [ ] Creative visual enhancements
+      - [ ] Micro-interactions and animations
+      - [ ] Advanced state management
+      - [ ] Haptic feedback on mobile
+      - [ ] Sound effects for important actions
+      - [ ] Progressive enhancement features

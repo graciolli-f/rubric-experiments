@@ -1,0 +1,701 @@
+// select.rux
+// Dropdown selection component with comprehensive production requirements
+// Category: Selection & Input
+
+extends base.rux
+
+Component: Select
+  Description: "Dropdown for selecting from a list of options with full accessibility and feature support"
+  Category: "selection-input"
+  
+  !Structure:
+    !Wrapper:
+      Element: ".select"
+      !position: relative for dropdown positioning
+      !contains all select-related elements
+      !proper form association
+      
+    # Native HTML select (baseline - always include for accessibility)
+    !NativeSelect:
+      Element: "select.select__native"
+      !name attribute for forms
+      !id for label association
+      !hidden when custom select is enhanced
+      !fallback for JavaScript failures
+      
+      Options:
+        !option elements with proper values
+        !meaningful option text content
+        !value attributes for form submission
+        ?optgroup for logical categorization
+        ?disabled options with clear indication
+        !empty option for "no selection" state where appropriate
+        
+    # Enhanced custom select (progressive enhancement)
+    !CustomSelect:
+      Trigger:
+        Element: "button.select__trigger[role='combobox']"
+        !aria-expanded state (true/false)
+        !aria-haspopup="listbox"
+        !aria-controls pointing to listbox id
+        !aria-labelledby pointing to label
+        !aria-describedby for help text and errors
+        !display selected value or placeholder
+        !keyboard activation (Enter, Space, Arrow keys)
+        !minimum 44x44px touch target
+        
+      Dropdown:
+        Element: ".select__dropdown[role='listbox']"
+        !unique id referenced by aria-controls
+        !positioned absolutely or with floating UI
+        !hidden when closed (aria-hidden="true")
+        !max-height with scroll for long lists
+        !z-index from design tokens (var(--z-dropdown))
+        !focus containment when open
+        
+        Options:
+          Element: ".select__option[role='option']"
+          !aria-selected state for current selection
+          !keyboard navigable with arrow keys
+          !unique id for aria-activedescendant
+          !proper focus management
+          !clear visual hierarchy
+          
+    # Form Integration
+    !HiddenInput:
+      Element: "input[type='hidden'].select__input"
+      !name attribute matching form requirements
+      !value synchronized with selection
+      !proper form validation integration
+      
+  !Accessibility:
+    includes: [*base-a11y, *form-a11y, *advanced-a11y]
+    
+    SelectSpecific:
+      !associated label element (required)
+      !comprehensive keyboard navigation:
+        - Tab: Focus trigger button
+        - Enter/Space: Open/close dropdown
+        - Arrow Up/Down: Navigate options
+        - Home/End: First/last option
+        - Escape: Close dropdown and return focus
+        - Type-ahead: Jump to matching options
+        - Page Up/Down: Jump by chunks in long lists
+      !announce selection changes to screen readers
+      !announce option count and position
+      !clear instructions for screen reader users
+      !proper focus indication at all times
+      
+    SearchableSelect:
+      !search input properly labeled
+      !announce filtering results
+      !announce "no results" state
+      !clear search functionality
+      
+    MultiSelect:
+      !aria-multiselectable="true"
+      !proper selection announcement
+      !clear selection count
+      !removal instructions for selected items
+      
+  !States:
+    !closed: default collapsed state with proper ARIA
+    !open: dropdown visible with focus management
+    !focus: visible outline on trigger
+    !disabled: non-interactive with proper attributes
+    !invalid: error styling with ARIA and messaging
+    !loading: activity indicator with aria-busy
+    !empty: no options available with guidance
+    !searching: filtering in progress indication
+    
+    # Advanced States
+    !readonly: display only, no interaction
+    !required: must have selection for form submission
+    !multiple: multi-selection mode
+    !async: remote data loading
+    
+  !Validation:
+    !client-side validation with immediate feedback
+    !required field validation
+    !custom validation rules support
+    !error message display and association
+    !validation state persistence
+    !server-side validation integration
+    !proper error recovery mechanisms
+    
+  !FormIntegration:
+    !proper form association via form attribute if needed
+    !validation state synchronization
+    !reset functionality integration
+    !dirty state tracking
+    !change event propagation
+    !form submission data inclusion
+    !proper serialization for AJAX submissions
+    
+  !Performance:
+    !efficient option rendering (virtualization for 1000+ items)
+    !debounced search input
+    !lazy loading of remote options
+    !optimized re-rendering strategies
+    !memory leak prevention
+    !proper cleanup on component destruction
+    !smooth 60fps animations
+    !optimized event handling
+    
+  !Security:
+    !XSS prevention in option content
+    !input sanitization for search
+    !CSRF protection for remote data
+    !rate limiting for API calls
+    !secure handling of user selections
+    !proper output encoding
+    
+  !ErrorHandling:
+    !graceful degradation to native select
+    !network error handling for remote data
+    !timeout handling for slow responses
+    !user-friendly error messages
+    !retry mechanisms for failed operations
+    !proper error logging
+    !fallback content for empty states
+    
+  !DataManagement:
+    !efficient option storage and retrieval
+    !proper data binding and synchronization
+    !caching strategies for remote data
+    !optimistic UI updates
+    !conflict resolution for concurrent changes
+    !data freshness validation
+    
+  !Testing:
+    !comprehensive unit test coverage
+    !accessibility testing with screen readers
+    !cross-browser compatibility testing
+    !performance testing with large datasets
+    !user acceptance testing
+    !automated visual regression testing
+    
+    TestingHelpers:
+      !data-testid="select-{purpose}" on wrapper
+      !data-testid="select-trigger" on button
+      !data-testid="select-option-{index}" on options
+      !data-testid="select-search" on search input
+      !state indicators for automated testing
+      !consistent class naming for CSS testing
+      
+  !Analytics:
+    !selection tracking with privacy compliance
+    !user interaction patterns
+    !performance metrics collection
+    !conversion funnel analysis
+    !feature usage statistics
+    !error rate monitoring
+    
+  ?Features:
+    ?search/filter options with highlighting
+    ?clear selection button
+    ?select all/none for multi-select
+    ?async option loading with pagination
+    ?create new option inline
+    ?option groups with expand/collapse
+    ?rich option content (icons, descriptions, images)
+    ?recent selections memory
+    ?favorites/pinned options
+    ?bulk operations for multi-select
+    ?drag and drop reordering
+    ?keyboard shortcuts for power users
+    ?integration with external data sources
+    
+  ~Visual:
+    ~custom dropdown arrow with rotation animation
+    ~smooth open/close transitions using CSS transforms
+    ~custom scrollbar styling
+    ~floating UI positioning with collision detection
+    ~option hover effects with subtle animations
+    ~selected option highlighting
+    ~loading states with skeleton UI
+    ~empty state illustrations
+    ~error state visual indicators
+    ~success confirmation animations
+    
+    # Advanced Visual Enhancements
+    ~glassmorphism dropdown background
+    ~subtle parallax effects on scroll
+    ~spring animations for interactions
+    ~option icons with semantic meaning
+    ~color coding for categories
+    ~gradient backgrounds with accessibility
+    ~micro-interactions (scale, fade, slide)
+    ~visual feedback for all user actions
+    ~adaptive theming support
+    ~high contrast mode optimization
+    
+  !ResponsiveDesign:
+    !mobile-optimized touch interactions
+    !adaptive sizing across breakpoints
+    !thumb-friendly option sizing on mobile
+    !safe area respect for mobile devices
+    !responsive dropdown positioning
+    !adaptive max-height based on viewport
+    !orientation change handling
+    
+  !BrowserCompatibility:
+    !IE11+ support with polyfills
+    !graceful degradation for older browsers
+    !feature detection for modern capabilities
+    !consistent behavior across platforms
+    !mobile browser optimization
+    !assistive technology compatibility
+    
+  Variants:
+    BasicSelect:
+      extends: Select
+      Purpose: "Simple single selection"
+      
+      !Requirements:
+        !single selection only
+        !clear placeholder text
+        !validation support
+        !proper form integration
+        
+      !DefaultBehavior:
+        !close on selection
+        !focus management
+        !proper announcement
+        
+      ~Enhancements:
+        ~search functionality
+        ~recent selections
+        ~keyboard shortcuts
+        
+    MultiSelect:
+      extends: Select
+      Purpose: "Multiple option selection"
+      
+      !Requirements:
+        !aria-multiselectable="true"
+        !selected items display area
+        !clear all action
+        !individual item removal
+        !selection count display
+        !proper form data serialization
+        
+      !SelectionDisplay:
+        Element: ".select__selections"
+        !list of selected items
+        !remove buttons with proper labels
+        !keyboard navigation support
+        !overflow handling for many selections
+        
+      !Behavior:
+        !remain open after selection
+        !batch selection operations
+        !select all/none functionality
+        !maximum selection limits
+        
+      ?Features:
+        ?tags/chips for selections with animations
+        ?drag to reorder selected items
+        ?selection templates for display
+        ?bulk operations UI
+        
+      ~Visual:
+        ~animated tag addition/removal
+        ~pill-style selections with hover effects
+        ~stacking animation for space efficiency
+        ~color-coded selections by category
+        
+    SearchableSelect:
+      extends: Select
+      Purpose: "Filterable option list"
+      
+      !Requirements:
+        !search input field in dropdown
+        !real-time filtering as user types
+        !highlighted matching text in options
+        !clear search action
+        !no results state with message
+        !search input accessibility
+        
+      !SearchBehavior:
+        !debounced search (300ms default)
+        !fuzzy matching support
+        !case-insensitive search
+        !multiple search terms
+        !search history for power users
+        
+      !Performance:
+        !efficient filtering algorithms
+        !virtualization for large datasets
+        !search result caching
+        !optimized re-rendering
+        
+      ?Features:
+        ?advanced search operators
+        ?saved searches
+        ?search suggestions
+        ?category-based filtering
+        
+      ~Visual:
+        ~search icon with animation
+        ~highlighted matching text
+        ~search loading indicators
+        ~smooth result transitions
+        
+    AsyncSelect:
+      extends: Select
+      Purpose: "Remote data loading"
+      
+      !Requirements:
+        !loading state indication
+        !error state handling with retry
+        !pagination support for large datasets
+        !search integration with API
+        !proper timeout handling
+        !cache management
+        
+      !LoadingStates:
+        !initial load skeleton
+        !search loading indicators
+        !pagination loading
+        !retry loading states
+        
+      !ErrorHandling:
+        !network error messages
+        !retry mechanisms
+        !fallback content
+        !timeout handling
+        !rate limiting respect
+        
+      !DataManagement:
+        !intelligent caching strategies
+        !stale data handling
+        !optimistic updates
+        !offline support
+        
+      ?Features:
+        ?infinite scroll loading
+        ?prefetching strategies
+        ?background refresh
+        ?real-time updates
+        
+      ~Performance:
+        ~request debouncing
+        ~efficient data structures
+        ~memory management
+        ~background processing
+        
+    CreatableSelect:
+      extends: Select
+      Purpose: "Allow creating new options"
+      
+      !Requirements:
+        !create new option interface
+        !validation for new options
+        !proper form integration
+        !duplicate prevention
+        !user permission checking
+        
+      !CreateInterface:
+        !clear "create new" option
+        !inline editing capability
+        !validation feedback
+        !creation confirmation
+        
+      !Validation:
+        !duplicate checking
+        !format validation
+        !length restrictions
+        !content filtering
+        
+      ?Features:
+        ?template-based creation
+        ?bulk creation
+        ?approval workflow
+        ?creation history
+        
+      ~Visual:
+        ~creation animations
+        ~validation feedback
+        ~success confirmations
+        ~creative input styling
+        
+    GroupedSelect:
+      extends: Select
+      Purpose: "Categorized option groups"
+      
+      !Requirements:
+        !semantic optgroup structure
+        !group headers with proper markup
+        !keyboard navigation across groups
+        !proper announcement of groups
+        !collapsible groups (optional)
+        
+      !GroupStructure:
+        !logical grouping
+        !clear group labels
+        !proper ARIA relationships
+        !visual group separation
+        
+      !Navigation:
+        !skip between groups
+        !group-aware searching
+        !proper focus management
+        !group state announcements
+        
+      ?Features:
+        ?collapsible groups
+        ?group selection (all/none)
+        ?group filtering
+        ?nested groups
+        
+      ~Visual:
+        ~group header styling
+        ~expand/collapse animations
+        ~group color coding
+        ~visual hierarchy
+        
+  !Examples:
+    # Comprehensive examples showing complete implementation
+    
+    BasicSelectComplete: |
+      <div class="select" data-testid="select-country">
+        <!-- Native fallback -->
+        <select class="select__native sr-only" name="country" id="country-native" required>
+          <option value="">Select a country</option>
+          <option value="us">United States</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+        </select>
+        
+        <!-- Enhanced select -->
+        <label for="country-trigger" class="select__label">
+          Country <span class="required" aria-label="required">*</span>
+        </label>
+        
+        <button type="button" 
+                class="select__trigger" 
+                id="country-trigger"
+                role="combobox"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-controls="country-listbox"
+                aria-labelledby="country-label"
+                aria-describedby="country-help country-error"
+                data-testid="select-trigger">
+          <span class="select__value">Select a country</span>
+          <svg class="select__arrow" aria-hidden="true">
+            <use href="#icon-chevron-down"></use>
+          </svg>
+        </button>
+        
+        <div class="select__dropdown" 
+             id="country-listbox" 
+             role="listbox"
+             aria-hidden="true"
+             data-testid="select-dropdown">
+          <div class="select__option" 
+               role="option" 
+               aria-selected="false" 
+               data-value="us"
+               data-testid="select-option-0">
+            United States
+          </div>
+          <div class="select__option" 
+               role="option" 
+               aria-selected="false" 
+               data-value="ca"
+               data-testid="select-option-1">
+            Canada
+          </div>
+          <div class="select__option" 
+               role="option" 
+               aria-selected="false" 
+               data-value="uk"
+               data-testid="select-option-2">
+            United Kingdom
+          </div>
+        </div>
+        
+        <input type="hidden" name="country" class="select__input" value="">
+        
+        <div id="country-help" class="select__help">
+          Choose your primary country of residence
+        </div>
+        
+        <div id="country-error" class="select__error" role="alert" aria-live="polite">
+          <!-- Error messages appear here -->
+        </div>
+      </div>
+      
+    SearchableSelectExample: |
+      <div class="select select--searchable" data-testid="select-users">
+        <label for="user-trigger" class="select__label">Assign to User</label>
+        
+        <button type="button" 
+                class="select__trigger" 
+                id="user-trigger"
+                role="combobox"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-controls="user-listbox"
+                data-testid="select-trigger">
+          <span class="select__value">Search users...</span>
+          <svg class="select__arrow" aria-hidden="true">
+            <use href="#icon-search"></use>
+          </svg>
+        </button>
+        
+        <div class="select__dropdown" 
+             id="user-listbox" 
+             role="listbox"
+             aria-hidden="true">
+          <div class="select__search-wrapper">
+            <input type="text" 
+                   class="select__search" 
+                   placeholder="Type to search users..."
+                   aria-label="Search users"
+                   data-testid="select-search">
+            <button type="button" class="select__search-clear" aria-label="Clear search">
+              <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+            </button>
+          </div>
+          
+          <div class="select__options" role="group" aria-label="User options">
+            <div class="select__option" role="option" data-value="1">
+              <img src="/avatars/alice.jpg" alt="" class="select__option-avatar">
+              <div class="select__option-content">
+                <div class="select__option-name">Alice Johnson</div>
+                <div class="select__option-email">alice@company.com</div>
+              </div>
+            </div>
+            <!-- More options... -->
+          </div>
+          
+          <div class="select__no-results" role="status" aria-live="polite">
+            No users found matching your search
+          </div>
+        </div>
+      </div>
+      
+    MultiSelectExample: |
+      <div class="select select--multi" data-testid="select-tags">
+        <label for="tags-trigger" class="select__label">Tags</label>
+        
+        <div class="select__selections" aria-live="polite" aria-label="Selected tags">
+          <span class="select__selection" data-value="design">
+            Design
+            <button type="button" class="select__selection-remove" aria-label="Remove Design tag">
+              <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+            </button>
+          </span>
+          <span class="select__selection" data-value="frontend">
+            Frontend
+            <button type="button" class="select__selection-remove" aria-label="Remove Frontend tag">
+              <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+            </button>
+          </span>
+        </div>
+        
+        <button type="button" 
+                class="select__trigger" 
+                id="tags-trigger"
+                role="combobox"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-multiselectable="true"
+                aria-controls="tags-listbox"
+                data-testid="select-trigger">
+          <span class="select__value">Add tags...</span>
+          <span class="select__count" aria-label="2 tags selected">2</span>
+          <svg class="select__arrow" aria-hidden="true">
+            <use href="#icon-chevron-down"></use>
+          </svg>
+        </button>
+        
+        <div class="select__dropdown" id="tags-listbox" role="listbox" aria-hidden="true">
+          <div class="select__actions">
+            <button type="button" class="select__action">Select All</button>
+            <button type="button" class="select__action">Clear All</button>
+          </div>
+          
+          <div class="select__options">
+            <div class="select__option select__option--selected" role="option" aria-selected="true" data-value="design">
+              <svg class="select__option-check" aria-hidden="true">
+                <use href="#icon-check"></use>
+              </svg>
+              Design
+            </div>
+            <!-- More options... -->
+          </div>
+        </div>
+        
+        <input type="hidden" name="tags[]" value="design,frontend">
+      </div>
+      
+  !ValidationChecklist:
+    # Comprehensive validation for production readiness
+    
+    Structure:
+      - [ ] Native select fallback included and functional
+      - [ ] Proper semantic HTML structure
+      - [ ] All required ARIA attributes present
+      - [ ] Unique IDs for all interactive elements
+      - [ ] Proper label association
+      - [ ] Hidden input for form submission
+      
+    Accessibility:
+      - [ ] Screen reader tested and announces properly
+      - [ ] Full keyboard navigation implemented
+      - [ ] Focus management works correctly
+      - [ ] High contrast mode support
+      - [ ] WCAG 2.1 AA compliance verified
+      - [ ] Error states properly announced
+      - [ ] Loading states communicated
+      - [ ] Selection changes announced
+      
+    Functionality:
+      - [ ] Form integration works correctly
+      - [ ] Validation states function properly
+      - [ ] Error handling graceful and user-friendly
+      - [ ] Performance acceptable with large datasets
+      - [ ] Search functionality efficient and accurate
+      - [ ] Multi-select operations work correctly
+      
+    Security:
+      - [ ] XSS protection in place
+      - [ ] Input sanitization implemented
+      - [ ] CSRF protection for remote data
+      - [ ] Rate limiting respected
+      - [ ] Secure data handling verified
+      
+    Performance:
+      - [ ] Smooth 60fps animations
+      - [ ] Efficient rendering with large option lists
+      - [ ] Memory leaks prevented
+      - [ ] Network requests optimized
+      - [ ] Bundle size acceptable
+      - [ ] Core Web Vitals impact minimal
+      
+    Browser Support:
+      - [ ] Cross-browser compatibility verified
+      - [ ] Mobile device testing completed
+      - [ ] Assistive technology compatibility confirmed
+      - [ ] Graceful degradation working
+      - [ ] Progressive enhancement functional
+      
+    Testing:
+      - [ ] Unit tests cover all functionality
+      - [ ] Integration tests verify form behavior
+      - [ ] Accessibility tests automated
+      - [ ] Visual regression tests in place
+      - [ ] Performance tests established
+      - [ ] User acceptance testing completed
+      
+    Documentation:
+      - [ ] Component API documented
+      - [ ] Usage examples provided
+      - [ ] Accessibility guidelines included
+      - [ ] Performance considerations noted
+      - [ ] Browser support documented
+      - [ ] Migration guides available

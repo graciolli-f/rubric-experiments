@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Components - Accessible UI Library</title>
+    <link rel="stylesheet" href="buttons.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Button Components</h1>
+            <p>A comprehensive set of accessible, secure, and performant button components</p>
+        </header>
+
+        <section class="component-section">
+            <h2>Primary Buttons</h2>
+            <div class="button-group">
+                <!-- Standard primary button with proper semantic markup -->
+                <button type="button" class="btn btn--primary">
+                    Primary Action
+                </button>
+                
+                <!-- Primary button with icon for enhanced UX -->
+                <button type="button" class="btn btn--primary btn--icon" aria-describedby="save-desc">
+                    <span class="btn__icon" aria-hidden="true">💾</span>
+                    Save Document
+                </button>
+                <div id="save-desc" class="sr-only">Saves your current document to storage</div>
+                
+                <!-- Loading state button with accessibility considerations -->
+                <button type="button" class="btn btn--primary btn--loading" aria-label="Submitting form" disabled>
+                    <span class="btn__spinner" aria-hidden="true"></span>
+                    <span class="btn__text">Submitting...</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="component-section">
+            <h2>Secondary Buttons</h2>
+            <div class="button-group">
+                <!-- Secondary button for less prominent actions -->
+                <button type="button" class="btn btn--secondary">
+                    Secondary Action
+                </button>
+                
+                <!-- Ghost/outline button for subtle actions -->
+                <button type="button" class="btn btn--ghost">
+                    Cancel
+                </button>
+                
+                <!-- Text-only button for minimal prominence -->
+                <button type="button" class="btn btn--text">
+                    Learn More
+                </button>
+            </div>
+        </section>
+
+        <section class="component-section">
+            <h2>Button Sizes</h2>
+            <div class="button-group">
+                <!-- Size variants for different use cases -->
+                <button type="button" class="btn btn--primary btn--small">
+                    Small
+                </button>
+                <button type="button" class="btn btn--primary btn--medium">
+                    Medium (Default)
+                </button>
+                <button type="button" class="btn btn--primary btn--large">
+                    Large
+                </button>
+            </div>
+        </section>
+
+        <section class="component-section">
+            <h2>State Variations</h2>
+            <div class="button-group">
+                <!-- Various interactive states -->
+                <button type="button" class="btn btn--primary">
+                    Normal State
+                </button>
+                
+                <!-- Disabled state with proper accessibility -->
+                <button type="button" class="btn btn--primary" disabled aria-describedby="disabled-desc">
+                    Disabled State
+                </button>
+                <div id="disabled-desc" class="sr-only">This action is currently unavailable</div>
+                
+                <!-- Focus state is handled via CSS :focus-visible -->
+                <button type="button" class="btn btn--secondary">
+                    Focusable Button
+                </button>
+            </div>
+        </section>
+
+        <section class="component-section">
+            <h2>Specialized Buttons</h2>
+            <div class="button-group">
+                <!-- Destructive action button with warning styling -->
+                <button type="button" class="btn btn--danger" aria-describedby="delete-warning">
+                    <span class="btn__icon" aria-hidden="true">🗑️</span>
+                    Delete Item
+                </button>
+                <div id="delete-warning" class="sr-only">This action cannot be undone</div>
+                
+                <!-- Success/confirmation button -->
+                <button type="button" class="btn btn--success">
+                    <span class="btn__icon" aria-hidden="true">✓</span>
+                    Confirm
+                </button>
+                
+                <!-- Full-width button for forms -->
+                <button type="submit" class="btn btn--primary btn--full-width">
+                    Submit Form
+                </button>
+            </div>
+        </section>
+
+        <section class="component-section">
+            <h2>Button Groups</h2>
+            <!-- Grouped buttons with proper ARIA roles -->
+            <div class="btn-group" role="group" aria-label="Text formatting options">
+                <button type="button" class="btn btn--secondary btn--group-item" aria-pressed="false">
+                    <span class="btn__icon" aria-hidden="true"><strong>B</strong></span>
+                    <span class="sr-only">Bold</span>
+                </button>
+                <button type="button" class="btn btn--secondary btn--group-item" aria-pressed="true">
+                    <span class="btn__icon" aria-hidden="true"><em>I</em></span>
+                    <span class="sr-only">Italic</span>
+                </button>
+                <button type="button" class="btn btn--secondary btn--group-item" aria-pressed="false">
+                    <span class="btn__icon" aria-hidden="true"><u>U</u></span>
+                    <span class="sr-only">Underline</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="component-section">
+            <h2>Link-styled Buttons</h2>
+            <div class="button-group">
+                <!-- Button that looks like a link but maintains button semantics -->
+                <button type="button" class="btn btn--link">
+                    Navigate to Dashboard
+                </button>
+                
+                <!-- Actual link for navigation (not a button) -->
+                <a href="#" class="btn btn--link" role="button">
+                    External Link
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Screen reader only content for better accessibility -->
+    <div class="sr-only">
+        <p>All buttons support keyboard navigation using Tab and Enter/Space keys</p>
+    </div>
+</body>
+</html> 
