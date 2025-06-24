@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Dashboard - Content Management</title>
+    <!-- Design tokens must be loaded first -->
+    <link rel="stylesheet" href="tokens.css">
+    <!-- Component styles -->
+    <link rel="stylesheet" href="components/Header.css">
+    <link rel="stylesheet" href="components/StatsSection.css">
+    <link rel="stylesheet" href="components/PostsList.css">
+    <link rel="stylesheet" href="components/CommentsList.css">
+    <link rel="stylesheet" href="main.css">
+    <!-- Preload Inter font for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header landmark for accessibility -->
+    <header id="header" role="banner" data-testid="dashboard-header">
+        <!-- Header component will be rendered here -->
+    </header>
+
+    <!-- Main content landmark -->
+    <main id="main-content" role="main" data-testid="dashboard-main">
+        <!-- Stats section -->
+        <section id="stats-section" aria-labelledby="stats-heading" data-testid="stats-section">
+            <h2 id="stats-heading" class="visually-hidden">Dashboard Statistics</h2>
+            <!-- Stats component will be rendered here -->
+        </section>
+
+        <!-- Content grid for posts and comments -->
+        <div class="content-grid" data-testid="content-grid">
+            <!-- Recent posts section -->
+            <section id="posts-section" aria-labelledby="posts-heading" data-testid="posts-section">
+                <h2 id="posts-heading" class="section-heading">Recent Posts</h2>
+                <!-- Posts list component will be rendered here -->
+            </section>
+
+            <!-- Recent comments section -->
+            <section id="comments-section" aria-labelledby="comments-heading" data-testid="comments-section">
+                <h2 id="comments-heading" class="section-heading">Recent Comments</h2>
+                <!-- Comments list component will be rendered here -->
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading state for initial render -->
+    <div id="loading-indicator" class="loading-indicator" aria-live="polite" data-testid="loading-indicator">
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <span class="loading-text">Loading dashboard...</span>
+    </div>
+
+    <!-- Error state container -->
+    <div id="error-container" class="error-container" role="alert" aria-live="assertive" data-testid="error-container" style="display: none;">
+        <h2>Unable to load dashboard</h2>
+        <p id="error-message"></p>
+        <button type="button" id="retry-button" class="button button--primary">
+            Try Again
+        </button>
+    </div>
+
+    <!-- Modular JavaScript components -->
+    <script type="module" src="components/Header.js"></script>
+    <script type="module" src="components/StatsSection.js"></script>
+    <script type="module" src="components/PostsList.js"></script>
+    <script type="module" src="components/CommentsList.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html> 

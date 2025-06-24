@@ -1,0 +1,128 @@
+// base.rux
+// Global specifications inherited by all components
+// Defines accessibility, performance, security, and code standards
+
+!GlobalSpecs:
+ !UseDesignTokens:
+   Reference: "design-system.rux"
+   Requirement: "All visual properties must use design tokens from tokens.css"
+   
+   !Enforcement:
+     !no hardcoded colors - use var(--color-*)
+     !no hardcoded spacing - use var(--space-*)
+     !no hardcoded typography - use var(--font-*, --text-*)
+     !no hardcoded borders - use var(--border-*)
+     !no hardcoded shadows - use var(--shadow-*)
+     !no hardcoded motion - use var(--duration-*, --ease-*)
+     !no hardcoded z-index - use var(--z-*)
+     !no hardcoded sizes - use var(--width-*, --height-*)
+     !no hardcoded breakpoints - use var(--breakpoint-*)
+ 
+ !Accessibility: &base-a11y
+   # Universal requirements for all components
+   
+   Structure:
+     !semantic HTML elements
+     !logical heading hierarchy
+     !landmark regions where appropriate
+     
+   Interaction:
+     !keyboard navigable
+     !visible focus indicators using outline
+     !minimum touch target 44x44px
+     !no keyboard traps
+     
+   Content:
+     !meaningful alt text for images
+     !descriptive link text
+     !sufficient color contrast (WCAG AA)
+     !text scalable to 200%
+     
+   State:
+     !announce state changes to screen readers
+     !loading states communicated
+     !error states clearly marked
+     
+   # Reusable patterns for specific component types
+   FormInputs: &form-a11y
+     !associated label element
+     !error messages linked via aria-describedby
+     !required fields marked with required attribute
+     !invalid fields marked with aria-invalid
+     
+   Overlays: &overlay-a11y
+     !trap focus while open
+     !return focus on close
+     !close on Escape key
+     !prevent body scroll
+     !announce to screen readers
+     
+   DataTables: &data-a11y
+     !proper table markup
+     !column headers with scope
+     !row headers where needed
+     !caption or aria-label
+     
+ !Performance: &base-performance
+   Images:
+     !explicit width and height attributes
+     !lazy loading for below-fold images
+     !appropriate format (WebP with fallback)
+     
+   Layout:
+     !minimize cumulative layout shift
+     !reserve space for dynamic content
+     ?use CSS containment for complex components
+     
+   Interaction:
+     ?debounce rapid fire events
+     ?use passive event listeners
+     ?provide immediate feedback
+     
+ !Security: &base-security
+   Content:
+     !sanitize all user input
+     !use textContent not innerHTML for user data
+     !validate URLs before use
+     
+   Scripts:
+     !no eval() or Function() with user input
+     !CSP compliant implementation
+     !no inline event handlers
+     
+ !CodeStyle:
+   CSS:
+     !use BEM methodology: block__element--modifier
+     !meaningful class names
+     !mobile-first responsive design
+     !use design tokens for all values
+     
+   HTML:
+     !consistent indentation
+     !logical element order
+     !comments for complex structures
+     
+   Attributes:
+     !data-testid for test targeting
+     ?data-analytics for tracking
+     !consistent naming patterns
+     
+ !ResponsiveDesign:
+   !mobile-first approach
+   !use CSS Grid or Flexbox for layouts
+   !breakpoints from var(--breakpoint-*)
+   !fluid typography where appropriate
+   ?container queries for component-level responsiveness
+   
+ !StateManagement:
+   Visual:
+     !clear hover states
+     !obvious focus states
+     !distinct active states
+     !reduced motion for prefers-reduced-motion
+     
+   Functional:
+     !loading states for async operations
+     !error states with recovery options
+     !empty states with guidance
+     !disabled states with proper cursor

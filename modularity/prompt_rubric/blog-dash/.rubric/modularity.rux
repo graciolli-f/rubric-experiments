@@ -1,0 +1,39 @@
+// modularity.rux
+// Specifications for modular component architecture
+
+!ModularArchitecture:
+  !FileOrganization:
+    !structure: "One component per file"
+    !naming: "ComponentName.js, ComponentName.css"
+    !entry: "main.js imports and orchestrates all components"
+    
+  !ComponentDesign:
+    !independence: "Each component works in isolation"
+    !interface: "Clear props/config object for initialization"
+    !encapsulation: "Component manages own state and DOM"
+    
+  !Example:
+    # Instead of everything in one file:
+    # main.js should look like:
+    /*
+    import Header from './components/Header.js';
+    import TaskList from './components/TaskList.js';
+    
+    const app = document.getElementById('app');
+    const header = new Header({ title: 'My App' });
+    const taskList = new TaskList({ tasks: [] });
+    
+    app.appendChild(header.render());
+    app.appendChild(taskList.render());
+    */
+    
+  !RequiredPattern:
+    !constructor: "Accept configuration object"
+    !render: "Return DOM element"
+    !update: "Method to update component state"
+    !destroy: "Cleanup method for event listeners"
+    
+  !Communication:
+    !events: "Components emit custom events"
+    !pubsub: "Use event bus for cross-component communication"
+    !no-direct: "No direct component-to-component references"

@@ -1,0 +1,207 @@
+/* StatsSection component styles - follows BEM methodology */
+/* Displays dashboard statistics in a responsive card layout */
+
+.stats-section {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: var(--space-2xl);
+}
+
+.stats-card {
+  background: var(--color-background);
+  border: var(--border-width-thin) solid var(--color-secondary-200);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card:hover {
+  border-color: var(--color-secondary-300);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.stats-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.stats-card__title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin: 0;
+}
+
+.stats-card__icon {
+  width: var(--height-icon-md);
+  height: var(--height-icon-md);
+  border-radius: var(--border-radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-inverse);
+  flex-shrink: 0;
+}
+
+/* Icon color variants */
+.stats-card__icon--posts {
+  background: var(--color-primary-500);
+}
+
+.stats-card__icon--views {
+  background: var(--color-info-500);
+}
+
+.stats-card__icon--comments {
+  background: var(--color-success-500);
+}
+
+.stats-card__value {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.stats-card__change {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.stats-card__change--positive {
+  color: var(--color-success-600);
+}
+
+.stats-card__change--negative {
+  color: var(--color-error-600);
+}
+
+.stats-card__change--neutral {
+  color: var(--color-text-secondary);
+}
+
+.stats-card__change-icon {
+  width: var(--height-icon-sm);
+  height: var(--height-icon-sm);
+  flex-shrink: 0;
+}
+
+.stats-card__period {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-disabled);
+  margin-top: var(--space-xs);
+}
+
+/* Responsive design improvements */
+@media (max-width: 640px) {
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .stats-card {
+    padding: var(--space-md);
+  }
+  
+  .stats-card__value {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Loading state for stats cards */
+.stats-card--loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card--loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer var(--duration-slow) ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Skeleton loading states for individual elements */
+.stats-card__value--loading {
+  background: var(--color-secondary-200);
+  color: transparent;
+  border-radius: var(--border-radius-sm);
+  animation: pulse var(--duration-slow) ease-in-out infinite alternate;
+}
+
+.stats-card__change--loading {
+  background: var(--color-secondary-200);
+  color: transparent;
+  border-radius: var(--border-radius-sm);
+  width: 60px;
+  height: 1rem;
+  animation: pulse var(--duration-slow) ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .stats-card {
+    border-width: var(--border-width-base);
+  }
+  
+  .stats-card__icon {
+    border: var(--border-width-thin) solid currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .stats-card {
+    transition: none;
+  }
+  
+  .stats-card:hover {
+    transform: none;
+  }
+  
+  .stats-card--loading::before,
+  .stats-card__value--loading,
+  .stats-card__change--loading {
+    animation: none;
+  }
+} 

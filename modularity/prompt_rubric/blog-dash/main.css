@@ -1,0 +1,301 @@
+/* Main dashboard styles - uses design tokens exclusively */
+/* Base styles following base.rux accessibility and performance requirements */
+
+/* Base reset and typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility helper - visually hidden but available to screen readers */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus indicators for accessibility - required by base.rux */
+*:focus {
+  outline: var(--border-width-base) solid var(--color-primary-500);
+  outline-offset: var(--space-xs);
+}
+
+/* Skip to main content link for screen readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: var(--space-md);
+  background: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  border-radius: var(--border-radius-base);
+  z-index: var(--z-max);
+  transition: var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-md);
+}
+
+/* Main layout container */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header fixed positioning */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-dropdown);
+  background: var(--color-background);
+  border-bottom: var(--border-width-thin) var(--border-style-solid) var(--color-secondary-200);
+  /* Prevent layout shift by reserving space */
+  height: var(--height-header);
+}
+
+/* Main content with top padding to account for fixed header */
+#main-content {
+  flex: 1;
+  padding-top: calc(var(--height-header) + var(--space-lg));
+  padding-bottom: var(--space-2xl);
+  max-width: var(--width-container);
+  margin: 0 auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+/* Section headings */
+.section-heading {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Stats section spacing */
+#stats-section {
+  margin-bottom: var(--space-2xl);
+}
+
+/* Content grid layout - responsive design following mobile-first approach */
+.content-grid {
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: 1fr;
+}
+
+/* Responsive breakpoints using design tokens */
+@media (min-width: 768px) {
+  .content-grid {
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-3xl);
+  }
+  
+  #main-content {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  #main-content {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}
+
+/* Loading states - required by base.rux for async operations */
+.loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  z-index: var(--z-overlay);
+}
+
+.loading-spinner {
+  width: var(--space-xl);
+  height: var(--space-xl);
+  border: var(--border-width-base) solid var(--color-secondary-200);
+  border-top: var(--border-width-base) solid var(--color-primary-500);
+  border-radius: var(--border-radius-full);
+  animation: spin var(--duration-slow) var(--ease-linear) infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Error states - required by base.rux */
+.error-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-background);
+  border: var(--border-width-thin) solid var(--color-error-200);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  max-width: 400px;
+  width: 90%;
+  z-index: var(--z-modal);
+}
+
+.error-container h2 {
+  color: var(--color-error-700);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-md);
+}
+
+.error-container p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+/* Button component styles - reusable across components */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--border-radius-base);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-decoration: none;
+  min-height: var(--height-button);
+  /* Ensure minimum touch target size for accessibility */
+  min-width: 44px;
+  outline: none;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-50);
+}
+
+/* Button variants */
+.button--primary {
+  background: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary-500);
+}
+
+.button--primary:hover:not(:disabled) {
+  background: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.button--primary:active:not(:disabled) {
+  background: var(--color-primary-700);
+  border-color: var(--color-primary-700);
+}
+
+.button--secondary {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary-300);
+}
+
+.button--secondary:hover:not(:disabled) {
+  background: var(--color-secondary-50);
+  border-color: var(--color-secondary-400);
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+
+.button--ghost:hover:not(:disabled) {
+  background: var(--color-secondary-100);
+  color: var(--color-text-primary);
+}
+
+.button--danger {
+  background: var(--color-error-500);
+  color: var(--color-text-inverse);
+  border-color: var(--color-error-500);
+}
+
+.button--danger:hover:not(:disabled) {
+  background: var(--color-error-600);
+  border-color: var(--color-error-600);
+}
+
+.button--small {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-xs);
+  min-height: calc(var(--height-button) * 0.8);
+}
+
+/* Reduced motion support - required by base.rux */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .loading-spinner {
+    animation: none;
+    border-top-color: var(--color-primary-500);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .button {
+    border-width: var(--border-width-base);
+  }
+  
+  .button--ghost {
+    border-color: currentColor;
+  }
+} 
