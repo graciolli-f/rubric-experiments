@@ -1,6 +1,6 @@
 | Metric | Prompt-Only | Prompt + Rubric | Analysis |
 |--------|-------------|-----------------|----------|
-| File Count | 1 file | 13 files | Rubric version is 13x more modular |
+| File Count | 1 file | 13 files | Rubric version is more modular |
 | Total Lines | 586 lines | ~2,400 lines | 4x more code due to modularity overhead |
 | Architecture | Monolithic | Component-based | Rubric enforces strict separation of concerns |
 | HTML Structure | Everything in one file | Minimal shell with component mounting points | Rubric creates a true SPA architecture |
