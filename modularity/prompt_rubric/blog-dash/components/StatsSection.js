@@ -46,6 +46,14 @@ class StatsSection {
         change: -2.4,
         period: 'vs last month',
         icon: 'chat'
+      },
+      {
+        id: 'shares',
+        title: 'Total Shares',
+        value: 546, // Adding shares stat to display total shares across all posts
+        change: +15.3,
+        period: 'vs last month',
+        icon: 'share'
       }
     ];
   }
@@ -193,6 +201,11 @@ class StatsSection {
       chat: `
         <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
           <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894z"/>
+        </svg>
+      `,
+      share: `
+        <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+          <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.503 2.503 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
         </svg>
       `
     };

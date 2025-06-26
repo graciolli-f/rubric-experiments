@@ -65,6 +65,10 @@
   background: var(--color-success-500);
 }
 
+.stats-card__icon--shares {
+  background: var(--color-warning-500); /* Adding shares icon styling with distinct color */
+}
+
 .stats-card__value {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-3xl);
@@ -124,7 +128,7 @@
 
 @media (min-width: 1024px) {
   .stats-section {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* Updated to accommodate 4 stats cards including shares */
   }
 }
 

@@ -116,6 +116,7 @@
         .stat-card:nth-child(1) .stat-number { color: #4f46e5; }
         .stat-card:nth-child(2) .stat-number { color: #10b981; }
         .stat-card:nth-child(3) .stat-number { color: #f59e0b; }
+        .stat-card:nth-child(4) .stat-number { color: #ef4444; }
 
         .stat-label {
             color: #666;
@@ -279,6 +280,87 @@
         .fade-in {
             animation: fadeIn 0.5s ease-out;
         }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -309,6 +391,10 @@
                 <div class="stat-number" id="totalComments">89</div>
                 <div class="stat-label">Total Comments</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalShares">156</div>
+                <div class="stat-label">Total Shares</div>
+            </div>
         </div>
 
         <!-- Recent Posts Section -->
@@ -332,6 +418,59 @@
         </div>
     </div>
 
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">BlogDash</div>
+                <p>Your comprehensive blog management platform. Create, manage, and analyze your content with ease.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Twitter">🐦</a>
+                    <a href="#" class="social-link" title="Facebook">📘</a>
+                    <a href="#" class="social-link" title="LinkedIn">💼</a>
+                    <a href="#" class="social-link" title="Instagram">📷</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <div class="footer-title">Quick Links</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Dashboard</a>
+                    <a href="#" class="footer-link">All Posts</a>
+                    <a href="#" class="footer-link">Comments</a>
+                    <a href="#" class="footer-link">Analytics</a>
+                    <a href="#" class="footer-link">Settings</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <div class="footer-title">Support</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">Contact Us</a>
+                    <a href="#" class="footer-link">Report Bug</a>
+                    <a href="#" class="footer-link">Feature Request</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <div class="footer-title">Account</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Profile Settings</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Billing</a>
+                    <a href="#" class="footer-link">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 BlogDash. All rights reserved. Made with ❤️ for bloggers everywhere.</p>
+        </div>
+    </footer>
+
     <script>
         // Mock data for the dashboard
         const mockData = {
@@ -341,35 +480,40 @@
                     title: "Getting Started with JavaScript ES6",
                     date: "2024-01-15",
                     views: 324,
-                    comments: 12
+                    comments: 12,
+                    shares: 45
                 },
                 {
                     id: 2,
                     title: "CSS Grid vs Flexbox: When to Use Each",
                     date: "2024-01-12",
                     views: 256,
-                    comments: 8
+                    comments: 8,
+                    shares: 32
                 },
                 {
                     id: 3,
                     title: "Building Responsive Web Applications",
                     date: "2024-01-10",
                     views: 189,
-                    comments: 15
+                    comments: 15,
+                    shares: 28
                 },
                 {
                     id: 4,
                     title: "Understanding Async/Await in JavaScript",
                     date: "2024-01-08",
                     views: 298,
-                    comments: 7
+                    comments: 7,
+                    shares: 39
                 },
                 {
                     id: 5,
                     title: "Modern Web Development Best Practices",
                     date: "2024-01-05",
                     views: 180,
-                    comments: 11
+                    comments: 11,
+                    shares: 22
                 }
             ],
             comments: [
@@ -512,11 +656,15 @@
             const totalPosts = mockData.posts.length;
             const totalViews = mockData.posts.reduce((sum, post) => sum + post.views, 0);
             const totalComments = mockData.posts.reduce((sum, post) => sum + post.comments, 0);
+            // Calculate total shares from all posts - necessary for the new shares stat card
+            const totalShares = mockData.posts.reduce((sum, post) => sum + post.shares, 0);
 
             // Update with animation for better user experience
             document.getElementById('totalPosts').textContent = totalPosts;
             document.getElementById('totalViews').textContent = totalViews.toLocaleString();
             document.getElementById('totalComments').textContent = totalComments;
+            // Update the shares counter - necessary to display current share statistics
+            document.getElementById('totalShares').textContent = totalShares;
         }
 
         // Initialize dashboard on page load - necessary to populate all sections with data

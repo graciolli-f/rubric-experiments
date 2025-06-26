@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="components/StatsSection.css">
     <link rel="stylesheet" href="components/PostsList.css">
     <link rel="stylesheet" href="components/CommentsList.css">
+    <link rel="stylesheet" href="components/Footer.css">
     <link rel="stylesheet" href="main.css">
     <!-- Preload Inter font for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +48,11 @@
         </div>
     </main>
 
+    <!-- Footer landmark for accessibility -->
+    <footer id="footer" role="contentinfo" data-testid="dashboard-footer">
+        <!-- Footer component will be rendered here -->
+    </footer>
+
     <!-- Loading state for initial render -->
     <div id="loading-indicator" class="loading-indicator" aria-live="polite" data-testid="loading-indicator">
         <div class="loading-spinner" aria-hidden="true"></div>
@@ -67,6 +73,7 @@
     <script type="module" src="components/StatsSection.js"></script>
     <script type="module" src="components/PostsList.js"></script>
     <script type="module" src="components/CommentsList.js"></script>
+    <script type="module" src="components/Footer.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 </html> 

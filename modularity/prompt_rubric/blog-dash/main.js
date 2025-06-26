@@ -5,6 +5,7 @@ import Header from './components/Header.js';
 import StatsSection from './components/StatsSection.js';
 import PostsList from './components/PostsList.js';
 import CommentsList from './components/CommentsList.js';
+import Footer from './components/Footer.js';
 
 class BlogDashboard {
   constructor() {
@@ -20,7 +21,8 @@ class BlogDashboard {
       header: null,
       stats: null,
       posts: null,
-      comments: null
+      comments: null,
+      footer: null // Adding footer component to track component instances
     };
     
     // DOM references
@@ -128,6 +130,13 @@ class BlogDashboard {
         showViewAll: true
       });
       
+      // Initialize Footer component - provides site footer with links and company information
+      this.components.footer = new Footer({
+        companyName: 'BlogDash',
+        showSocialLinks: true,
+        showQuickLinks: true
+      });
+      
       // Render components and append to DOM - components render independently and emit events for coordination
       await this.renderComponents();
       
@@ -168,6 +177,13 @@ class BlogDashboard {
       const commentsElement = this.components.comments.render();
       commentsContainer.appendChild(commentsElement);
     }
+    
+    // Footer component
+    const footerContainer = document.getElementById('footer');
+    if (footerContainer && this.components.footer) {
+      const footerElement = this.components.footer.render();
+      footerContainer.appendChild(footerElement);
+    }
   }
   
   // Setup inter-component communication using custom events
@@ -194,6 +210,11 @@ class BlogDashboard {
     if (this.components.comments?.element) {
       this.components.comments.element.addEventListener('comments:loaded', this.handleComponentEvents);
       this.components.comments.element.addEventListener('comments:action', this.handleComponentEvents);
+    }
+    
+    // Listen for footer events
+    if (this.components.footer?.element) {
+      this.components.footer.element.addEventListener('footer:linkClick', this.handleComponentEvents);
     }
   }
   

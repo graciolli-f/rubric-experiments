@@ -36,6 +36,7 @@ class PostsList {
         date: '2024-01-15',
         views: 2834,
         comments: 45,
+        shares: 156,
         status: 'published',
         author: 'John Doe'
       },
@@ -45,6 +46,7 @@ class PostsList {
         date: '2024-01-12',
         views: 1923,
         comments: 32,
+        shares: 89,
         status: 'published',
         author: 'Jane Smith'
       },
@@ -54,6 +56,7 @@ class PostsList {
         date: '2024-01-10',
         views: 3156,
         comments: 67,
+        shares: 234,
         status: 'published',
         author: 'Mike Johnson'
       },
@@ -63,6 +66,7 @@ class PostsList {
         date: '2024-01-08',
         views: 1456,
         comments: 28,
+        shares: 67,
         status: 'draft',
         author: 'Sarah Wilson'
       },
@@ -72,6 +76,7 @@ class PostsList {
         date: '2024-01-20',
         views: 0,
         comments: 0,
+        shares: 0,
         status: 'scheduled',
         author: 'Alex Brown'
       }
