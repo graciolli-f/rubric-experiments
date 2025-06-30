@@ -38,7 +38,9 @@ class PostsList {
         comments: 45,
         shares: 156,
         status: 'published',
-        author: 'John Doe'
+        author: 'John Doe',
+        // Added cover image for 2-column grid display
+        coverImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=entropy&auto=format'
       },
       {
         id: 2,
@@ -48,7 +50,9 @@ class PostsList {
         comments: 32,
         shares: 89,
         status: 'published',
-        author: 'Jane Smith'
+        author: 'Jane Smith',
+        // Added cover image for 2-column grid display
+        coverImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=entropy&auto=format'
       },
       {
         id: 3,
@@ -58,7 +62,9 @@ class PostsList {
         comments: 67,
         shares: 234,
         status: 'published',
-        author: 'Mike Johnson'
+        author: 'Mike Johnson',
+        // Added cover image for 2-column grid display
+        coverImage: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=250&fit=crop&crop=entropy&auto=format'
       },
       {
         id: 4,
@@ -68,7 +74,9 @@ class PostsList {
         comments: 28,
         shares: 67,
         status: 'draft',
-        author: 'Sarah Wilson'
+        author: 'Sarah Wilson',
+        // Added cover image for 2-column grid display
+        coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop&crop=entropy&auto=format'
       },
       {
         id: 5,
@@ -78,7 +86,9 @@ class PostsList {
         comments: 0,
         shares: 0,
         status: 'scheduled',
-        author: 'Alex Brown'
+        author: 'Alex Brown',
+        // Added cover image for 2-column grid display
+        coverImage: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop&crop=entropy&auto=format'
       }
     ];
   }
@@ -108,28 +118,21 @@ class PostsList {
         <h3 class="posts-list__title">All Posts</h3> <!-- Changed from Recent Posts to All Posts as requested -->
       </div>
       <div class="posts-list--loading">
-        <table class="posts-list__table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Date</th>
-              <th>Views</th>
-              <th>Comments</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${Array(5).fill().map(() => `
-              <tr>
-                <td><div class="posts-list__skeleton posts-list__skeleton--title"></div></td>
-                <td><div class="posts-list__skeleton posts-list__skeleton--date"></div></td>
-                <td><div class="posts-list__skeleton posts-list__skeleton--stats"></div></td>
-                <td><div class="posts-list__skeleton posts-list__skeleton--stats"></div></td>
-                <td><div class="posts-list__skeleton posts-list__skeleton--stats"></div></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
+        <div class="posts-list__grid">
+          ${Array(6).fill().map(() => `
+            <div class="posts-list__item">
+              <div class="posts-list__skeleton posts-list__skeleton--image"></div>
+              <div class="posts-list__item-content">
+                <div class="posts-list__skeleton posts-list__skeleton--title"></div>
+                <div class="posts-list__skeleton posts-list__skeleton--date"></div>
+                <div class="posts-list__item-stats">
+                  <div class="posts-list__skeleton posts-list__skeleton--stats"></div>
+                  <div class="posts-list__skeleton posts-list__skeleton--stats"></div>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
       </div>
     `;
   }
@@ -209,106 +212,107 @@ class PostsList {
     this.element.innerHTML = `
       <div class="posts-list__header">
         <h3 class="posts-list__title">All Posts</h3> <!-- Changed from Recent Posts to All Posts as requested -->
+        <div class="posts-list__sort-controls">
+          <button type="button" class="posts-list__sort-button" data-sort="title">
+            Sort by Title
+          </button>
+          <button type="button" class="posts-list__sort-button" data-sort="date">
+            Sort by Date
+          </button>
+          <button type="button" class="posts-list__sort-button" data-sort="views">
+            Sort by Views
+          </button>
+          <button type="button" class="posts-list__sort-button" data-sort="comments">
+            Sort by Comments
+          </button>
+        </div>
       </div>
-      <table class="posts-list__table">
-        <thead>
-          <tr>
-            <th>
-              <button type="button" class="posts-list__sort-button" data-sort="title">
-                Title
-              </button>
-            </th>
-            <th>
-              <button type="button" class="posts-list__sort-button" data-sort="date">
-                Date
-              </button>
-            </th>
-            <th>
-              <button type="button" class="posts-list__sort-button" data-sort="views">
-                Views
-              </button>
-            </th>
-            <th>
-              <button type="button" class="posts-list__sort-button" data-sort="comments">
-                Comments
-              </button>
-            </th>
-            ${this.config.showActions ? '<th>Actions</th>' : ''}
-          </tr>
-        </thead>
-        <tbody>
-          ${this.state.posts.slice(0, this.config.maxPosts).map(post => this.renderPostRow(post)).join('')}
-        </tbody>
-      </table>
+      <div class="posts-list__grid">
+        ${this.state.posts.slice(0, this.config.maxPosts).map(post => this.renderPostCard(post)).join('')}
+      </div>
     `;
     
     // Setup sort handlers
     this.setupSortHandlers();
   }
   
-  // Render individual post row
-  renderPostRow(post) {
+  // Render individual post card for grid layout
+  renderPostCard(post) {
     const formattedDate = this.formatDate(post.date);
     const formattedViews = this.formatNumber(post.views);
     const formattedComments = this.formatNumber(post.comments);
     
     return `
-      <tr data-post-id="${post.id}">
-        <td data-label="Title" class="posts-list__post-title">
-          <a href="#post/${post.id}" data-testid="post-link-${post.id}">
-            ${post.title}
-          </a>
+      <div class="posts-list__item" data-post-id="${post.id}">
+        <div class="posts-list__item-image">
+          <img 
+            src="${post.coverImage}" 
+            alt="Cover image for ${post.title}"
+            class="posts-list__cover-image"
+            loading="lazy"
+          />
           <div class="posts-list__status posts-list__status--${post.status}">
             <div class="posts-list__status-dot"></div>
             ${post.status}
           </div>
-        </td>
-        <td data-label="Date" class="posts-list__date">
-          <time datetime="${post.date}">${formattedDate}</time>
-        </td>
-        <td data-label="Views" class="posts-list__stats">
-          ${formattedViews}
-        </td>
-        <td data-label="Comments" class="posts-list__stats">
-          ${formattedComments}
-        </td>
-        ${this.config.showActions ? `
-          <td data-label="Actions" class="posts-list__actions">
-            <div class="posts-list__action-buttons">
-              <button 
-                type="button" 
-                class="posts-list__action-button posts-list__action-button--view"
-                data-action="view"
-                data-post-id="${post.id}"
-                title="View post"
-                data-testid="view-post-${post.id}"
-              >
-                ${this.getActionIcon('view')}
-              </button>
-              <button 
-                type="button" 
-                class="posts-list__action-button posts-list__action-button--edit"
-                data-action="edit"
-                data-post-id="${post.id}"
-                title="Edit post"
-                data-testid="edit-post-${post.id}"
-              >
-                ${this.getActionIcon('edit')}
-              </button>
-              <button 
-                type="button" 
-                class="posts-list__action-button posts-list__action-button--delete"
-                data-action="delete"
-                data-post-id="${post.id}"
-                title="Delete post"
-                data-testid="delete-post-${post.id}"
-              >
-                ${this.getActionIcon('delete')}
-              </button>
+        </div>
+        <div class="posts-list__item-content">
+          <h4 class="posts-list__post-title">
+            <a href="#post/${post.id}" data-testid="post-link-${post.id}">
+              ${post.title}
+            </a>
+          </h4>
+          <div class="posts-list__date">
+            <time datetime="${post.date}">${formattedDate}</time>
+          </div>
+          <div class="posts-list__item-stats">
+            <span class="posts-list__stat">
+              <span class="posts-list__stat-value">${formattedViews}</span>
+              <span class="posts-list__stat-label">views</span>
+            </span>
+            <span class="posts-list__stat">
+              <span class="posts-list__stat-value">${formattedComments}</span>
+              <span class="posts-list__stat-label">comments</span>
+            </span>
+          </div>
+          ${this.config.showActions ? `
+            <div class="posts-list__actions">
+              <div class="posts-list__action-buttons">
+                <button 
+                  type="button" 
+                  class="posts-list__action-button posts-list__action-button--view"
+                  data-action="view"
+                  data-post-id="${post.id}"
+                  title="View post"
+                  data-testid="view-post-${post.id}"
+                >
+                  ${this.getActionIcon('view')}
+                </button>
+                <button 
+                  type="button" 
+                  class="posts-list__action-button posts-list__action-button--edit"
+                  data-action="edit"
+                  data-post-id="${post.id}"
+                  title="Edit post"
+                  data-testid="edit-post-${post.id}"
+                >
+                  ${this.getActionIcon('edit')}
+                </button>
+                <button 
+                  type="button" 
+                  class="posts-list__action-button posts-list__action-button--delete"
+                  data-action="delete"
+                  data-post-id="${post.id}"
+                  title="Delete post"
+                  data-testid="delete-post-${post.id}"
+                >
+                  ${this.getActionIcon('delete')}
+                </button>
+              </div>
             </div>
-          </td>
-        ` : ''}
-      </tr>
+          ` : ''}
+        </div>
+      </div>
     `;
   }
   

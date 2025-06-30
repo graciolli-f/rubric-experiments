@@ -145,22 +145,57 @@
             padding: 1.5rem;
         }
 
-        /* Posts List */
-        .post-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 1rem 0;
-            border-bottom: 1px solid #f1f5f9;
-            gap: 1rem;
+        /* Posts List - Modified for 2-column grid layout with cover images */
+        .posts-grid {
+            /* Changed from flex list to 2-column grid layout for better visual organization */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
-        .post-item:last-child {
-            border-bottom: none;
+        .post-item {
+            /* Changed to card-style layout for grid display - provides better visual separation */
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .post-item:hover {
+            /* Added hover effect for better user interaction feedback */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .post-cover {
+            /* Added cover image container for visual appeal and content preview */
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .post-cover img {
+            /* Ensure cover images fill container properly */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-content {
+            /* Container for post text content below cover image */
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .post-info {
+            /* Modified to work within card layout */
             flex: 1;
+            margin-bottom: 1rem;
         }
 
         .post-title {
@@ -178,8 +213,10 @@
         }
 
         .post-actions {
+            /* Moved to bottom of card for consistent layout */
             display: flex;
             gap: 0.5rem;
+            justify-content: flex-end;
         }
 
         .btn {
@@ -252,9 +289,10 @@
                 text-align: center;
             }
 
-            .post-item {
-                flex-direction: column;
-                gap: 0.5rem;
+            /* Modified responsive layout for 2-column grid - ensures proper display on mobile devices */
+            .posts-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .post-actions {
@@ -481,7 +519,9 @@
                     date: "2024-01-15",
                     views: 324,
                     comments: 12,
-                    shares: 45
+                    shares: 45,
+                    // Added cover image for 2-column grid display - enhances visual appeal and provides better content preview
+                    coverImage: "https://via.placeholder.com/300x200/4f46e5/ffffff?text=JavaScript+ES6"
                 },
                 {
                     id: 2,
@@ -489,7 +529,9 @@
                     date: "2024-01-12",
                     views: 256,
                     comments: 8,
-                    shares: 32
+                    shares: 32,
+                    // Added cover image for 2-column grid display - enhances visual appeal and provides better content preview
+                    coverImage: "https://via.placeholder.com/300x200/10b981/ffffff?text=CSS+Grid+Flexbox"
                 },
                 {
                     id: 3,
@@ -497,7 +539,9 @@
                     date: "2024-01-10",
                     views: 189,
                     comments: 15,
-                    shares: 28
+                    shares: 28,
+                    // Added cover image for 2-column grid display - enhances visual appeal and provides better content preview
+                    coverImage: "https://via.placeholder.com/300x200/f59e0b/ffffff?text=Responsive+Web"
                 },
                 {
                     id: 4,
@@ -505,7 +549,9 @@
                     date: "2024-01-08",
                     views: 298,
                     comments: 7,
-                    shares: 39
+                    shares: 39,
+                    // Added cover image for 2-column grid display - enhances visual appeal and provides better content preview
+                    coverImage: "https://via.placeholder.com/300x200/ef4444/ffffff?text=Async+Await"
                 },
                 {
                     id: 5,
@@ -513,7 +559,9 @@
                     date: "2024-01-05",
                     views: 180,
                     comments: 11,
-                    shares: 22
+                    shares: 22,
+                    // Added cover image for 2-column grid display - enhances visual appeal and provides better content preview
+                    coverImage: "https://via.placeholder.com/300x200/7b1fa2/ffffff?text=Best+Practices"
                 }
             ],
             comments: [
@@ -574,23 +622,33 @@
             
             // Simulate loading delay for better UX demonstration
             setTimeout(() => {
-                postsContainer.innerHTML = mockData.posts.map(post => `
-                    <div class="post-item">
-                        <div class="post-info">
-                            <div class="post-title">${post.title}</div>
-                            <div class="post-meta">
-                                <span>📅 ${formatDate(post.date)}</span>
-                                <span>👁️ ${post.views} views</span>
-                                <span>💬 ${post.comments} comments</span>
+                // Modified to use 2-column grid layout with cover images for better visual presentation
+                postsContainer.innerHTML = `
+                    <div class="posts-grid">
+                        ${mockData.posts.map(post => `
+                            <div class="post-item">
+                                <div class="post-cover">
+                                    <img src="${post.coverImage}" alt="Cover for ${post.title}" loading="lazy">
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-info">
+                                        <div class="post-title">${post.title}</div>
+                                        <div class="post-meta">
+                                            <span>📅 ${formatDate(post.date)}</span>
+                                            <span>👁️ ${post.views} views</span>
+                                            <span>💬 ${post.comments} comments</span>
+                                        </div>
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="btn btn-view" onclick="viewPost(${post.id})">View</button>
+                                        <button class="btn btn-edit" onclick="editPost(${post.id})">Edit</button>
+                                        <button class="btn btn-delete" onclick="deletePost(${post.id})">Delete</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="post-actions">
-                            <button class="btn btn-view" onclick="viewPost(${post.id})">View</button>
-                            <button class="btn btn-edit" onclick="editPost(${post.id})">Edit</button>
-                            <button class="btn btn-delete" onclick="deletePost(${post.id})">Delete</button>
-                        </div>
+                        `).join('')}
                     </div>
-                `).join('');
+                `;
             }, 500);
         }
 
