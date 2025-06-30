@@ -1,0 +1,140 @@
+/* SearchBar component styles - uses design tokens exclusively */
+/* Provides accessible and responsive search input with live filtering */
+
+.search-bar {
+  width: 100%;
+  margin-bottom: var(--space-xl);
+}
+
+.search-bar__container {
+  max-width: var(--width-input-lg);
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-bar__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-background);
+  border: var(--border-width-thin) solid var(--color-secondary-300);
+  border-radius: var(--border-radius-lg);
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Active state styling - indicates search bar is focused */
+.search-bar--active .search-bar__input-wrapper {
+  border-color: var(--color-primary-500);
+  box-shadow: var(--shadow-base), 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* State when search bar has query content */
+.search-bar--has-query .search-bar__input-wrapper {
+  border-color: var(--color-primary-400);
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: var(--space-md);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Icon color changes when search is active */
+.search-bar--active .search-bar__icon--search {
+  color: var(--color-primary-500);
+}
+
+.search-bar__input {
+  width: 100%;
+  height: var(--height-input);
+  padding: var(--space-sm) var(--space-md) var(--space-sm) calc(var(--space-md) + var(--width-icon-md) + var(--space-sm));
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  outline: none;
+  border-radius: var(--border-radius-lg);
+}
+
+/* Placeholder styling for better UX */
+.search-bar__input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 1;
+}
+
+/* Search input focus styling */
+.search-bar__input:focus {
+  outline: none; /* Custom focus styling is handled by wrapper */
+}
+
+/* Clear button styling - appears when search has content */
+.search-bar__clear {
+  position: absolute;
+  right: var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-lg);
+  height: var(--space-lg);
+  border: none;
+  background: var(--color-secondary-100);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  z-index: 1;
+}
+
+/* Clear button hover state */
+.search-bar__clear:hover {
+  background: var(--color-secondary-200);
+  color: var(--color-text-primary);
+}
+
+/* Clear button focus state for accessibility */
+.search-bar__clear:focus {
+  outline: var(--border-width-base) solid var(--color-primary-500);
+  outline-offset: var(--space-xs);
+  background: var(--color-secondary-200);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 640px) {
+  .search-bar__container {
+    max-width: 100%;
+    margin: 0 var(--space-md);
+  }
+  
+  .search-bar__input {
+    font-size: var(--font-size-base);
+    /* Prevent zoom on iOS when font-size is less than 16px */
+  }
+}
+
+/* Accessibility improvements for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .search-bar__input-wrapper,
+  .search-bar__clear {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .search-bar__input-wrapper {
+    border-width: var(--border-width-base);
+    border-color: var(--color-text-primary);
+  }
+  
+  .search-bar--active .search-bar__input-wrapper {
+    border-color: var(--color-primary-600);
+  }
+  
+  .search-bar__clear {
+    border: var(--border-width-thin) solid var(--color-text-secondary);
+  }
+} 
