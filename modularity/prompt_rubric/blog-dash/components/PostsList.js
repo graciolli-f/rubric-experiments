@@ -105,7 +105,7 @@ class PostsList {
   renderLoadingState() {
     this.element.innerHTML = `
       <div class="posts-list__header">
-        <h3 class="posts-list__title">Recent Posts</h3>
+        <h3 class="posts-list__title">All Posts</h3> <!-- Changed from Recent Posts to All Posts as requested -->
       </div>
       <div class="posts-list--loading">
         <table class="posts-list__table">
@@ -145,9 +145,15 @@ class PostsList {
       this.sortPosts();
       this.renderPosts();
       
-      // Emit loaded event for other components
+      // Calculate displayed posts count considering maxPosts limit
+      const displayedPosts = this.state.posts.slice(0, this.config.maxPosts);
+      
+      // Emit loaded event for other components with displayed posts count
       const event = new CustomEvent('posts:loaded', {
-        detail: { posts: this.state.posts }
+        detail: { 
+          posts: displayedPosts, // Send displayed posts for stats consistency
+          allPosts: this.state.posts // Keep track of all posts for reference
+        }
       });
       this.element.dispatchEvent(event);
       
@@ -202,7 +208,7 @@ class PostsList {
     
     this.element.innerHTML = `
       <div class="posts-list__header">
-        <h3 class="posts-list__title">Recent Posts</h3>
+        <h3 class="posts-list__title">All Posts</h3> <!-- Changed from Recent Posts to All Posts as requested -->
       </div>
       <table class="posts-list__table">
         <thead>
@@ -409,9 +415,16 @@ class PostsList {
     this.state.posts = this.state.posts.filter(post => post.id !== postId);
     this.renderPosts();
     
-    // Emit deletion event
+    // Calculate displayed posts count considering maxPosts limit
+    const displayedPostsCount = Math.min(this.state.posts.length, this.config.maxPosts);
+    
+    // Emit deletion event with both total and displayed posts count
     const event = new CustomEvent('posts:deleted', {
-      detail: { postId, totalPosts: this.state.posts.length }
+      detail: { 
+        postId, 
+        totalPosts: displayedPostsCount, // Use displayed count for stats consistency
+        allPosts: this.state.posts.length // Keep track of actual total for reference
+      }
     });
     this.element.dispatchEvent(event);
   }
@@ -486,6 +499,18 @@ class PostsList {
       this.state.posts = newPosts;
       this.sortPosts();
       this.renderPosts();
+      
+      // Calculate displayed posts count considering maxPosts limit
+      const displayedPosts = this.state.posts.slice(0, this.config.maxPosts);
+      
+      // Emit update event to keep stats in sync
+      const event = new CustomEvent('posts:updated', {
+        detail: { 
+          posts: displayedPosts, // Send displayed posts for stats consistency
+          allPosts: this.state.posts // Keep track of all posts for reference
+        }
+      });
+      this.element.dispatchEvent(event);
     }
   }
   

@@ -26,7 +26,7 @@ class StatsSection {
       {
         id: 'posts',
         title: 'Total Posts',
-        value: 1247,
+        value: 5, // Changed to reflect actual number of posts shown in posts list
         change: +12.5,
         period: 'vs last month',
         icon: 'document'
@@ -280,6 +280,17 @@ class StatsSection {
     if (newStats) {
       this.state.stats = newStats;
       this.renderStats();
+    }
+  }
+
+  // Update posts count specifically to reflect actual posts displayed
+  updatePostsCount(postsCount) {
+    if (this.state.stats) {
+      const postsStatIndex = this.state.stats.findIndex(stat => stat.id === 'posts');
+      if (postsStatIndex !== -1) {
+        this.state.stats[postsStatIndex].value = postsCount; // Update the posts count to match displayed posts
+        this.renderStats(); // Re-render to show updated count
+      }
     }
   }
   

@@ -115,9 +115,9 @@ class BlogDashboard {
         showPeriod: true
       });
       
-      // Initialize PostsList component - shows recent posts with sortable table and action buttons
+      // Initialize PostsList component - shows all posts with sortable table and action buttons
       this.components.posts = new PostsList({
-        maxPosts: 10,
+        maxPosts: 5, // Changed to 5 posts as requested to match the stats count
         showActions: true,
         sortBy: 'date',
         sortOrder: 'desc'
@@ -203,6 +203,8 @@ class BlogDashboard {
     // Listen for posts events
     if (this.components.posts?.element) {
       this.components.posts.element.addEventListener('posts:loaded', this.handleComponentEvents);
+      this.components.posts.element.addEventListener('posts:updated', this.handleComponentEvents); // Listen for posts updates to keep stats in sync
+      this.components.posts.element.addEventListener('posts:deleted', this.handleComponentEvents); // Listen for post deletions to update stats
       this.components.posts.element.addEventListener('posts:action', this.handleComponentEvents);
     }
     
@@ -222,6 +224,35 @@ class BlogDashboard {
   handleComponentEvents(event) {
     const [component, action] = event.type.split(':');
     console.log(`📡 Component event: ${component}:${action}`, event.detail);
+    
+    // Handle posts loaded event to update stats count
+    if (component === 'posts' && action === 'loaded' && event.detail?.posts) {
+      const postsCount = event.detail.posts.length; // Get actual count of loaded posts
+      // Update the stats section with the actual posts count
+      if (this.components.stats && typeof this.components.stats.updatePostsCount === 'function') {
+        this.components.stats.updatePostsCount(postsCount); // Update stats to reflect actual posts count
+      }
+    }
+    
+    // Handle posts updated event to update stats count dynamically
+    if (component === 'posts' && action === 'updated' && event.detail?.posts) {
+      const postsCount = event.detail.posts.length; // Get displayed posts count after update
+      // Update the stats section with the updated posts count
+      if (this.components.stats && typeof this.components.stats.updatePostsCount === 'function') {
+        this.components.stats.updatePostsCount(postsCount); // Update stats to reflect updated posts count
+        console.log(`📊 Posts updated: Updated stats to show ${postsCount} posts`); // Log for confirmation
+      }
+    }
+    
+    // Handle posts deleted event to update stats count dynamically
+    if (component === 'posts' && action === 'deleted' && event.detail) {
+      const totalPosts = event.detail.totalPosts || 0; // Get updated total posts count after deletion
+      // Update the stats section with the new posts count
+      if (this.components.stats && typeof this.components.stats.updatePostsCount === 'function') {
+        this.components.stats.updatePostsCount(totalPosts); // Update stats to reflect new posts count after deletion
+        console.log(`📊 Post deleted: Updated stats to show ${totalPosts} posts`); // Log for confirmation
+      }
+    }
   }
   
   // Handle global keyboard navigation
