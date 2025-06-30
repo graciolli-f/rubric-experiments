@@ -270,6 +270,38 @@
   margin: 0;
 }
 
+/* No search results state - similar to empty state but for filtered searches */
+.comments-list__no-results {
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.comments-list__no-results-icon {
+  width: var(--space-2xl);
+  height: var(--space-2xl);
+  margin: 0 auto var(--space-md);
+  color: var(--color-secondary-400);
+}
+
+.comments-list__no-results-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.comments-list__no-results-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm);
+}
+
+.comments-list__no-results-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
 /* View all link */
 .comments-list__view-all {
   padding: var(--space-md) var(--space-lg);

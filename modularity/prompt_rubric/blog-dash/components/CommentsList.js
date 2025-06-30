@@ -15,6 +15,8 @@ class CommentsList {
     this.state = {
       loading: true,
       comments: null,
+      filteredComments: null, // Filtered comments for search functionality - only set when search is active
+      searchQuery: '', // Current search query for filtering comments by content and author
       error: null
     };
     
@@ -161,12 +163,21 @@ class CommentsList {
   
   // Render the comments list after loading
   renderComments() {
+    // Get comments to display - use filtered comments if search is active, otherwise use all comments
+    const commentsToDisplay = this.state.filteredComments !== null ? this.state.filteredComments : this.state.comments;
+    
     if (!this.state.comments || this.state.comments.length === 0) {
       this.renderEmptyState();
       return;
     }
     
-    const commentsToShow = this.state.comments.slice(0, this.config.maxComments);
+    // Show "No results found" when search returns no results but we have comments
+    if (this.state.searchQuery && (!commentsToDisplay || commentsToDisplay.length === 0)) {
+      this.renderNoSearchResults();
+      return;
+    }
+    
+    const commentsToShow = commentsToDisplay.slice(0, this.config.maxComments);
     
     this.element.innerHTML = `
       <div class="comments-list__header">
@@ -442,6 +453,54 @@ class CommentsList {
   getPendingCount() {
     if (!this.state.comments) return 0;
     return this.state.comments.filter(comment => comment.status === 'pending').length;
+  }
+  
+  // Filter comments by search query - searches in comment content and author name
+  filterByQuery(query) {
+    this.state.searchQuery = query.trim().toLowerCase();
+    
+    if (!this.state.searchQuery) {
+      // Clear filter when search is empty
+      this.state.filteredComments = null;
+    } else {
+      // Filter comments by content and author name
+      this.state.filteredComments = this.state.comments.filter(comment => {
+        const contentMatch = comment.content.toLowerCase().includes(this.state.searchQuery);
+        const authorMatch = comment.author.toLowerCase().includes(this.state.searchQuery);
+        return contentMatch || authorMatch;
+      });
+    }
+    
+    // Re-render to show filtered results
+    this.renderComments();
+  }
+  
+  // Render "No results found" state when search returns no matches
+  renderNoSearchResults() {
+    this.element.innerHTML = `
+      <div class="comments-list__header">
+        <h3 class="comments-list__title">Recent Comments</h3>
+      </div>
+      <div class="comments-list__no-results">
+        <div class="comments-list__no-results-icon">
+          <svg viewBox="0 0 48 48" fill="currentColor">
+            <path d="M31 28h-1.59l-.55-.55C30.82 25.18 32 22.23 32 19c0-7.18-5.82-13-13-13S6 11.82 6 19s5.82 13 13 13c3.23 0 6.18-1.18 8.45-3.13l.55.55V31l10 9.98L40.98 38 31 28zm-12 0c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/>
+            <path d="M0 0h48v48H0z" fill="none"/>
+          </svg>
+        </div>
+        <h4 class="comments-list__no-results-title">No results found</h4>
+        <p class="comments-list__no-results-description">
+          No comments match your search for "${this.state.searchQuery}". Try different keywords or browse all comments.
+        </p>
+      </div>
+      ${this.config.showViewAll ? `
+        <div class="comments-list__view-all">
+          <a href="#comments" class="comments-list__view-all-link" data-testid="view-all-comments">
+            View All Comments
+          </a>
+        </div>
+      ` : ''}
+    `;
   }
   
   // Cleanup method for proper resource management as required by modularity.rux

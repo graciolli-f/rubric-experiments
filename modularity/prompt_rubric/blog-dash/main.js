@@ -3,6 +3,7 @@
 
 import Header from './components/Header.js';
 import StatsSection from './components/StatsSection.js';
+import SearchBar from './components/SearchBar.js';
 import PostsList from './components/PostsList.js';
 import CommentsList from './components/CommentsList.js';
 import Footer from './components/Footer.js';
@@ -20,6 +21,7 @@ class BlogDashboard {
     this.components = {
       header: null,
       stats: null,
+      searchBar: null, // Adding search bar component for live filtering functionality
       posts: null,
       comments: null,
       footer: null // Adding footer component to track component instances
@@ -34,6 +36,7 @@ class BlogDashboard {
     
     // Event handlers bound to this instance
     this.handleComponentEvents = this.handleComponentEvents.bind(this);
+    this.handleSearchQuery = this.handleSearchQuery.bind(this); // Adding search query handler for live filtering
     this.handleRetry = this.handleRetry.bind(this);
     this.handleKeyboardNavigation = this.handleKeyboardNavigation.bind(this);
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
@@ -115,6 +118,12 @@ class BlogDashboard {
         showPeriod: true
       });
       
+      // Initialize SearchBar component - provides live search functionality for filtering posts and comments
+      this.components.searchBar = new SearchBar({
+        placeholder: 'Search posts and comments...',
+        debounceMs: 300 // Debounce search input to avoid excessive filtering
+      });
+      
       // Initialize PostsList component - shows all posts with sortable table and action buttons
       this.components.posts = new PostsList({
         maxPosts: 5, // Changed to 5 posts as requested to match the stats count
@@ -164,6 +173,13 @@ class BlogDashboard {
       statsContainer.appendChild(statsElement);
     }
     
+    // Search bar component - renders search input for live filtering of posts and comments
+    const searchContainer = document.getElementById('search-section');
+    if (searchContainer && this.components.searchBar) {
+      const searchElement = this.components.searchBar.render();
+      searchContainer.appendChild(searchElement);
+    }
+    
     // Posts list component
     const postsContainer = document.getElementById('posts-section');
     if (postsContainer && this.components.posts) {
@@ -198,6 +214,11 @@ class BlogDashboard {
     // Listen for stats events
     if (this.components.stats?.element) {
       this.components.stats.element.addEventListener('stats:loaded', this.handleComponentEvents);
+    }
+    
+    // Listen for search events - handles live filtering of posts and comments
+    if (this.components.searchBar?.element) {
+      this.components.searchBar.element.addEventListener('search:query', this.handleSearchQuery);
     }
     
     // Listen for posts events
@@ -252,6 +273,22 @@ class BlogDashboard {
         this.components.stats.updatePostsCount(totalPosts); // Update stats to reflect new posts count after deletion
         console.log(`📊 Post deleted: Updated stats to show ${totalPosts} posts`); // Log for confirmation
       }
+    }
+  }
+  
+  // Handle search query events from SearchBar component - coordinates filtering across posts and comments
+  handleSearchQuery(event) {
+    const query = event.detail?.query || '';
+    console.log(`🔍 Search query: "${query}"`);
+    
+    // Apply search filter to posts component
+    if (this.components.posts && typeof this.components.posts.filterByQuery === 'function') {
+      this.components.posts.filterByQuery(query);
+    }
+    
+    // Apply search filter to comments component
+    if (this.components.comments && typeof this.components.comments.filterByQuery === 'function') {
+      this.components.comments.filterByQuery(query);
     }
   }
   

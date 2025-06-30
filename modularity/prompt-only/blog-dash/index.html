@@ -75,6 +75,67 @@
             transform: translateY(-1px);
         }
 
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
         /* Main Container */
         .container {
             max-width: 1200px;
@@ -289,6 +350,14 @@
                 text-align: center;
             }
 
+            .search-container {
+                padding: 0 1rem;
+            }
+
+            .search-input-wrapper {
+                max-width: 100%;
+            }
+
             /* Modified responsive layout for 2-column grid - ensures proper display on mobile devices */
             .posts-grid {
                 grid-template-columns: 1fr;
@@ -402,7 +471,7 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+            <!-- Header Section -->
     <header class="header">
         <div class="header-content">
             <h1 class="site-title">📝 BlogDash</h1>
@@ -412,6 +481,16 @@
             </div>
         </div>
     </header>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" placeholder="Search posts and comments..." class="search-input">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Container -->
     <div class="container">
@@ -510,6 +589,11 @@
     </footer>
 
     <script>
+        // Global variables for search functionality - necessary to track current search state
+        let currentSearchTerm = '';
+        let filteredPosts = [];
+        let filteredComments = [];
+
         // Mock data for the dashboard
         const mockData = {
             posts: [
@@ -613,11 +697,81 @@
             });
         }
 
-        // Function to render recent posts
-        function renderRecentPosts() {
-            const postsContainer = document.getElementById('recentPosts');
+        // Search functionality - filters posts and comments based on search term
+        function performSearch(searchTerm) {
+            currentSearchTerm = searchTerm.toLowerCase().trim();
             
-            // Add loading state comment - necessary for user feedback during data loading
+            if (currentSearchTerm === '') {
+                // If search is empty, show all data - necessary to restore full view when search is cleared
+                filteredPosts = [...mockData.posts];
+                filteredComments = [...mockData.comments];
+            } else {
+                // Filter posts by title - case-insensitive matching for better user experience
+                filteredPosts = mockData.posts.filter(post =>
+                    post.title.toLowerCase().includes(currentSearchTerm)
+                );
+                
+                // Filter comments by content, author name, or post title - comprehensive search coverage
+                filteredComments = mockData.comments.filter(comment =>
+                    comment.content.toLowerCase().includes(currentSearchTerm) ||
+                    comment.author.toLowerCase().includes(currentSearchTerm) ||
+                    comment.postTitle.toLowerCase().includes(currentSearchTerm)
+                );
+            }
+            
+            // Re-render both sections with filtered data - necessary to show search results immediately
+            renderRecentPosts(filteredPosts);
+            renderRecentComments(filteredComments);
+        }
+
+        // Function to render recent posts - modified to support filtered data for search functionality
+        function renderRecentPosts(postsToRender = null) {
+            const postsContainer = document.getElementById('recentPosts');
+            const posts = postsToRender || mockData.posts;
+            
+            // Skip loading animation when rendering search results - necessary for immediate search feedback
+            if (postsToRender) {
+                if (posts.length === 0) {
+                    // Show no results message when search returns empty results
+                    postsContainer.innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon">📭</div>
+                            <div>No posts found matching "${currentSearchTerm}"</div>
+                        </div>
+                    `;
+                } else {
+                    // Render filtered posts immediately for search results
+                    postsContainer.innerHTML = `
+                        <div class="posts-grid">
+                            ${posts.map(post => `
+                                <div class="post-item">
+                                    <div class="post-cover">
+                                        <img src="${post.coverImage}" alt="Cover for ${post.title}" loading="lazy">
+                                    </div>
+                                    <div class="post-content">
+                                        <div class="post-info">
+                                            <div class="post-title">${post.title}</div>
+                                            <div class="post-meta">
+                                                <span>📅 ${formatDate(post.date)}</span>
+                                                <span>👁️ ${post.views} views</span>
+                                                <span>💬 ${post.comments} comments</span>
+                                            </div>
+                                        </div>
+                                        <div class="post-actions">
+                                            <button class="btn btn-view" onclick="viewPost(${post.id})">View</button>
+                                            <button class="btn btn-edit" onclick="editPost(${post.id})">Edit</button>
+                                            <button class="btn btn-delete" onclick="deletePost(${post.id})">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+                return;
+            }
+            
+            // Original loading behavior for initial page load - preserves existing UX
             postsContainer.innerHTML = '<div class="loading">Loading posts...</div>';
             
             // Simulate loading delay for better UX demonstration
@@ -625,7 +779,7 @@
                 // Modified to use 2-column grid layout with cover images for better visual presentation
                 postsContainer.innerHTML = `
                     <div class="posts-grid">
-                        ${mockData.posts.map(post => `
+                        ${posts.map(post => `
                             <div class="post-item">
                                 <div class="post-cover">
                                     <img src="${post.coverImage}" alt="Cover for ${post.title}" loading="lazy">
@@ -652,16 +806,43 @@
             }, 500);
         }
 
-        // Function to render recent comments
-        function renderRecentComments() {
+        // Function to render recent comments - modified to support filtered data for search functionality
+        function renderRecentComments(commentsToRender = null) {
             const commentsContainer = document.getElementById('recentComments');
+            const comments = commentsToRender || mockData.comments;
             
-            // Add loading state comment - necessary for user feedback during data loading
+            // Skip loading animation when rendering search results - necessary for immediate search feedback
+            if (commentsToRender) {
+                if (comments.length === 0) {
+                    // Show no results message when search returns empty results
+                    commentsContainer.innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon">💬</div>
+                            <div>No comments found matching "${currentSearchTerm}"</div>
+                        </div>
+                    `;
+                } else {
+                    // Render filtered comments immediately for search results
+                    commentsContainer.innerHTML = comments.map(comment => `
+                        <div class="comment-item">
+                            <div class="comment-header">
+                                <span class="comment-author">${comment.author}</span>
+                                <span class="comment-date">${formatDate(comment.date)}</span>
+                            </div>
+                            <div class="comment-content">${comment.content}</div>
+                            <div class="comment-post">on "${comment.postTitle}"</div>
+                        </div>
+                    `).join('');
+                }
+                return;
+            }
+            
+            // Original loading behavior for initial page load - preserves existing UX
             commentsContainer.innerHTML = '<div class="loading">Loading comments...</div>';
             
             // Simulate loading delay for better UX demonstration
             setTimeout(() => {
-                commentsContainer.innerHTML = mockData.comments.map(comment => `
+                commentsContainer.innerHTML = comments.map(comment => `
                     <div class="comment-item">
                         <div class="comment-header">
                             <span class="comment-author">${comment.author}</span>
@@ -730,6 +911,20 @@
             updateStats();
             renderRecentPosts();
             renderRecentComments();
+            
+            // Initialize search functionality - necessary for real-time search filtering
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                // Add input event listener for real-time search - triggers on every keystroke for immediate feedback
+                searchInput.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value;
+                    performSearch(searchTerm);
+                });
+                
+                // Initialize filtered arrays with all data - necessary for proper search state management
+                filteredPosts = [...mockData.posts];
+                filteredComments = [...mockData.comments];
+            }
             
             // Add fade-in animation to elements for better visual appeal
             const elements = document.querySelectorAll('.fade-in');

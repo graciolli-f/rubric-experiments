@@ -16,6 +16,8 @@ class PostsList {
     this.state = {
       loading: true,
       posts: null,
+      filteredPosts: null, // Filtered posts for search functionality - only set when search is active
+      searchQuery: '', // Current search query for filtering posts by title and author
       error: null,
       sortBy: this.config.sortBy,
       sortOrder: this.config.sortOrder
@@ -171,6 +173,7 @@ class PostsList {
   sortPosts() {
     if (!this.state.posts) return;
     
+    // Sort the main posts array
     this.state.posts.sort((a, b) => {
       let aValue = a[this.state.sortBy];
       let bValue = b[this.state.sortBy];
@@ -200,12 +203,54 @@ class PostsList {
       
       return 0;
     });
+    
+    // Also sort filtered posts if they exist to maintain consistency
+    if (this.state.filteredPosts) {
+      this.state.filteredPosts.sort((a, b) => {
+        let aValue = a[this.state.sortBy];
+        let bValue = b[this.state.sortBy];
+        
+        // Handle date sorting
+        if (this.state.sortBy === 'date') {
+          aValue = new Date(aValue);
+          bValue = new Date(bValue);
+        }
+        
+        // Handle numeric sorting
+        if (typeof aValue === 'number') {
+          return this.state.sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+        }
+        
+        // Handle string sorting
+        if (typeof aValue === 'string') {
+          return this.state.sortOrder === 'asc' 
+            ? aValue.localeCompare(bValue)
+            : bValue.localeCompare(aValue);
+        }
+        
+        // Handle date sorting
+        if (aValue instanceof Date) {
+          return this.state.sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+        }
+        
+        return 0;
+      });
+    }
   }
   
   // Render the posts table after loading
   renderPosts() {
+    // Get posts to display - use filtered posts if search is active, otherwise use all posts
+    const postsToDisplay = this.state.filteredPosts !== null ? this.state.filteredPosts : this.state.posts;
+    
     if (!this.state.posts || this.state.posts.length === 0) {
       this.renderEmptyState();
+      return;
+    }
+    
+    // Show "No results found" when search returns no results but we have posts
+    if (this.state.searchQuery && (!postsToDisplay || postsToDisplay.length === 0)) {
+      this.renderNoSearchResults();
       return;
     }
     
@@ -228,7 +273,7 @@ class PostsList {
         </div>
       </div>
       <div class="posts-list__grid">
-        ${this.state.posts.slice(0, this.config.maxPosts).map(post => this.renderPostCard(post)).join('')}
+        ${postsToDisplay.slice(0, this.config.maxPosts).map(post => this.renderPostCard(post)).join('')}
       </div>
     `;
     
@@ -521,6 +566,69 @@ class PostsList {
   // Get current posts data
   getPosts() {
     return this.state.posts;
+  }
+  
+  // Filter posts by search query - searches in post title and author name
+  filterByQuery(query) {
+    this.state.searchQuery = query.trim().toLowerCase();
+    
+    if (!this.state.searchQuery) {
+      // Clear filter when search is empty
+      this.state.filteredPosts = null;
+    } else {
+      // Filter posts by title and author name
+      this.state.filteredPosts = this.state.posts.filter(post => {
+        const titleMatch = post.title.toLowerCase().includes(this.state.searchQuery);
+        const authorMatch = post.author.toLowerCase().includes(this.state.searchQuery);
+        return titleMatch || authorMatch;
+      });
+      
+      // Sort filtered posts to maintain consistency
+      if (this.state.filteredPosts.length > 0) {
+        this.sortPosts();
+      }
+    }
+    
+    // Re-render to show filtered results
+    this.renderPosts();
+  }
+  
+  // Render "No results found" state when search returns no matches
+  renderNoSearchResults() {
+    this.element.innerHTML = `
+      <div class="posts-list__header">
+        <h3 class="posts-list__title">All Posts</h3>
+        <div class="posts-list__sort-controls">
+          <button type="button" class="posts-list__sort-button" data-sort="title">
+            Sort by Title
+          </button>
+          <button type="button" class="posts-list__sort-button" data-sort="date">
+            Sort by Date
+          </button>
+          <button type="button" class="posts-list__sort-button" data-sort="views">
+            Sort by Views
+          </button>
+          <button type="button" class="posts-list__sort-button" data-sort="comments">
+            Sort by Comments
+          </button>
+        </div>
+      </div>
+      <div class="posts-list__no-results">
+        <div class="posts-list__no-results-icon">
+          <svg viewBox="0 0 48 48" fill="currentColor">
+            <path d="M31 28h-1.59l-.55-.55C30.82 25.18 32 22.23 32 19c0-7.18-5.82-13-13-13S6 11.82 6 19s5.82 13 13 13c3.23 0 6.18-1.18 8.45-3.13l.55.55V31l10 9.98L40.98 38 31 28zm-12 0c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/>
+            <path d="M0 0h48v48H0z" fill="none"/>
+          </svg>
+        </div>
+        <h4 class="posts-list__no-results-title">No results found</h4>
+        <p class="posts-list__no-results-description">
+          No posts match your search for "${this.state.searchQuery}". Try different keywords or browse all posts.
+        </p>
+      </div>
+    `;
+    
+    // Setup sort handlers even in no results state
+    this.setupSortHandlers();
   }
   
   // Cleanup method for proper resource management as required by modularity.rux

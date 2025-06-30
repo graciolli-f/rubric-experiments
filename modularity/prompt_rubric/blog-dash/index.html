@@ -9,6 +9,7 @@
     <!-- Component styles -->
     <link rel="stylesheet" href="components/Header.css">
     <link rel="stylesheet" href="components/StatsSection.css">
+    <link rel="stylesheet" href="components/SearchBar.css">
     <link rel="stylesheet" href="components/PostsList.css">
     <link rel="stylesheet" href="components/CommentsList.css">
     <link rel="stylesheet" href="components/Footer.css">
@@ -30,6 +31,12 @@
         <section id="stats-section" aria-labelledby="stats-heading" data-testid="stats-section">
             <h2 id="stats-heading" class="visually-hidden">Dashboard Statistics</h2>
             <!-- Stats component will be rendered here -->
+        </section>
+
+        <!-- Search section for filtering posts and comments -->
+        <section id="search-section" aria-labelledby="search-heading" data-testid="search-section">
+            <h2 id="search-heading" class="visually-hidden">Search Posts and Comments</h2>
+            <!-- SearchBar component will be rendered here -->
         </section>
 
         <!-- Content grid for posts and comments -->
@@ -71,6 +78,7 @@
     <!-- Modular JavaScript components -->
     <script type="module" src="components/Header.js"></script>
     <script type="module" src="components/StatsSection.js"></script>
+    <script type="module" src="components/SearchBar.js"></script>
     <script type="module" src="components/PostsList.js"></script>
     <script type="module" src="components/CommentsList.js"></script>
     <script type="module" src="components/Footer.js"></script>
