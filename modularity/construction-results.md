@@ -1,3 +1,5 @@
+# Construction Results
+
 | Metric | Prompt-Only | Prompt + Rubric | Analysis |
 |--------|-------------|-----------------|----------|
 | File Count | 1 file | 13 files | Rubric version is more modular |
