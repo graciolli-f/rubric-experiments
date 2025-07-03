@@ -13,7 +13,6 @@ Simple modular todo app (~100 LOC) with clear module boundaries.
 - Clean interfaces between modules
 
 ```
-txt
 todo-app/
 ├── models/
 │   └── todo.js          # Todo class with validation
