@@ -12,6 +12,8 @@ Simple modular todo app (~100 LOC) with clear module boundaries.
 - Store uses private members (`_todos`, `_nextId`)
 - Clean interfaces between modules
 
+```
+txt
 todo-app/
 ├── models/
 │   └── todo.js          # Todo class with validation
@@ -21,6 +23,7 @@ todo-app/
 │   └── renderer.js      # ConsoleRenderer for display
 ├── app.js               # Main controller coordinating modules
 └── test.js              # Simple test suite
+```
 
 ## Experiments Conducted
 
