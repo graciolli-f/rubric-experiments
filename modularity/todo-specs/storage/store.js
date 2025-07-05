@@ -1,4 +1,5 @@
 const Todo = require('../models/todo'); // Add this import!
+const fs = require('fs'); // Adding filesystem support for backup functionality
 
 class TodoStore {
   constructor() {
@@ -9,6 +10,8 @@ class TodoStore {
   add(title) {
     const todo = new Todo(this._nextId++, title);
     this._todos.set(todo.id, todo);
+    // Trigger backup after adding new todo to maintain backup consistency
+    this.createBackup();
     return todo;
   }
   
@@ -87,7 +90,36 @@ class TodoStore {
   }
   
   delete(id) {
-    return this._todos.delete(id);
+    const result = this._todos.delete(id);
+    // Trigger backup after successful deletion to maintain backup consistency
+    if (result) {
+      this.createBackup();
+    }
+    return result;
+  }
+
+  // Adding backup functionality to save todos to backup file with timestamp
+  // This method creates a backup of all todos whenever changes occur
+  createBackup() {
+    try {
+      const backupData = {
+        timestamp: new Date().toISOString(),
+        todos: this.getAll().map(todo => ({
+          id: todo.id,
+          title: todo.title,
+          completed: todo.completed,
+          priority: todo.priority
+        }))
+      };
+      
+      // Save backup to todos-backup.json in current directory
+      // Using synchronous write to ensure backup is completed before continuing
+      fs.writeFileSync('todos-backup.json', JSON.stringify(backupData, null, 2));
+    } catch (error) {
+      // Silently handle backup errors to avoid disrupting main functionality
+      // In a production environment, this might log to an error service
+      console.warn('Backup creation failed:', error.message);
+    }
   }
 }
 

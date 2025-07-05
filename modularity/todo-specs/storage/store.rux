@@ -32,6 +32,9 @@ module TodoStore {
 
     public getStatistics() -> {total: number, completed: number, percentage: number}
     @ "Returns object containing all statistics: total count, completed count, and percentage"
+
+    public createBackup() -> void
+    @ "Creates a backup of all todos to todos-backup.json with timestamp"
   }
   
   state {
@@ -58,8 +61,10 @@ module TodoStore {
     deny io.console.*
     @ "No console operations (console.log, etc). Logging is renderer's job"
     
-    deny io.filesystem.*
-    @ "No file system access. This is in-memory storage only"
+    allow io.filesystem.backup.*
+    @ "Allow filesystem access for backup operations to todos-backup.json"
+    deny io.filesystem.* except [io.filesystem.backup.*]
+    @ "No other file system access. This is in-memory storage with backup only"
     
     deny io.network.*
     @ "No network calls. This is local storage only"

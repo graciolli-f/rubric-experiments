@@ -14,10 +14,9 @@ class TodoApp {
     
     // Enhanced demo: mark one todo as completed to demonstrate statistics
     // This shows how completion statistics change based on todo status
-    const firstTodo = this.store.get(1);
-    if (firstTodo) {
-      firstTodo.toggle(); // Mark as completed
-    }
+    // Using store.toggle() instead of todo.toggle() to ensure backup is created
+    // This ensures backup functionality works correctly when todos are toggled
+    this.store.toggle(1); // Mark first todo as completed
     
     // Get statistics and render todos with completion metrics
     // This provides users with immediate feedback on their progress

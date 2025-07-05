@@ -9,8 +9,8 @@ module Todo {
     public constructor(id: number, title: string, completed: boolean = false, priority: string = 'medium')
     @ "Creates new Todo. Priority must be 'low', 'medium', or 'high'"
     
-    public toggle() -> void
-    @ "Flips completion status. This is the only mutation allowed."
+    public toggle(onChangeCallback?: function) -> void
+    @ "Flips completion status. Optional callback for backup/change notifications."
     
     @ "READ-ONLY PROPERTIES:"
     public readonly id: number
