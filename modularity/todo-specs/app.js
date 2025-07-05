@@ -1,5 +1,5 @@
 const TodoStore = require('./storage/store');
-const ConsoleRenderer = require('./views/renderer');
+const ConsoleRenderer = require('./views/renderer-rux');
 
 class TodoApp {
   constructor() {
@@ -15,16 +15,25 @@ class TodoApp {
     // Adding a completed todo to demonstrate statistics functionality
     // This shows how the completion percentage changes with completed todos
     const completedTodo = this.store.add('Review literature');
-    completedTodo.toggle(); // Mark as completed
     
-    // Getting all todos and statistics for display
-    // This demonstrates the new statistics functionality
+    // Using the store's toggle method instead of directly calling todo.toggle()
+    // This ensures the activity log captures the toggle action properly
+    this.store.toggle(completedTodo.id);
+    
+    // Add another todo and then delete it to demonstrate activity logging
+    // This showcases the different types of actions that are tracked
+    const tempTodo = this.store.add('Temporary task');
+    this.store.delete(tempTodo.id);
+    
+    // Getting all todos, statistics, and activity log for display
+    // This demonstrates the new activity logging functionality
     const todos = this.store.getAll();
     const statistics = this.store.getStatistics();
+    const activityLog = this.store.getActivityLog();
     
-    // Rendering todos with statistics using the new comprehensive display method
-    // This provides users with both todo list and completion tracking
-    this.renderer.renderWithStatistics(todos, statistics);
+    // Rendering complete view with todos, statistics, and activity log
+    // This provides users with comprehensive view including recent activity
+    this.renderer.renderComplete(todos, statistics, activityLog);
   }
 }
 

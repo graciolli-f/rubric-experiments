@@ -96,3 +96,92 @@ The Rubric specifications appear to encourage:
 - **Explicit separation** of different concerns
 
 This suggests Rubric is influencing not just WHERE code goes, but HOW it's structured within modules - a deeper level of modularity guidance.
+
+## TEST 5 
+Prompt: Add a feature to show which todos were recently modified. The feature should:
+- Track the last 5 actions (add, delete, or toggle) across all todos
+- Show what action was taken, on which todo, and when
+- Display this as an "Activity Log" after the statistics
+
+For example:
+[10:32 AM] Added: "Write paper"
+[10:33 AM] Toggled: "Run experiments" 
+[10:33 AM] Deleted: "Old task"
+
+Added: *When constraints cannot be satisfied within existing modules*, create new modules with their own .rux specifications rather than overloading existing modules with additional responsibilities. Each module should maintain a single, clear purpose as defined in its .rux file.
+
+## RESULTS
+What the Agent Did Right
+
+Created ActivityLog module with:
+
+Its own activity-log.js implementation
+Complete activity-log.rux specification
+Single responsibility: tracking actions
+
+
+Integrated properly through TodoStore:
+
+Store creates ActivityLog instance
+Store calls logAction() on add/delete/toggle
+Store exposes getActivityLog() for renderer access
+
+
+Updated specifications appropriately:
+
+Added ActivityLog to store.rux imports
+Added _activityLog to store's state
+Added getActivityLog() to store's interface
+
+## Integration Analysis: Mixed Results
+
+### The Good: Clean Dependency Flow
+
+The integration maintains a clear dependency hierarchy:
+```
+TodoApp → TodoStore → ActivityLog
+         ↘ Renderer ↗
+```
+
+Store owns the ActivityLog instance and manages it properly.
+
+### The Problematic: Store Still Does Too Much
+
+**TodoStore is now responsible for:**
+1. Managing todo data (original purpose)
+2. **Orchestrating activity logging** (new responsibility)
+3. Providing toggle functionality (moved from Todo model)
+
+### Integration Issues
+
+1. **Store as Middleman**
+   ```javascript
+   // In store.js
+   getActivityLog() {
+     return this._activityLog;
+   }
+   ```
+   Store exposes the entire ActivityLog instance, creating a leaky abstraction.
+
+2. **Coupling Through Orchestration**
+   - Store must remember to call `logAction()` in every method
+   - If someone adds a new method, they must remember to log
+   - Activity logging is scattered throughout store implementation
+
+3. **Toggle Method Confusion**
+   - `todo.toggle()` - doesn't log
+   - `store.toggle(id)` - does log
+   - Creates two ways to do the same thing
+
+### A More Modular Alternative
+
+A cleaner integration might have:
+- TodoApp orchestrates both Store and ActivityLog
+- Store emits events that ActivityLog listens to
+- Or use a decorator pattern to wrap Store methods
+
+### Verdict
+
+While creating a separate ActivityLog module was a success, the integration still exhibits **tight coupling through orchestration**. The Store has become a "god object" that knows about and controls activity logging, rather than focusing solely on data management.
+
+The instruction helped with **module creation** but didn't guide toward **loosely coupled integration**.

@@ -1,0 +1,62 @@
+module ActivityLog {
+  @ "Tracks recent actions performed on todos. Maintains a rolling history
+  @ of the last 5 actions (add, delete, toggle) with timestamps and todo details."
+  
+  location: "storage/activity-log.js"
+  
+  interface {
+    @ "PUBLIC METHODS - Other modules should call these:"
+    
+    public logAction(action: string, todoId: number, todoTitle: string) -> void
+    @ "Records a new action in the activity log. Action should be 'add', 'delete', or 'toggle'.
+    @ Automatically adds timestamp and maintains only the last 5 actions."
+    
+    public getRecentActions() -> ActivityEntry[]
+    @ "Returns array of recent actions, most recent first. Maximum 5 entries."
+    
+    public clear() -> void
+    @ "Clears all activity log entries. Useful for testing or reset scenarios."
+  }
+  
+  types {
+    @ "ActivityEntry represents a single logged action"
+    ActivityEntry: {
+      timestamp: string,    @ "Human-readable timestamp like '[10:32 AM]'"
+      action: string,       @ "Type of action: 'add', 'delete', or 'toggle'"
+      todoId: number,       @ "ID of the todo that was affected"
+      todoTitle: string,    @ "Title of the todo at the time of action"
+      displayText: string   @ "Formatted display text like '[10:32 AM] Added: \"Write paper\"'"
+    }
+  }
+  
+  state {
+    @ "PRIVATE MEMBERS - Only this module can access these directly:"
+    
+    private _actions: ActivityEntry[]
+    @ "Array storing recent actions. Maintained as FIFO queue with max 5 entries."
+    
+    private _maxEntries: number
+    @ "Maximum number of entries to keep (set to 5). Constant after initialization."
+  }
+  
+  imports {
+    @ "ALLOWED DEPENDENCIES - This module can only import:"
+    @ "No external dependencies needed - this is a pure logging utility"
+  }
+  
+  constraints {
+    @ "FORBIDDEN OPERATIONS - This module must NOT:"
+    
+    deny io.console.*
+    @ "No console operations. Display is renderer's responsibility."
+    
+    deny io.filesystem.*
+    @ "No file system access. This is in-memory logging only."
+    
+    deny io.network.*
+    @ "No network calls. This is local logging only."
+    
+    deny state.external.*
+    @ "Cannot access other modules' internal state directly."
+  }
+} 

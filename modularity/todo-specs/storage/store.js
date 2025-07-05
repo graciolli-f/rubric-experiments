@@ -1,14 +1,24 @@
 const Todo = require('../models/todo'); // Add this import!
+const ActivityLog = require('./activity-log'); // Import ActivityLog for tracking actions
 
 class TodoStore {
   constructor() {
     this._todos = new Map(); // Private!
     this._nextId = 1;
+    
+    // Initialize activity log to track todo actions
+    // This enables the activity logging feature as specified in the requirements
+    this._activityLog = new ActivityLog();
   }
   
   add(title) {
     const todo = new Todo(this._nextId++, title);
     this._todos.set(todo.id, todo);
+    
+    // Log the add action to the activity log
+    // This tracks when todos are added for the activity logging feature
+    this._activityLog.logAction('add', todo.id, todo.title);
+    
     return todo;
   }
   
@@ -87,7 +97,38 @@ class TodoStore {
   }
   
   delete(id) {
-    return this._todos.delete(id);
+    // Get the todo before deletion to log its title
+    // This is necessary because we need the title for the activity log
+    const todo = this._todos.get(id);
+    const deleted = this._todos.delete(id);
+    
+    // Log the delete action if the todo existed and was successfully deleted
+    // This tracks when todos are deleted for the activity logging feature
+    if (deleted && todo) {
+      this._activityLog.logAction('delete', id, todo.title);
+    }
+    
+    return deleted;
+  }
+  
+  // Adding toggle method to TodoStore to track toggle actions
+  // This method ensures the activity log captures when todos are toggled
+  toggle(id) {
+    const todo = this._todos.get(id);
+    if (todo) {
+      todo.toggle();
+      // Log the toggle action after the todo is toggled
+      // This tracks when todos are toggled for the activity logging feature
+      this._activityLog.logAction('toggle', id, todo.title);
+      return true;
+    }
+    return false;
+  }
+  
+  // Adding method to get the activity log instance
+  // This allows other modules to access recent actions for display
+  getActivityLog() {
+    return this._activityLog;
   }
 }
 

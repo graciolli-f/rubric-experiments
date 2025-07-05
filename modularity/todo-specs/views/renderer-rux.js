@@ -22,5 +22,31 @@ class ConsoleRenderer {
       this.render(todos);
       this.renderStatistics(statistics);
     }
+
+    // Adding method to render activity log
+    // This displays the recent actions performed on todos
+    renderActivityLog(activityLog) {
+      console.log('\n=== ACTIVITY LOG ===');
+      const recentActions = activityLog.getRecentActions();
+      
+      if (recentActions.length === 0) {
+        console.log('No recent activity');
+        return;
+      }
+      
+      // Display each action using the pre-formatted display text
+      // This shows the actions in chronological order (most recent first)
+      recentActions.forEach(action => {
+        console.log(action.displayText);
+      });
+    }
+
+    // Adding method to render complete view with todos, statistics, and activity log
+    // This provides the full comprehensive view requested in the feature requirements
+    renderComplete(todos, statistics, activityLog) {
+      this.render(todos);
+      this.renderStatistics(statistics);
+      this.renderActivityLog(activityLog);
+    }
   }
   module.exports = ConsoleRenderer;

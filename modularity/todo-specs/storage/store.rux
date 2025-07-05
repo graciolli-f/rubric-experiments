@@ -21,6 +21,9 @@ module TodoStore {
     public delete(id: number) -> boolean
     @ "Removes todo. Returns true if deleted, false if not found"
 
+    public toggle(id: number) -> boolean
+    @ "Toggles completion status of todo. Returns true if toggled, false if not found"
+
     public getTotalCount() -> number
     @ "Returns total number of todos in the store"
 
@@ -32,6 +35,9 @@ module TodoStore {
 
     public getStatistics() -> {total: number, completed: number, percentage: number}
     @ "Returns object containing all statistics: total count, completed count, and percentage"
+
+    public getActivityLog() -> ActivityLog
+    @ "Returns the activity log instance for accessing recent actions"
   }
   
   state {
@@ -43,13 +49,19 @@ module TodoStore {
     
     private _nextId: number
     @ "Counter for generating unique IDs. Must not be accessed externally"
+    
+    private _activityLog: ActivityLog
+    @ "Activity log instance for tracking todo actions. Maintains history of last 5 actions."
   }
   
   imports {
     @ "ALLOWED DEPENDENCIES - This module can only import:"
     
     allow "../models/todo" as Todo
-    @ "Can import the Todo class from models. Nothing else allowed."
+    @ "Can import the Todo class from models."
+    
+    allow "./activity-log" as ActivityLog
+    @ "Can import ActivityLog to track todo actions for activity logging feature."
   }
   
   constraints {
