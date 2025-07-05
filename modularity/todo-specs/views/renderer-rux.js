@@ -22,5 +22,35 @@ class ConsoleRenderer {
       this.render(todos);
       this.renderStatistics(statistics);
     }
+
+    // Adding method to render the activity log
+    // This method displays the last 5 activities with formatted timestamps
+    renderActivityLog(activityLog) {
+      console.log('\n=== ACTIVITY LOG ===');
+      
+      if (activityLog.length === 0) {
+        console.log('No recent activities');
+        return;
+      }
+      
+      activityLog.forEach(activity => {
+        // Format timestamp to show time in HH:MM AM/PM format
+        const time = activity.timestamp.toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit', 
+          hour12: true 
+        });
+        
+        console.log(`[${time}] ${activity.type}: "${activity.todoTitle}"`);
+      });
+    }
+
+    // Adding method to render todos, statistics, and activity log together
+    // This method provides a comprehensive view with todos, statistics, and recent activity
+    renderWithStatisticsAndActivity(todos, statistics, activityLog) {
+      this.render(todos);
+      this.renderStatistics(statistics);
+      this.renderActivityLog(activityLog);
+    }
   }
   module.exports = ConsoleRenderer;
