@@ -1,0 +1,30 @@
+module TodoApp {
+  @ "Application orchestrator. Coordinates between storage and display.
+  @ This is the only module that should know about both store and renderer."
+  
+  location: "app.js"
+  
+  interface {
+    public constructor()
+    public run() -> void
+    @ "Main entry point for the application"
+  }
+  
+  state {
+    private store: TodoStore
+    private renderer: ConsoleRenderer
+  }
+  
+  imports {
+    allow "./storage/store" as TodoStore
+    allow "./views/renderer" as ConsoleRenderer
+    @ "App is the only module that imports both storage and views"
+  }
+  
+  constraints {
+    deny io.console.*         @ "Use renderer for output"
+    deny direct.todo.creation @ "Use store.add() to create todos"
+    
+    @ "App orchestrates but doesn't implement business logic"
+  }
+}
