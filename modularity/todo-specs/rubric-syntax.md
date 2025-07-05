@@ -1,3 +1,8 @@
+# Rubric Constraints
+
+*Important: How Rubric should be used*
+Rubric files (.rux extensions) are strict, immutable constraints to follow. They are not guidelines to be altered. You do not have the power to alter these constraints, and should never modify rux files. Instead, craft your solution to work within the bounds of the constraints specified.   
+
 ## Rubric Syntax Guide
 
 ### How to Read Rubric Specifications
