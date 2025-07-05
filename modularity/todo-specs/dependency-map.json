@@ -30,5 +30,54 @@
     "max-dependents": 3,
     "max-exports": 5,
     "dependency-direction": "top-down"
-  }
-} 
+  },
+"constraints": {
+    "module_patterns": {
+    "Store|Repository": {
+        "max_exports": 8,
+        "forbidden_exports": ["render*", "display*", "log*", "track*"],
+        "forbidden_imports": ["*Renderer", "*Logger", "*Tracker"],
+        "responsibility": "data_management"
+    },
+    "Renderer|Display|View": {
+        "max_exports": 6,
+        "forbidden_exports": ["add*", "delete*", "update*", "store*"],
+        "forbidden_imports": ["fs", "network", "database"],
+        "responsibility": "presentation"
+    },
+    "Logger|Tracker|Monitor": {
+        "max_exports": 4,
+        "forbidden_exports": ["render*", "add*", "delete*"],
+        "forbidden_imports": ["*Renderer"],
+        "responsibility": "observability"
+    },
+    "Model|Entity": {
+        "max_exports": 10,
+        "forbidden_imports": ["*"],
+        "responsibility": "data_structure"
+    }
+    },
+    "cascade_rules": [
+    {
+        "condition": "module.exports.length > module_pattern.max_exports",
+        "action": "create_new_module",
+        "suggestion": "Module has too many exports ({{exports.length}}/{{max_exports}}). Extract {{suggested_module_type}} functionality."
+    },
+    {
+        "condition": "new_export matches module_pattern.forbidden_exports",
+        "action": "create_new_module", 
+        "suggestion": "Cannot add {{export_name}} to {{module_type}}. Create a new {{suggested_module_type}} module."
+    },
+    {
+        "condition": "adding_import creates_circular_dependency",
+        "action": "reject",
+        "suggestion": "This would create circular dependency: {{module_a}} ⟷ {{module_b}}"
+    }
+    ],
+    "module_suggestions": {
+    "log*|track*": "Create ActivityLogger module in tracking/",
+    "render*|display*": "Create new Renderer module in views/",
+    "validate*|check*": "Create Validator module in validators/"
+    }
+}
+}

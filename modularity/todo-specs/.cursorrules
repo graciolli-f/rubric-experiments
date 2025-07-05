@@ -4,4 +4,8 @@ before writing or modifying any code, check these files:
 
 given the user request, find the component related to their request and check the related .rux file(s) before proceeding. 
 
+After any code changes, run: node validate-modules.js
+Show any constraint violations as console warnings.
+
+
 
