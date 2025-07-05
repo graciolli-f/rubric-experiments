@@ -1,30 +1,44 @@
 const TodoStore = require('./storage/store');
-const ConsoleRenderer = require('./views/renderer');
+const ConsoleRenderer = require('./views/renderer-rux');
+const ActivityLogger = require('./tracking/activity-logger');
 
 class TodoApp {
   constructor() {
     this.store = new TodoStore();
     this.renderer = new ConsoleRenderer();
+    // Adding ActivityLogger to track recent actions
+    // This enables activity logging functionality for the todo application
+    this.activityLogger = new ActivityLogger();
   }
   
   run() {
-    // Simple demo
-    this.store.add('Write paper');
-    this.store.add('Run experiments');
+    // Simple demo with activity logging
+    // Adding todos and logging each addition action
+    const todo1 = this.store.add('Write paper');
+    this.activityLogger.logAction('Added', todo1);
+    
+    const todo2 = this.store.add('Run experiments');
+    this.activityLogger.logAction('Added', todo2);
     
     // Adding a completed todo to demonstrate statistics functionality
     // This shows how the completion percentage changes with completed todos
     const completedTodo = this.store.add('Review literature');
-    completedTodo.toggle(); // Mark as completed
+    this.activityLogger.logAction('Added', completedTodo);
     
-    // Getting all todos and statistics for display
-    // This demonstrates the new statistics functionality
+    // Mark as completed and log the toggle action
+    // This demonstrates activity tracking for state changes
+    completedTodo.toggle();
+    this.activityLogger.logAction('Toggled', completedTodo);
+    
+    // Getting all todos, statistics, and recent activity for display
+    // This demonstrates the complete functionality including activity tracking
     const todos = this.store.getAll();
     const statistics = this.store.getStatistics();
+    const activities = this.activityLogger.getRecentActivity();
     
-    // Rendering todos with statistics using the new comprehensive display method
-    // This provides users with both todo list and completion tracking
-    this.renderer.renderWithStatistics(todos, statistics);
+    // Rendering todos with statistics and activity log using the new complete display method
+    // This provides users with todo list, completion tracking, and recent activity history
+    this.renderer.renderComplete(todos, statistics, activities);
   }
 }
 

@@ -1,0 +1,45 @@
+module ActivityLogger {
+  @ "Tracks recent todo actions for activity logging. Maintains a history of the last 5 actions
+  @ including add, delete, and toggle operations with timestamps and todo details."
+  
+  location: "tracking/activity-logger.js"
+  
+  interface {
+    public logAction(action: string, todo: Todo, timestamp: Date) -> void
+    @ "Records an action with the todo it affected and when it happened.
+    @ Actions: 'Added', 'Deleted', 'Toggled'"
+    
+    public getRecentActivity() -> Activity[]
+    @ "Returns array of recent activities, most recent first, limited to 5 items"
+    
+    public getActivityCount() -> number
+    @ "Returns the total number of activities currently stored"
+  }
+  
+  state {
+    private _activities: Activity[]
+    @ "Internal storage for activity history. Limited to 5 most recent items."
+    
+    private _maxActivities: number
+    @ "Maximum number of activities to store. Set to 5 as per requirements."
+  }
+  
+  imports {
+    allow "../models/todo" as Todo
+    @ "Can import Todo class to work with todo objects in activity logging"
+  }
+  
+  constraints {
+    deny io.console.*
+    @ "No console operations. This is a tracking module, not a display module"
+    
+    deny io.filesystem.*
+    @ "No file system access. This is in-memory activity tracking only"
+    
+    deny io.network.*
+    @ "No network calls. This is local activity tracking only"
+    
+    deny mutate Todo.*
+    @ "Cannot modify Todo objects. Only observes and logs actions on them"
+  }
+} 

@@ -2,7 +2,7 @@ const fs = require('fs');
 
 class ModuleValidator {
   constructor() {
-    this.map = JSON.parse(fs.readFileSync('module-map.json', 'utf8'));
+    this.map = JSON.parse(fs.readFileSync('dependency-map.json', 'utf8'));
     this.violations = [];
   }
 
@@ -61,10 +61,15 @@ class ModuleValidator {
               this.violations.push(
                 `🚫 ${name}: Models should not import other modules.`
               );
-            } else if (new RegExp(forbidden).test(imp)) {
-              this.violations.push(
-                `🚫 ${name}: Forbidden import '${imp}' for ${constraints.responsibility} module.`
-              );
+            } else {
+              // Convert wildcard patterns to proper regex
+              // This handles patterns like *Renderer -> .*Renderer
+              const regexPattern = forbidden.replace(/^\*/, '.*');
+              if (new RegExp(regexPattern).test(imp)) {
+                this.violations.push(
+                  `🚫 ${name}: Forbidden import '${imp}' for ${constraints.responsibility} module.`
+                );
+              }
             }
           });
         });

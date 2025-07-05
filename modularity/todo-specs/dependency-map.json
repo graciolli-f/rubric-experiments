@@ -2,7 +2,7 @@
   "modules": {
     "TodoApp": {
       "location": "app.js",
-      "imports": ["TodoStore", "ConsoleRenderer"],
+      "imports": ["TodoStore", "ConsoleRenderer", "ActivityLogger"],
       "exports": ["constructor", "run"],
       "dependents": []
     },
@@ -16,12 +16,18 @@
       "location": "models/todo.js",
       "imports": [],
       "exports": ["constructor", "toggle", "id", "title", "completed", "priority"],
-      "dependents": ["TodoStore"]
+      "dependents": ["TodoStore", "ActivityLogger"]
     },
     "ConsoleRenderer": {
       "location": "views/renderer-rux.js",
       "imports": [],
-      "exports": ["render", "renderStatistics", "renderWithStatistics"],
+      "exports": ["render", "renderStatistics", "renderWithStatistics", "renderActivityLog", "renderComplete"],
+      "dependents": ["TodoApp"]
+    },
+    "ActivityLogger": {
+      "location": "tracking/activity-logger.js",
+      "imports": ["Todo"],
+      "exports": ["logAction", "getRecentActivity", "getActivityCount"],
       "dependents": ["TodoApp"]
     }
   },
