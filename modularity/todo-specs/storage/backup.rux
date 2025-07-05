@@ -1,0 +1,50 @@
+module TodoBackup {
+  @ "Handles automatic backup of todos to JSON file with timestamps.
+  @ This module is responsible for persisting todo data to disk for backup purposes."
+  
+  location: "storage/backup.js"
+  
+  interface {
+    @ "PUBLIC METHODS - Other modules can call these:"
+    
+    public saveBackup(todos: Todo[]) -> void
+    @ "Saves current todos to backup file with timestamp.
+    @ Creates todos-backup.json in current directory with timestamp metadata."
+    
+    public getBackupPath() -> string
+    @ "Returns the path to the backup file (todos-backup.json)"
+  }
+  
+  state {
+    @ "PRIVATE MEMBERS - Only this module can access these directly:"
+    
+    private _backupPath: string
+    @ "Path to the backup file. Set to 'todos-backup.json' by default."
+  }
+  
+  imports {
+    @ "ALLOWED DEPENDENCIES - This module can import:"
+    
+    allow "fs" as fs
+    @ "Node.js filesystem module for file operations"
+    
+    allow "path" as path
+    @ "Node.js path module for handling file paths"
+  }
+  
+  constraints {
+    @ "ALLOWED OPERATIONS - This module is specifically allowed to:"
+    
+    allow io.filesystem.*
+    @ "This module needs filesystem access for backup operations"
+    
+    deny io.console.*
+    @ "No console operations. Let renderer handle output if needed"
+    
+    deny io.network.*
+    @ "No network operations. This is local backup only"
+    
+    deny mutate Todo
+    @ "Cannot modify Todo objects, only read them for backup"
+  }
+} 

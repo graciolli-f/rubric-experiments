@@ -1,6 +1,6 @@
 module TodoApp {
-  @ "Application orchestrator. Coordinates between storage and display.
-  @ This is the only module that should know about both store and renderer."
+  @ "Application orchestrator. Coordinates between storage, display, and backup.
+  @ This is the only module that should know about store, renderer, and backup."
   
   location: "app.js"
   
@@ -8,22 +8,35 @@ module TodoApp {
     public constructor()
     public run() -> void
     @ "Main entry point for the application"
+    
+    public addTodo(title: string) -> Todo
+    @ "Adds a new todo and automatically creates backup. Returns the created todo."
+    
+    public deleteTodo(id: number) -> boolean
+    @ "Deletes a todo by ID and automatically creates backup. Returns true if deleted."
+    
+    public toggleTodo(id: number) -> boolean
+    @ "Toggles a todo's completion status and automatically creates backup. Returns true if toggled."
   }
   
   state {
     private store: TodoStore
     private renderer: ConsoleRenderer
+    private backup: TodoBackup
+    @ "Backup instance for automatic todo persistence"
   }
   
   imports {
     allow "./storage/store" as TodoStore
     allow "./views/renderer" as ConsoleRenderer
-    @ "App is the only module that imports both storage and views"
+    allow "./storage/backup" as TodoBackup
+    @ "App coordinates storage, rendering, and backup functionality"
   }
   
   constraints {
     deny io.console.*         @ "Use renderer for output"
     deny direct.todo.creation @ "Use store.add() to create todos"
+    deny io.filesystem.*      @ "Use backup module for file operations"
     
     @ "App orchestrates but doesn't implement business logic"
   }
