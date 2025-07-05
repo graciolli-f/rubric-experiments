@@ -11,8 +11,14 @@ module ConsoleRenderer {
     public renderStatistics(statistics: {total: number, completed: number, percentage: number}) -> void
     @ "Displays completion statistics to console. Takes statistics object with total, completed, and percentage."
 
+    public renderActivityLog(activities: Activity[]) -> void
+    @ "Displays activity log to console. Takes array of Activity objects with action, todo title, and timestamp."
+
     public renderWithStatistics(todos: Todo[], statistics: {total: number, completed: number, percentage: number}) -> void
     @ "Displays both todos and statistics to console. Provides comprehensive view of todos with completion tracking."
+
+    public renderComplete(todos: Todo[], statistics: {total: number, completed: number, percentage: number}, activities: Activity[]) -> void
+    @ "Displays todos, statistics, and activity log to console. Provides complete view including recent activity tracking."
   }
   
   state {

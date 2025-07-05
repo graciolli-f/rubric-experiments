@@ -14,15 +14,14 @@ class TodoApp {
     
     // Enhanced demo: mark one todo as completed to demonstrate statistics
     // This shows how completion statistics change based on todo status
-    const firstTodo = this.store.get(1);
-    if (firstTodo) {
-      firstTodo.toggle(); // Mark as completed
-    }
+    // Using store's toggle method to ensure activity is tracked
+    this.store.toggle(1);
     
-    // Get statistics and render todos with completion metrics
-    // This provides users with immediate feedback on their progress
+    // Get statistics and activity log, then render todos with all information
+    // This provides users with immediate feedback on their progress and recent activity
     const statistics = this.store.getStatistics();
-    this.renderer.render(this.store.getAll(), statistics);
+    const activityLog = this.store.getActivityLog();
+    this.renderer.render(this.store.getAll(), statistics, activityLog);
   }
 }
 

@@ -4,11 +4,47 @@ class TodoStore {
   constructor() {
     this._todos = new Map(); // Private!
     this._nextId = 1;
+    // Adding activity log to track last 5 actions with timestamps
+    // This enables users to see recent changes to their todos
+    this._activityLog = [];
+  }
+  
+  // Method to add activity to the log
+  // This method maintains a maximum of 5 activities and adds timestamps
+  _addActivity(action, todoTitle) {
+    const timestamp = new Date();
+    const timeString = timestamp.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+    
+    const activity = {
+      action,
+      todoTitle,
+      timestamp: timeString
+    };
+    
+    // Add to beginning of array to maintain chronological order (newest first)
+    this._activityLog.unshift(activity);
+    
+    // Keep only the last 5 activities
+    // This prevents memory growth and maintains focus on recent activities
+    if (this._activityLog.length > 5) {
+      this._activityLog.pop();
+    }
+  }
+  
+  // Method to get the activity log
+  // This allows external access to the activity history for display
+  getActivityLog() {
+    return [...this._activityLog]; // Return a copy to prevent external modification
   }
   
   add(title) {
     const todo = new Todo(this._nextId++, title);
     this._todos.set(todo.id, todo);
+    // Track the add action in the activity log
+    this._addActivity('Added', title);
     return todo;
   }
   
@@ -48,7 +84,25 @@ class TodoStore {
   }
   
   delete(id) {
+    const todo = this._todos.get(id);
+    if (todo) {
+      // Track the delete action in the activity log before deletion
+      this._addActivity('Deleted', todo.title);
+    }
     return this._todos.delete(id);
+  }
+
+  // Method to handle toggle operations and track them
+  // This method provides a central way to toggle todos and record the activity
+  toggle(id) {
+    const todo = this._todos.get(id);
+    if (todo) {
+      todo.toggle();
+      // Track the toggle action in the activity log
+      this._addActivity('Toggled', todo.title);
+      return true;
+    }
+    return false;
   }
 
   // Adding statistics methods to track todo completion metrics

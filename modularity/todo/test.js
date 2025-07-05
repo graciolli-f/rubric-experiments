@@ -41,3 +41,32 @@ try {
 }
 
 console.log('\nTests complete!');
+
+console.log('Testing Activity Log Feature...\n');
+
+const store3 = new TodoStore();
+const renderer2 = new ConsoleRenderer();
+
+// Add 6 todos to test the 5-action limit
+// This verifies that only the last 5 actions are kept in the activity log
+store3.add('Task 1');
+store3.add('Task 2');
+store3.add('Task 3');
+store3.add('Task 4');
+store3.add('Task 5');
+store3.add('Task 6'); // This should push the first action out of the log
+
+// Toggle and delete some todos to test different action types
+store3.toggle(2);
+store3.delete(1);
+
+// Display the results
+const statistics = store3.getStatistics();
+const activityLog = store3.getActivityLog();
+
+console.log('Final state after all operations:');
+renderer2.render(store3.getAll(), statistics, activityLog);
+
+console.log('\n--- Test Summary ---');
+console.log(`Activity log contains ${activityLog.length} actions (should be 5 max)`);
+console.log('Actions should show newest first and include Add, Toggle, and Delete operations');

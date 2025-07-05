@@ -21,6 +21,9 @@ module TodoStore {
     public delete(id: number) -> boolean
     @ "Removes todo. Returns true if deleted, false if not found"
 
+    public toggle(id: number) -> boolean
+    @ "Toggles completion status of todo by ID. Returns true if toggled, false if not found"
+
     public getTotalCount() -> number
     @ "Returns total number of todos in the store"
 
@@ -32,6 +35,9 @@ module TodoStore {
 
     public getStatistics() -> {total: number, completed: number, percentage: number}
     @ "Returns object containing all statistics: total count, completed count, and percentage"
+
+    public getActivities() -> Activity[]
+    @ "Returns array of last 5 activities (add, delete, toggle actions) with timestamps"
   }
   
   state {

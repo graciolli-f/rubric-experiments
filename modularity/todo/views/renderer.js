@@ -1,7 +1,7 @@
 class ConsoleRenderer {
-    // Enhanced render method to display todos with completion statistics
-    // This provides users with immediate visibility into their progress and productivity
-    render(todos, statistics = null) {
+    // Enhanced render method to display todos with completion statistics and activity log
+    // This provides users with immediate visibility into their progress, productivity, and recent activity
+    render(todos, statistics = null, activityLog = null) {
       console.log('\n=== TODOS ===');
       todos.forEach(todo => {
         const status = todo.completed ? '[✓]' : '[ ]';
@@ -15,6 +15,15 @@ class ConsoleRenderer {
         console.log(`Total Todos: ${statistics.totalTodos}`);
         console.log(`Completed Todos: ${statistics.completedTodos}`);
         console.log(`Completion Percentage: ${statistics.completionPercentage}%`);
+      }
+      
+      // Display activity log if provided
+      // This shows users their recent actions and helps track their productivity
+      if (activityLog && activityLog.length > 0) {
+        console.log('\n=== ACTIVITY LOG ===');
+        activityLog.forEach(activity => {
+          console.log(`[${activity.timestamp}] ${activity.action}: "${activity.todoTitle}"`);
+        });
       }
     }
   }
