@@ -50,6 +50,37 @@ class TodoStore {
   delete(id) {
     return this._todos.delete(id);
   }
+
+  // Adding statistics methods to track todo completion metrics
+  // These methods provide insights into overall progress and productivity
+  getStatistics() {
+    const allTodos = this.getAll();
+    const totalTodos = allTodos.length;
+    // Count completed todos by filtering for completed=true
+    const completedTodos = allTodos.filter(todo => todo.completed).length;
+    
+    // Calculate completion percentage, handling edge case of no todos
+    // This prevents division by zero and provides meaningful statistics
+    const completionPercentage = totalTodos > 0 ? Math.round((completedTodos / totalTodos) * 100) : 0;
+    
+    return {
+      totalTodos,
+      completedTodos,
+      completionPercentage
+    };
+  }
+
+  // Helper method to get total count of todos
+  // This method provides a quick way to get total count without full statistics
+  getTotalCount() {
+    return this._todos.size;
+  }
+
+  // Helper method to get count of completed todos
+  // This method allows quick access to completed todo count for specific use cases
+  getCompletedCount() {
+    return this.getAll().filter(todo => todo.completed).length;
+  }
 }
 
 module.exports = TodoStore;

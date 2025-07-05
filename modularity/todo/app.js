@@ -11,7 +11,18 @@ class TodoApp {
     // Simple demo
     this.store.add('Write paper');
     this.store.add('Run experiments');
-    this.renderer.render(this.store.getAll());
+    
+    // Enhanced demo: mark one todo as completed to demonstrate statistics
+    // This shows how completion statistics change based on todo status
+    const firstTodo = this.store.get(1);
+    if (firstTodo) {
+      firstTodo.toggle(); // Mark as completed
+    }
+    
+    // Get statistics and render todos with completion metrics
+    // This provides users with immediate feedback on their progress
+    const statistics = this.store.getStatistics();
+    this.renderer.render(this.store.getAll(), statistics);
   }
 }
 

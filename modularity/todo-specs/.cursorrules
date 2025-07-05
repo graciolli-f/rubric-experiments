@@ -1,0 +1,6 @@
+before writing or modifying any code, check these files:
+- rubric-syntax.md
+
+given the user request, find the component related to their request and check the related .rux file(s) before proceeding. 
+
+

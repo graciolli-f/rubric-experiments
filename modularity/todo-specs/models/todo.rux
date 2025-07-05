@@ -1,0 +1,27 @@
+module Todo {
+  @ "Represents a single todo item. Immutable except for completion status."
+  
+  location: "models/todo.js"
+  
+  interface {
+    @ "PUBLIC - Todo objects expose these:"
+    
+    public constructor(id: number, title: string, completed: boolean = false, priority: string = 'medium')
+    @ "Creates new Todo. Priority must be 'low', 'medium', or 'high'"
+    
+    public toggle() -> void
+    @ "Flips completion status. This is the only mutation allowed."
+    
+    @ "READ-ONLY PROPERTIES:"
+    public readonly id: number
+    public readonly title: string
+    public readonly completed: boolean
+    public readonly priority: string
+  }
+  
+  constraints {
+    @ "Todo is a pure data model"
+    deny io.*           @ "No I/O operations"
+    deny imports.*      @ "No dependencies on other modules"
+  }
+}

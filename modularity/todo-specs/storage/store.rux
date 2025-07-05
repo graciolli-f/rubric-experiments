@@ -1,0 +1,70 @@
+module TodoStore {
+  @ "This module manages todo data storage. It is the single source of truth
+  @ for all todos. Other modules must use its public interface."
+  
+  location: "storage/store.js"
+  
+  interface {
+    @ "PUBLIC METHODS - Other modules should call these:"
+    
+    public add(title: string) -> Todo
+    @ "Creates a new todo with given title. Auto-assigns ID.
+    @ Example: store.add('Buy milk') returns Todo object"
+    
+    public get(id: number) -> Todo?
+    @ "Retrieves todo by ID. Returns null if not found.
+    @ The ? means it can return Todo OR null"
+    
+    public getAll() -> Todo[]
+    @ "Returns array of all todos. [] means array type"
+    
+    public delete(id: number) -> boolean
+    @ "Removes todo. Returns true if deleted, false if not found"
+
+    public getTotalCount() -> number
+    @ "Returns total number of todos in the store"
+
+    public getCompletedCount() -> number
+    @ "Returns count of todos marked as completed"
+
+    public getCompletionPercentage() -> number
+    @ "Returns completion percentage (0-100) rounded to 1 decimal place"
+
+    public getStatistics() -> {total: number, completed: number, percentage: number}
+    @ "Returns object containing all statistics: total count, completed count, and percentage"
+  }
+  
+  state {
+    @ "PRIVATE MEMBERS - Only this module can access these directly:"
+    
+    private _todos: Map<number, Todo>
+    @ "Internal storage. Map<K,V> is a key-value store.
+    @ The underscore prefix (_) indicates private by convention"
+    
+    private _nextId: number
+    @ "Counter for generating unique IDs. Must not be accessed externally"
+  }
+  
+  imports {
+    @ "ALLOWED DEPENDENCIES - This module can only import:"
+    
+    allow "../models/todo" as Todo
+    @ "Can import the Todo class from models. Nothing else allowed."
+  }
+  
+  constraints {
+    @ "FORBIDDEN OPERATIONS - This module must NOT:"
+    
+    deny io.console.*
+    @ "No console operations (console.log, etc). Logging is renderer's job"
+    
+    deny io.filesystem.*
+    @ "No file system access. This is in-memory storage only"
+    
+    deny io.network.*
+    @ "No network calls. This is local storage only"
+    
+    deny mutate Todo except [Todo.toggle()]
+    @ "Cannot modify Todo objects directly, except calling their toggle() method"
+  }
+}

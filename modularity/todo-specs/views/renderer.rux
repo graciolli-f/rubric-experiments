@@ -1,0 +1,32 @@
+module ConsoleRenderer {
+  @ "Handles all display output. This is the ONLY module that should
+  @ write to console. Separation of concerns: storage stores, renderer renders."
+  
+  location: "views/renderer.js"
+  
+  interface {
+    public render(todos: Todo[]) -> void
+    @ "Displays todos to console. Takes array of Todo objects."
+
+    public renderStatistics(statistics: {total: number, completed: number, percentage: number}) -> void
+    @ "Displays completion statistics to console. Takes statistics object with total, completed, and percentage."
+
+    public renderWithStatistics(todos: Todo[], statistics: {total: number, completed: number, percentage: number}) -> void
+    @ "Displays both todos and statistics to console. Provides comprehensive view of todos with completion tracking."
+  }
+  
+  state {
+    @ "Stateless - renderer has no internal state"
+  }
+  
+  imports {
+    @ "Renderer doesn't need to import Todo since it only uses the objects"
+  }
+  
+  constraints {
+    allow io.console.*   @ "ONLY module allowed to use console"
+    deny io.filesystem.* @ "No file operations"
+    deny io.network.*    @ "No network operations"
+    deny state.mutation  @ "Don't modify todos passed in"
+  }
+}
