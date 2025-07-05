@@ -1,0 +1,34 @@
+{
+  "modules": {
+    "TodoApp": {
+      "location": "app.js",
+      "imports": ["TodoStore", "ConsoleRenderer"],
+      "exports": ["constructor", "run"],
+      "dependents": []
+    },
+    "TodoStore": {
+      "location": "storage/store.js",
+      "imports": ["Todo"],
+      "exports": ["add", "get", "getAll", "delete", "getTotalCount", "getCompletedCount", "getCompletionPercentage", "getStatistics", "filter"],
+      "dependents": ["TodoApp"]
+    },
+    "Todo": {
+      "location": "models/todo.js",
+      "imports": [],
+      "exports": ["constructor", "toggle", "id", "title", "completed", "priority"],
+      "dependents": ["TodoStore"]
+    },
+    "ConsoleRenderer": {
+      "location": "views/renderer-rux.js",
+      "imports": [],
+      "exports": ["render", "renderStatistics", "renderWithStatistics"],
+      "dependents": ["TodoApp"]
+    }
+  },
+  "rules": {
+    "no-circular": true,
+    "max-dependents": 3,
+    "max-exports": 5,
+    "dependency-direction": "top-down"
+  }
+} 
